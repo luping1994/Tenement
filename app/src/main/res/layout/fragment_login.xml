@@ -1,0 +1,62 @@
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bgColor"
+        android:orientation="vertical"
+        tools:context="net.suntrans.tenement.ui.fragment.LoginFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <net.suntrans.tenement.widgets.PasswordEditText
+                android:id="@+id/account"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/ic_bg_editor"
+                android:hint="请输入账号"
+                android:inputType="text"
+                android:paddingLeft="16dp"
+                android:textSize="14sp" />
+
+
+            <net.suntrans.tenement.widgets.PasswordEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/ic_bg_editor"
+                android:hint="请输入密码"
+                android:inputType="textPassword"
+                android:paddingLeft="16dp"
+                android:textSize="14sp" />
+
+
+            <Button
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/ic_button_bg_unpressed"
+                android:text="登录"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</layout>

@@ -27,6 +27,9 @@
         </RelativeLayout>
 
         <android.support.design.widget.TabLayout
+            android:visibility="gone"
+            app:tabContentStart="30dp"
+            android:id="@+id/mTabLayout"
             android:layout_width="0dp"
             android:layout_height="56dp"
             app:tabSelectedTextColor="@color/colorPrimary"
@@ -34,16 +37,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header">
 
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="登录" />
 
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="注册" />
         </android.support.design.widget.TabLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/mViewPager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mTabLayout" >
+
+        </android.support.v4.view.ViewPager>
 
 
     </android.support.constraint.ConstraintLayout>

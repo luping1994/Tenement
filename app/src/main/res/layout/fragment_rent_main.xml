@@ -1,0 +1,49 @@
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/constranintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="net.suntrans.tenement.ui.fragment.RentMainFragment">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/custom_toolbar" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bottomNavView"
+            android:layout_below="@+id/toolbar"
+            android:background="@color/bgColor">
+
+        </FrameLayout>
+
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottomNavView"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:background="#fff"
+            android:elevation="1dp"
+            app:menu="@menu/bottom_nav_menu">
+
+        </android.support.design.widget.BottomNavigationView>
+
+        <ImageButton
+            android:visibility="gone"
+            android:background="@drawable/selector_start_bussi"
+            android:id="@+id/start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"
+            android:elevation="10dp"
+            />
+    </RelativeLayout>
+
+</layout>

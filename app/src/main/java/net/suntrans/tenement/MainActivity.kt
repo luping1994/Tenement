@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import net.suntrans.tenement.databinding.ActivityMainBinding
+import net.suntrans.tenement.ui.fragment.RentMainFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,6 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-//        binding!!.ddd.setOnClickListener(View.OnClickListener { UiUtils.showToast("helloword!") })
+        val rentMainFragment = RentMainFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.content,rentMainFragment).commit()
     }
 }

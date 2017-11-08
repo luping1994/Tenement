@@ -12,20 +12,21 @@
             android:id="@+id/toolbar"
             layout="@layout/custom_toolbar" />
 
-        <FrameLayout
+        <net.suntrans.tenement.widgets.IViewPager
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/bottomNavView"
             android:layout_below="@+id/toolbar"
             android:background="@color/bgColor">
 
-        </FrameLayout>
+        </net.suntrans.tenement.widgets.IViewPager>
 
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottomNavView"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="48dp"
             android:layout_alignParentBottom="true"
             android:background="#fff"
             android:elevation="1dp"
@@ -33,17 +34,15 @@
 
         </android.support.design.widget.BottomNavigationView>
 
-        <ImageButton
-            android:visibility="gone"
-            android:background="@drawable/selector_start_bussi"
+        <net.suntrans.tenement.widgets.PressImageView
             android:id="@+id/start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="86dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="8dp"
             android:elevation="10dp"
-            />
+            android:scaleType="centerInside"
+            android:src="@drawable/selector_start_bussi" />
     </RelativeLayout>
 
 </layout>

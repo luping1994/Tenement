@@ -36,6 +36,7 @@ public class HomepageFragment extends Fragment {
             R.drawable.ic_msg, R.drawable.ic_pay, R.drawable.ic_repair,
             R.drawable.ic_duty};
     private List<Map<String, Object>> datas = new ArrayList<>();
+
     public HomepageFragment() {
 
     }
@@ -52,10 +53,13 @@ public class HomepageFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //新建适配器
-        String [] from ={"image","name"};
-        int [] to = {R.id.image,R.id.name};
-        SimpleAdapter adapter = new SimpleAdapter(getContext(),getData(),R.layout.item_home_page_fun,from,to);
+        String[] from = {"image", "name"};
+        int[] to = {R.id.image, R.id.name};
+        SimpleAdapter adapter = new SimpleAdapter(getContext(), getData(), R.layout.item_home_page_fun, from, to);
         binding.gridLayout.setAdapter(adapter);
+
+        ChannelFragment fragment = new ChannelFragment();
+        getChildFragmentManager().beginTransaction().replace(R.id.channelContent, fragment).commit();
     }
 
     public List<Map<String, Object>> getData() {

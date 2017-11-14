@@ -41,9 +41,17 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         binding!!.login.setOnClickListener({
-            startActivity (Intent(activity, MainActivity::class.java))
+            val intent = Intent(activity, MainActivity::class.java)
+            if ("admin".equals(binding!!.account.text.toString())) {
+                intent.putExtra("role", "admin")
+            }else if ("rent".equals(binding!!.account.text.toString())){
+                intent.putExtra("role","rent")
+            }else{
+                intent.putExtra("role", "rent")
+            }
+            startActivity(intent)
+            activity.finish()
         })
-//        controlKeyboardLayout(binding!!.scrollView,binding!!.login)
     }
 
     companion object {
@@ -90,4 +98,4 @@ class LoginFragment : Fragment() {
                     }
                 })
     }
-    }
+}

@@ -9,7 +9,7 @@ import net.suntrans.tenement.databinding.ActivityLoginBinding
 import net.suntrans.tenement.ui.fragment.LoginFragment
 import net.suntrans.tenement.ui.fragment.RegisterFragment
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BasedActivity() {
     var binding: ActivityLoginBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

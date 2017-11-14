@@ -1,24 +1,28 @@
 <layout>
-    <android.support.v4.widget.NestedScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/scrollView"
-        tools:context="net.suntrans.tenement.ui.fragment.HomepageFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/custom_toolbar" />
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/bgColor"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
 
             <RelativeLayout
                 android:id="@+id/relativeLayout"
                 android:layout_width="match_parent"
-                android:layout_height="153dp"
+                android:layout_height="@dimen/homepage_header_height"
                 android:layout_centerInParent="true"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
@@ -32,8 +36,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="40dp"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginBottom="@dimen/homepage_shidu_margin_bottom"
+                    android:layout_marginLeft="@dimen/homw_page_shidu_m_rl"
                     android:text="湿度：59.2%"
                     android:textColor="@color/textColor"
                     android:textSize="14sp" />
@@ -43,25 +47,28 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginBottom="40dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="@dimen/homepage_shidu_margin_bottom"
+                    android:layout_marginRight="@dimen/homw_page_shidu_m_rl"
                     android:text="PM2.5：59.2%"
                     android:textColor="@color/textColor"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/home_page_shidu_textSize" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="106.6dp"
+                    android:layout_height="96dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/bg_wendu"
-                    android:gravity="center_horizontal|bottom"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical">
+
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
+                        android:layout_weight="1"
+                        android:gravity="bottom"
                         android:text="25℃"
                         android:textColor="@color/colorPrimary"
                         android:textSize="20sp"
@@ -71,35 +78,30 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
+                        android:layout_weight="1"
+                        android:gravity="top"
                         android:text="当前温度"
                         android:textColor="@color/colorPrimary"
                         android:textSize="14sp" />
+
                 </LinearLayout>
             </RelativeLayout>
 
-            <FrameLayout
-                android:id="@+id/channelContent"
-                android:background="@color/white"
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="160dp">
-
-            </FrameLayout>
-
-
-            <GridView
-                android:id="@+id/gridLayout"
-                android:layout_width="match_parent"
-                android:layout_height="144dp"
-                android:layout_marginBottom="24dp"
+                android:layout_height="match_parent"
                 android:layout_marginTop="12dp"
                 android:background="@color/white"
                 android:numColumns="3"
-                android:stretchMode="columnWidth">
+                android:stretchMode="columnWidth"
+                app:layoutManager="GridLayoutManager"
+                app:spanCount="3">
 
-            </GridView>
-
+            </android.support.v7.widget.RecyclerView>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
 
 
 </layout>

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
+import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.bean.ChannleInfo;
 import net.suntrans.tenement.databinding.FragmnetChannelBinding;
@@ -43,11 +44,19 @@ public class ChannelFragment extends Fragment {
 //        BottomNavigationView
         for (int i =0;i<8;i++){
             ChannleInfo info = new ChannleInfo();
-            info.name = "dasds";
+            info.name = "通道"+i;
+            info.status = "1";
             datas.add(info);
         }
         ChannelAdapter adapter = new ChannelAdapter(R.layout.item_channel,datas);
         binding.recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+               datas.get(position).status = datas.get(position).status.equals("1")?"0":"1";
+               adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     static class ChannelAdapter extends BaseQuickAdapter<ChannleInfo,BaseViewHolder>{
@@ -58,7 +67,9 @@ public class ChannelFragment extends Fragment {
 
         @Override
         protected void convert(BaseViewHolder helper, ChannleInfo item) {
-
+            helper.setText(R.id.name,item.name);
+            View view = helper.getView(R.id.image);
+            view.setBackgroundResource(item.status.equals("1")?R.drawable.bg_device_on:R.drawable.ic_bg_off);
         }
     }
 }

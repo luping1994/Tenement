@@ -70,6 +70,14 @@ object UiUtils {
         mToast!!.show()
     }
 
+    fun showToast(context: Context,str: String) {
+        if (mToast == null) {
+            mToast = Toast.makeText(context, str, Toast.LENGTH_SHORT)
+        }
+        mToast!!.setText(str)
+        mToast!!.show()
+    }
+
     fun showToastLong(str: String) {
         if (mToast == null) {
             mToast = Toast.makeText(App.application, str, Toast.LENGTH_LONG)

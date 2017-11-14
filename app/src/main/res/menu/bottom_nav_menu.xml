@@ -6,7 +6,9 @@
         android:icon="@drawable/selector_homepage"
         android:title="首页" />
     <item
-        android:id="@+id/item_second"
+        android:enabled="false"
+        android:visibility="invisible"
+        android:id="@+id/item_none"
         android:title="" />
     <item
         android:id="@+id/item_mime"

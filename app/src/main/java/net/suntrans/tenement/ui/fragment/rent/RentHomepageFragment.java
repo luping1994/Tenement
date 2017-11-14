@@ -1,22 +1,18 @@
-package net.suntrans.tenement.ui.fragment;
+package net.suntrans.tenement.ui.fragment.rent;
 
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 
 import net.suntrans.tenement.R;
-import net.suntrans.tenement.databinding.FragmentHomepageBinding;
+import net.suntrans.tenement.databinding.FragmentRentHomepageBinding;
+import net.suntrans.tenement.ui.fragment.ChannelFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,9 +22,9 @@ import java.util.Map;
 /**
  *
  */
-public class HomepageFragment extends Fragment {
+public class RentHomepageFragment extends Fragment {
 
-    private FragmentHomepageBinding binding;
+    private FragmentRentHomepageBinding binding;
 
     private String[] funName = {"模式", "能耗", "消息", "物业缴费", "报修投诉", "值班表"};
     // 图片封装为一个数组
@@ -37,7 +33,7 @@ public class HomepageFragment extends Fragment {
             R.drawable.ic_duty};
     private List<Map<String, Object>> datas = new ArrayList<>();
 
-    public HomepageFragment() {
+    public RentHomepageFragment() {
 
     }
 
@@ -45,7 +41,7 @@ public class HomepageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_homepage, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_rent_homepage, container, false);
         return binding.getRoot();
     }
 

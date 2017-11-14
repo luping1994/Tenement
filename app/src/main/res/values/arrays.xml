@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="admin_page_item_title">
+        <item>@string/item_title_ele_jiankong</item>
+        <item>@string/item_title_public_control</item>
+        <item>@string/item_title_mode</item>
+        <item>@string/item_ele_energy</item>
+        <item>@string/item_title_fix</item>
+        <item>@string/item_title_zhibanbiao</item>
+        <item>@string/item_title_pay</item>
+        <item>@string/item_title_publicmsg</item>
+    </string-array>
+</resources>

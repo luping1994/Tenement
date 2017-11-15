@@ -3,26 +3,22 @@
     android:color="@color/ripper_color">
     <item android:state_enabled="false">
         <shape android:shape="rectangle">
-            <corners android:radius="5dp" />
             <solid android:color="@color/ripper_color" />
         </shape>
     </item>
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <corners android:radius="5dp" />
             <solid android:color="@color/item_press_true_selector" />
         </shape>
     </item>
     <item android:state_pressed="false">
         <shape android:shape="rectangle">
-            <corners android:radius="5dp" />
             <solid android:color="@color/item_press_false" />
         </shape>
     </item>
 
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="5dp" />
             <solid android:color="@color/item_press_false" />
         </shape>
     </item>

@@ -15,7 +15,6 @@ public class BasedActivity extends RxAppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         super.onCreate(savedInstanceState);
     }
 }

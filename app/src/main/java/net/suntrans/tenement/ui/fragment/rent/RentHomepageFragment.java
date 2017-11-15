@@ -1,6 +1,7 @@
 package net.suntrans.tenement.ui.fragment.rent;
 
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,10 +9,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.SimpleAdapter;
 
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.databinding.FragmentRentHomepageBinding;
+import net.suntrans.tenement.ui.activity.EnergyConsumeActivity;
+import net.suntrans.tenement.ui.activity.SceneActivity;
 import net.suntrans.tenement.ui.fragment.ChannelFragment;
 
 import java.util.ArrayList;
@@ -56,6 +60,22 @@ public class RentHomepageFragment extends Fragment {
 
         ChannelFragment fragment = new ChannelFragment();
         getChildFragmentManager().beginTransaction().replace(R.id.channelContent, fragment).commit();
+
+        binding.gridLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        Intent intent = new Intent(getActivity(), SceneActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        Intent intent1 = new Intent(getActivity(), EnergyConsumeActivity.class);
+                        startActivity(intent1);
+                        break;
+                }
+            }
+        });
     }
 
     public List<Map<String, Object>> getData() {

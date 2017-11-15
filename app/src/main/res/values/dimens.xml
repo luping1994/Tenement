@@ -11,4 +11,8 @@
     <dimen name="tileTextSize">18sp</dimen>
     <dimen name="mine_item_hight">45dp</dimen>
     <dimen name="content_textSize">16sp</dimen>
+    <dimen name="actionBarTitleSize">18sp</dimen>
+    <dimen name="actionBarSubTitleSize">12sp</dimen>
+
+    <dimen name="letTopIconMargin">16dp</dimen>
 </resources>

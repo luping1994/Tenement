@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".ui.activity.TestActivity" android:screenOrientation="landscape"/>
         <activity android:name=".ui.activity.SceneActivity" />
+        <activity android:name=".ui.activity.SceneDetailActivity" />
+        <activity android:name=".ui.activity.EnergyConsumeActivity" />
     </application>
 
 </manifest>

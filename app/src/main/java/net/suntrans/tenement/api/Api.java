@@ -59,7 +59,7 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("scene/delete")
-    Observable<ResultBody> deleteScene(@Field("id") String id);
+    Observable<ResultBody> deleteScene(@Field("ids") String id);
 
 
     @POST("scene/index")

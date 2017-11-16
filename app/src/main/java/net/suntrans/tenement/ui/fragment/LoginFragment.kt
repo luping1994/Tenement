@@ -3,18 +3,22 @@ package net.suntrans.tenement.ui.fragment
 
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.graphics.Rect
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.util.Log
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
+import net.suntrans.common.utils.UiUtils
+import net.suntrans.tenement.App
 import net.suntrans.tenement.MainActivity
-
 import net.suntrans.tenement.R
+import net.suntrans.tenement.bean.LoginInfo
+import net.suntrans.tenement.bean.ResultBody
 import net.suntrans.tenement.databinding.FragmentLoginBinding
+import net.suntrans.tenement.rx.BaseSubscriber
+import rx.android.schedulers.AndroidSchedulers
+import rx.functions.Action1
+import rx.schedulers.Schedulers
 
 
 /**
@@ -23,7 +27,7 @@ import net.suntrans.tenement.databinding.FragmentLoginBinding
  * create an instance of this fragment.
  * Create by Looney on 2017/11/6
  */
-class LoginFragment : Fragment() {
+class LoginFragment : BasedFragment() {
     var binding: FragmentLoginBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,17 +44,12 @@ class LoginFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        val username = App.getMySharedPreferences()!!.getString("username", "")
+        val password = App.getMySharedPreferences()!!.getString("password", "")
+        binding!!.account.setText(username)
+        binding!!.password.setText(password)
         binding!!.login.setOnClickListener({
-            val intent = Intent(activity, MainActivity::class.java)
-            if ("admin".equals(binding!!.account.text.toString())) {
-                intent.putExtra("role", "admin")
-            }else if ("rent".equals(binding!!.account.text.toString())){
-                intent.putExtra("role","rent")
-            }else{
-                intent.putExtra("role", "rent")
-            }
-            startActivity(intent)
-            activity.finish()
+            login()
         })
     }
 
@@ -63,39 +62,47 @@ class LoginFragment : Fragment() {
         }
     }
 
-    /**
-     * @param root
-     * 最外层布局，需要调整的布局
-     * @param scrollToView
-     * 被键盘遮挡的scrollToView，滚动root,使scrollToView在root可视区域的底部
-     */
-    private fun controlKeyboardLayout(root: View, scrollToView: View) {
-        // 注册一个回调函数，当在一个视图树中全局布局发生改变或者视图树中的某个视图的可视状态发生改变时调用这个回调函数。
-        root.viewTreeObserver.addOnGlobalLayoutListener(
-                object : ViewTreeObserver.OnGlobalLayoutListener {
-                    override fun onGlobalLayout() {
-                        val rect = Rect()
-                        // 获取root在窗体的可视区域
-                        root.getWindowVisibleDisplayFrame(rect)
-                        // 当前视图最外层的高度减去现在所看到的视图的最底部的y坐标
-                        val rootInvisibleHeight = root.rootView
-                                .height - rect.bottom
-                        Log.i("tag", "最外层的高度" + root.rootView.height)
-                        // 若rootInvisibleHeight高度大于100，则说明当前视图上移了，说明软键盘弹出了
-                        if (rootInvisibleHeight > 100) {
-                            //软键盘弹出来的时候
-                            val location = IntArray(2)
-                            // 获取scrollToView在窗体的坐标
-                            scrollToView.getLocationInWindow(location)
-                            // 计算root滚动高度，使scrollToView在可见区域的底部
-                            val srollHeight = location[1] + scrollToView
-                                    .height - rect.bottom
-                            root.scrollTo(0, srollHeight)
-                        } else {
-                            // 软键盘没有弹出来的时候
-                            root.scrollTo(0, 0)
-                        }
+
+    fun login() {
+        val username = binding!!.account.text.toString()
+        val password = binding!!.password.text.toString()
+
+        if (TextUtils.isEmpty(username)) {
+            UiUtils.showToast(activity.applicationContext, "请输入用户名")
+            return
+        }
+        if (TextUtils.isEmpty(password)) {
+            UiUtils.showToast(activity.applicationContext, "请输入密码")
+            return
+        }
+        UiUtils.showToast("正在验证您的身份...")
+        binding!!.login.isClickable = false
+        mCompositeSubscription.add(api.login(username, password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : BaseSubscriber<ResultBody<LoginInfo>>(activity.applicationContext) {
+                    override fun onNext(loginInfoResponse: ResultBody<LoginInfo>) {
+                        super.onNext(loginInfoResponse)
+                        binding!!.login.isClickable = true
+                        App.getMySharedPreferences()!!.edit()
+                                .putString("token", loginInfoResponse.data.token.access_token)
+                                .putString("username",username)
+                                .putString("password",password)
+                                .commit()
+                        val intent = Intent(activity,MainActivity::class.java)
+                        intent!!.putExtra("role","rent")
+                        startActivity(intent)
+                        activity.finish()
                     }
-                })
+
+                    override fun onError(e: Throwable) {
+                        super.onError(e)
+                        e.printStackTrace()
+                        binding!!.login.isClickable = true
+
+                    }
+                }))
+
     }
+
 }

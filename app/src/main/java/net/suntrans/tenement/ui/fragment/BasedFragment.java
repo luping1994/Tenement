@@ -1,8 +1,6 @@
-package net.suntrans.tenement.ui.activity;
+package net.suntrans.tenement.ui.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 
 import net.suntrans.tenement.api.Api;
 import net.suntrans.tenement.api.RetrofitHelper;
@@ -13,13 +11,13 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
+
 /**
- * Created by Looney on 2017/11/14.
+ * Created by Looney on 2017/11/16.
  * Des:
  */
 
-public class BasedActivity extends AppCompatActivity {
-
+public class BasedFragment extends Fragment {
 
     protected Api api = RetrofitHelper.getApi();
     protected CompositeSubscription mCompositeSubscription= new CompositeSubscription();
@@ -43,13 +41,8 @@ public class BasedActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    protected void onDestroy() {
+    public void onDestroyView() {
+        super.onDestroyView();
         onUnsubscribe();
-        super.onDestroy();
     }
 }

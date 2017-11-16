@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
+import com.qmuiteam.qmui.widget.QMUITabSegment;
+
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.databinding.ActivitySceneBinding;
 import net.suntrans.tenement.ui.fragment.SceneFragment;
@@ -21,12 +23,13 @@ public class SceneActivity extends BasedActivity {
 
     private ActivitySceneBinding binding;
     private SceneManagerFragment sceneManagerFragment;
+    private SceneFragment fragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_scene);
-        SceneFragment fragment = new SceneFragment();
+        fragment = new SceneFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.sceneContent, fragment).commit();
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +56,7 @@ public class SceneActivity extends BasedActivity {
         }
         if (sceneManagerFragment != null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.sceneContent, sceneManagerFragment, "SceneManagerFragment");
+            transaction.add(R.id.sceneContent, sceneManagerFragment, "SceneManagerFragment");
             transaction.addToBackStack(null);
             transaction.commit();
         }
@@ -74,7 +77,6 @@ public class SceneActivity extends BasedActivity {
         }else {
             binding.rightSubTitle.setText("完成");
         }
-
     }
 
     @Override

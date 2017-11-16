@@ -18,4 +18,6 @@ public class SimpleData {
         this.imgResId = imgResId;
         this.name = name;
     }
+
+
 }

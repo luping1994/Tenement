@@ -4,8 +4,10 @@ package net.suntrans.tenement.ui.fragment.rent;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +38,7 @@ public class RentHomepageFragment extends Fragment {
             R.drawable.ic_msg, R.drawable.ic_pay, R.drawable.ic_repair,
             R.drawable.ic_duty};
     private List<Map<String, Object>> datas = new ArrayList<>();
+    private ChannelFragment fragment;
 
     public RentHomepageFragment() {
 
@@ -57,10 +60,8 @@ public class RentHomepageFragment extends Fragment {
         int[] to = {R.id.image, R.id.name};
         SimpleAdapter adapter = new SimpleAdapter(getContext(), getData(), R.layout.item_home_page_fun, from, to);
         binding.gridLayout.setAdapter(adapter);
-
-        ChannelFragment fragment = new ChannelFragment();
+        fragment = new ChannelFragment();
         getChildFragmentManager().beginTransaction().replace(R.id.channelContent, fragment).commit();
-
         binding.gridLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -76,7 +77,28 @@ public class RentHomepageFragment extends Fragment {
                 }
             }
         });
+        binding.refreshLayout.setColorSchemeColors(getContext().getResources().getColor(R.color.colorPrimary));
+        binding.refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fragment.getChannelInfo();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.refreshLayout.setRefreshing(false);
+                    }
+                },500);
+            }
+        });
     }
+
+    @Override
+    public void onDestroy() {
+        handler.removeCallbacksAndMessages(null);
+        super.onDestroy();
+    }
+
+    private Handler handler = new Handler();
 
     public List<Map<String, Object>> getData() {
         //cion和iconName的长度是相同的，这里任选其一都可以
@@ -90,4 +112,5 @@ public class RentHomepageFragment extends Fragment {
         return datas;
 
     }
+
 }

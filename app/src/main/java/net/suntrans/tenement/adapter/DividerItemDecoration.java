@@ -34,6 +34,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import net.suntrans.common.utils.UiUtils;
+import net.suntrans.tenement.R;
 
 
 /**
@@ -72,8 +73,8 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     public DividerItemDecoration(Context context, int orientation) {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
-        mPaint.setColor(Color.parseColor("#e5e5e5"));
-        offset = UiUtils.INSTANCE.dip2px(2, context);
+        mPaint.setColor(context.getResources().getColor(R.color.bgColor));
+        offset = UiUtils.INSTANCE.dip2px(1, context);
         setOrientation(orientation);
     }
 

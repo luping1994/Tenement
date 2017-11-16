@@ -18,7 +18,6 @@ class App : Application() {
     }
 
     companion object {
-
         fun getMySharedPreferences(): SharedPreferences? {
             if (sharedPreferences == null) {
                 sharedPreferences = application!!.getSharedPreferences("tenement", Context.MODE_PRIVATE)
@@ -28,7 +27,6 @@ class App : Application() {
 
         var sharedPreferences: SharedPreferences? = null
         var application: Application? = null
-            private set
     }
 
 

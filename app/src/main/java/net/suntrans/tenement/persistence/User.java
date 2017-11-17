@@ -35,7 +35,7 @@ public  class User {
     public String nickname;
     public String mobile;
     public int login;
-    public int manager;
+    public String manager;
     public String cover;
     public String created_at;
     public String updated_at;

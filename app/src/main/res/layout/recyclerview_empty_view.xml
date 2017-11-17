@@ -5,7 +5,7 @@
     android:gravity="center">
 
     <TextView
-        android:text="没有内容~"
+        android:text="空空如也~"
         android:textColor="@color/secondTextColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

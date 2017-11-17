@@ -17,8 +17,11 @@ public class ChannelInfo {
 
     public int id;
     public String name;
-    public int number;
+    public String datapoint_name;
+    public String number;
     public int status;
-    public int device_type;
-    public int used;
+    public String device_type;
+    public String used;
+    //以下属性仅用作选择通道时候
+    public boolean checked =false;
 }

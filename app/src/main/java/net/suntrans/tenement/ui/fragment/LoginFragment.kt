@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import net.suntrans.common.utils.UiUtils
+import net.suntrans.looney.widgets.LoadingDialog
 import net.suntrans.tenement.App
 import net.suntrans.tenement.MainActivity
 import net.suntrans.tenement.R
@@ -30,6 +31,7 @@ import rx.schedulers.Schedulers
 class LoginFragment : BasedFragment() {
     var binding: FragmentLoginBinding? = null
 
+    var dialog:LoadingDialog?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
@@ -75,7 +77,14 @@ class LoginFragment : BasedFragment() {
             UiUtils.showToast(activity.applicationContext, "请输入密码")
             return
         }
-        UiUtils.showToast("正在验证您的身份...")
+
+        if (dialog==null)
+        {
+            dialog = LoadingDialog(context)
+        }
+        dialog!!.setCancelable(false)
+        dialog!!.setWaitText("登录中,请稍后。。。")
+        dialog!!.show()
         binding!!.login.isClickable = false
         mCompositeSubscription.add(api.login(username, password)
                 .subscribeOn(Schedulers.io())
@@ -83,11 +92,13 @@ class LoginFragment : BasedFragment() {
                 .subscribe(object : BaseSubscriber<ResultBody<LoginInfo>>(activity.applicationContext) {
                     override fun onNext(loginInfoResponse: ResultBody<LoginInfo>) {
                         super.onNext(loginInfoResponse)
+                        dialog!!.dismiss()
                         binding!!.login.isClickable = true
                         App.getMySharedPreferences()!!.edit()
                                 .putString("token", loginInfoResponse.data.token.access_token)
                                 .putString("username",username)
                                 .putString("password",password)
+                                .putString("manager",loginInfoResponse.data.user.manager)
                                 .commit()
                         val intent = Intent(activity,MainActivity::class.java)
                         intent!!.putExtra("role","rent")
@@ -98,6 +109,7 @@ class LoginFragment : BasedFragment() {
                     override fun onError(e: Throwable) {
                         super.onError(e)
                         e.printStackTrace()
+                        dialog!!.dismiss()
                         binding!!.login.isClickable = true
 
                     }

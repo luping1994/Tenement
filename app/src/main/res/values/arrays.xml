@@ -10,4 +10,10 @@
         <item>@string/item_title_pay</item>
         <item>@string/item_title_publicmsg</item>
     </string-array>
+
+    <string-array name="channelType">
+        <item>照明</item>
+        <item>插座</item>
+
+    </string-array>
 </resources>

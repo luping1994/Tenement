@@ -16,6 +16,7 @@ import android.widget.SimpleAdapter;
 
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.databinding.FragmentRentHomepageBinding;
+import net.suntrans.tenement.ui.activity.DutyActivity;
 import net.suntrans.tenement.ui.activity.EnergyConsumeActivity;
 import net.suntrans.tenement.ui.activity.SceneActivity;
 import net.suntrans.tenement.ui.fragment.ChannelFragment;
@@ -73,6 +74,10 @@ public class RentHomepageFragment extends Fragment {
                     case 1:
                         Intent intent1 = new Intent(getActivity(), EnergyConsumeActivity.class);
                         startActivity(intent1);
+                        break;
+                    case 5:
+                        Intent intent5 = new Intent(getActivity(), DutyActivity.class);
+                        startActivity(intent5);
                         break;
                 }
             }

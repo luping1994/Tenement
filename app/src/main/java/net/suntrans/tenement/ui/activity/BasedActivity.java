@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import net.suntrans.tenement.api.Api;
 import net.suntrans.tenement.api.RetrofitHelper;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -19,6 +22,7 @@ import rx.subscriptions.CompositeSubscription;
  */
 
 public class BasedActivity extends AppCompatActivity {
+    public final static List<BasedActivity> mlist = new LinkedList<>();
 
 
     protected Api api = RetrofitHelper.getApi();
@@ -45,10 +49,16 @@ public class BasedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        synchronized (mlist) {
+            mlist.add(this);
+        }
     }
 
     @Override
     protected void onDestroy() {
+        synchronized (mlist) {
+            mlist.remove(this);
+        }
         onUnsubscribe();
         super.onDestroy();
     }

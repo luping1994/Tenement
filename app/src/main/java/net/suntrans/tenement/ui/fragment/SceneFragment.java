@@ -1,5 +1,6 @@
 package net.suntrans.tenement.ui.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -13,12 +14,10 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.adapter.DividerItemDecoration;
-import net.suntrans.tenement.bean.ChannelControlMessage;
 import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.bean.SceneEntity;
 import net.suntrans.tenement.bean.SceneInfo;
@@ -28,7 +27,7 @@ import net.suntrans.tenement.ui.activity.AddSceneActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.content.Context;
+
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -43,7 +42,6 @@ public class SceneFragment extends BasedFragment {
     private List<SceneInfo> datas;
     private FragmentSceneBinding binding;
     private SceneAdapter adapter;
-    private QMUITipDialog tipsDialog;
     private static Handler handler = new Handler();
 
     @Nullable
@@ -108,17 +106,18 @@ public class SceneFragment extends BasedFragment {
         protected void convert(BaseViewHolder helper, SceneInfo item) {
             helper.setText(R.id.name, item.name);
             ImageView imageView = helper.getView(R.id.image);
+//            System.out.println(item.name+","+item.img_url);
             Glide.with(context)
                     .load(item.img_url)
                     .centerCrop()
                     .override(UiUtils.INSTANCE.dip2px(36),UiUtils.INSTANCE.dip2px(36))
                     .crossFade()
-                    .placeholder(R.drawable.ic_sleep)
+                    .placeholder(R.drawable.ic_nopic)
                     .into(imageView);
         }
     }
 
-    private void getData() {
+    public void getData() {
         mCompositeSubscription.add(api.getScene()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -1,14 +1,11 @@
 package net.suntrans.tenement.ui.activity;
 
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-
-import com.qmuiteam.qmui.widget.QMUITabSegment;
 
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.databinding.ActivitySceneBinding;
@@ -49,6 +46,11 @@ public class SceneActivity extends BasedActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     private void navitiveToNextFragment() {
         sceneManagerFragment = (SceneManagerFragment) getSupportFragmentManager().findFragmentByTag("SceneManagerFragment");
         if (sceneManagerFragment == null) {
@@ -73,6 +75,7 @@ public class SceneActivity extends BasedActivity {
     private void updateSubButton() {
         boolean isRoot = getSupportFragmentManager().getBackStackEntryCount() == 0;
         if (isRoot){
+            fragment.getData();
             binding.rightSubTitle.setText("管理");
         }else {
             binding.rightSubTitle.setText("完成");

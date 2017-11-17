@@ -12,4 +12,39 @@
     <string name="item_title_zhibanbiao">值班表</string>
     <string name="item_title_pay">物业缴费</string>
     <string name="item_title_publicmsg">公告消息</string>
+    <string name="abc">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.~!</string>
+    <string name="contacts_way">服务热线:020-8636-1851</string>
+    <string name="company_name_CH">广州三川控制系统工程设备有限公司</string>
+    <string name="company_reserved">Copyright © 2017 广州三川控制系统工程设备有限公司版权所有</string>
+    <string name="tx_version_code">版本号:</string>
+    <string name="tx_share_app">分享</string>
+    <string name="tx_share_app_des">下载地址:https://www.pgyer.com/GuoJJ</string>
+    <!--反馈页面相关字符串-->
+    <string name="title_feedback">意见反馈</string>
+    <string name="tips_feedbak_success">已收到您的反馈,我们会认真查看,并尽快修复及完善,感谢您的支持!</string>
+    <string name="close">关闭</string>
+    <string name="product_suggest">产品建议</string>
+    <string name="progress_error">程序错误</string>
+    <string name="title_feedback_type">请选择反馈类型</string>
+    <string name="tips_content_is_empty">请输入内容</string>
+    <string name="tips_contacts_is_empty">请输入您的联系方式</string>
+    <string name="tips_contacts_is_error">您的联系方式格式有误</string>
+    <string name="json_feedback_type">反馈类型</string>
+    <string name="json_feedback_content">反馈内容</string>
+    <string name="json_feedback_contacts">联系方式</string>
+
+    <!--activity_feedback.xml-->
+    <string name="tx_feedback_type">选择反馈类型</string>
+    <string name="product_suggestion">产品建议</string>
+    <string name="tx_progerss_error">程序错误</string>
+    <string name="please_enter_question">请输入您的问题或建议</string>
+    <string name="tx_contacts_type">联系方式(邮箱/QQ)</string>
+    <string name="commit">提 交</string>
+    <string name="email">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@._!?</string>
+
+    <!--activity_setting.xml-->
+    <string name="profile">个人资料</string>
+    <string name="nav_tx_version_update">版本更新</string>
+    <string name="nav_tx_login_out">注销登录</string>
+
 </resources>

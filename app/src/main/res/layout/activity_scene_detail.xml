@@ -1,67 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/content"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_bar_size"
+            android:background="@color/colorPrimary">
+
+            <RelativeLayout
+                android:id="@+id/back"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ripple"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_back" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/actionBarTitleSize" />
+
+            <TextView
+                android:id="@+id/rightSubTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:gravity="center"
+                android:onClick="rightSubTitleClicked"
+                android:text="保存"
+                android:textColor="@color/textcolor"
+                android:textSize="@dimen/actionBarSubTitleSize" />
+
+        </RelativeLayout>
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 android:orientation="vertical">
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/action_bar_size"
-                    android:background="@color/colorPrimary">
-
-                    <RelativeLayout
-                        android:id="@+id/back"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/ripple"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/ic_back" />
-                    </RelativeLayout>
-
-                    <TextView
-                        android:id="@+id/title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:text="新增自定义场景"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/actionBarTitleSize" />
-
-                    <TextView
-                        android:id="@+id/rightSubTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="@dimen/activity_horizontal_margin"
-                        android:gravity="center"
-                        android:onClick="rightSubTitleClicked"
-                        android:text="保存"
-                        android:textColor="@color/textcolor"
-                        android:textSize="@dimen/actionBarSubTitleSize" />
-
-                </RelativeLayout>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -90,14 +87,21 @@
                         android:background="@color/white">
 
                         <ImageView
+                            android:id="@+id/bgImg"
                             android:layout_width="72dp"
                             android:layout_height="72dp"
                             android:layout_centerInParent="true"
+                            android:background="@drawable/circle_border" />
+
+                        <ImageView
+                            android:id="@+id/sceneImg"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_centerInParent="true"
                             android:layout_marginTop="16dp"
-                            android:background="@drawable/circle_border"
-                            android:scaleType="centerInside"
                             android:src="@drawable/ic_sleep" />
                     </RelativeLayout>
+
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -105,13 +109,13 @@
                         android:background="@color/white">
 
                         <EditText
-                            android:background="@drawable/tx_border_bg"
                             android:id="@+id/sceneName"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_centerInParent="true"
                             android:layout_marginLeft="@dimen/activity_horizontal_margin"
                             android:layout_marginRight="@dimen/activity_horizontal_margin"
+                            android:background="@drawable/tx_border_bg"
                             android:gravity="center"
                             android:paddingLeft="@dimen/activity_horizontal_margin"
                             android:paddingRight="@dimen/activity_horizontal_margin" />
@@ -134,14 +138,14 @@
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
                         android:paddingRight="@dimen/activity_horizontal_margin"
-                        android:text="添加动作"
+                        android:text="添加设备"
                         android:textColor="@color/colorAccent" />
 
                     <android.support.v7.widget.RecyclerView
-                        app:layoutManager="LinearLayoutManager"
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        app:layoutManager="LinearLayoutManager">
 
                     </android.support.v7.widget.RecyclerView>
                 </LinearLayout>
@@ -149,6 +153,6 @@
         </android.support.v4.widget.NestedScrollView>
 
 
-    </FrameLayout>
+    </LinearLayout>
 
 </layout>

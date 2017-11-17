@@ -13,8 +13,8 @@ android {
         applicationId "net.suntrans.tenement"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 5
+        versionName "0.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     dataBinding {
@@ -24,6 +24,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "net.suntrans.tenement_${variant.versionName}_${variant.versionCode}.apk"
         }
     }
 }
@@ -42,7 +48,7 @@ dependencies {
     implementation 'com.android.support:gridlayout-v7:26.1.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
-    implementation 'com.qmuiteam:qmui:1.0.4'
+//    implementation 'com.qmuiteam:qmui:1.0.4'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     implementation 'com.pgyersdk:sdk:2.7.9'
 
@@ -53,6 +59,8 @@ dependencies {
 
     implementation "android.arch.persistence.room:runtime:1.0.0"
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+
+    api 'me.weyye.hipermission:library:1.0.3'
 
 
 //    // Retrofit

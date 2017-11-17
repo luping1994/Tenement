@@ -6,12 +6,15 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
+
 import net.suntrans.common.utils.UiUtils;
 import net.suntrans.looney.widgets.LoadingDialog;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.databinding.ActivityAddSceneBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
+import net.suntrans.tenement.ui.fragment.PicChooseFragment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,10 +24,12 @@ import java.util.Map;
  * Des:
  */
 
-public class AddSceneActivity extends BasedActivity {
+public class AddSceneActivity extends BasedActivity implements PicChooseFragment.onItemChooseListener {
 
     private ActivityAddSceneBinding binding;
     private LoadingDialog dialog;
+    private PicChooseFragment fragment;
+    private String imgId = "1";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,7 +47,17 @@ public class AddSceneActivity extends BasedActivity {
 
             }
         });
+
+        binding.bgImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment = new PicChooseFragment();
+                fragment.setOnItemChooseListener(AddSceneActivity.this);
+                fragment.show(getSupportFragmentManager(), "choosePic");
+            }
+        });
     }
+
 
     public void rightSubTitleClicked(View view) {
         createScene();
@@ -62,7 +77,9 @@ public class AddSceneActivity extends BasedActivity {
         dialog.show();
         Map<String, String> map = new HashMap<>();
         map.put("name", name);
-        map.put("image", "");
+        map.put("image", imgId);
+        System.out.println(name + "," + imgId);
+
         addSubscription(api.createScene(map), new BaseSubscriber<ResultBody>(getApplicationContext()) {
             @Override
             public void onNext(ResultBody resultBody) {
@@ -79,5 +96,20 @@ public class AddSceneActivity extends BasedActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onPicChoose(String id, String path) {
+        UiUtils.INSTANCE.showToast(id);
+        if (fragment != null) {
+            fragment.dismiss();
+        }
+        Glide.with(this)
+                .load(path)
+                .dontTransform()
+                .crossFade()
+                .override(UiUtils.INSTANCE.dip2px(64), UiUtils.INSTANCE.dip2px(64))
+                .into(binding.sceneImg);
+        imgId = id;
     }
 }

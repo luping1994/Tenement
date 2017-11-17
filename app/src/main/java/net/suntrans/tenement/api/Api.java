@@ -2,10 +2,12 @@ package net.suntrans.tenement.api;
 
 import net.suntrans.tenement.bean.ChannelControlMessage;
 import net.suntrans.tenement.bean.ChannelEntity;
+import net.suntrans.tenement.bean.DeviceEntity;
 import net.suntrans.tenement.bean.EnvInfo;
 import net.suntrans.tenement.bean.LoginInfo;
 import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.bean.SceneEntity;
+import net.suntrans.tenement.bean.SceneImage;
 import net.suntrans.tenement.bean.SceneItem;
 import net.suntrans.tenement.bean.SceneItemlEntity;
 
@@ -58,6 +60,18 @@ public interface Api {
     Observable<ResultBody> createScene(@FieldMap Map<String, String> map);
 
     @FormUrlEncoded
+    @POST("scene/channel/store")
+    Observable<ResultBody> addSceneChannel(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST("scene/channel/delete")
+    Observable<ResultBody> deleteSceneChannel(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST("scene/channel/update")
+    Observable<ResultBody> updateSceneChannel(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
     @POST("scene/delete")
     Observable<ResultBody> deleteScene(@Field("ids") String id);
 
@@ -68,4 +82,22 @@ public interface Api {
     @FormUrlEncoded
     @POST("scene/channel")
     Observable<ResultBody<SceneItemlEntity>> getSceneChannel(@Field("id") String id);
+
+    @POST("device/index")
+    Observable<ResultBody<DeviceEntity>> getMyDevices();
+
+    @POST("scene/image")
+    Observable<ResultBody<SceneImage>> getSceneDefaultImg();
+
+    @FormUrlEncoded
+    @POST("device/channel")
+    Observable<ResultBody<ChannelEntity>> getDeviceChannel(@Field("id") String id);
+
+    @POST("scene/device")
+    Observable<ResultBody<ChannelEntity>> getScebeChooseChannel();
+
+    @FormUrlEncoded
+    @POST("device/channel/update")
+    Observable<ResultBody> updateChannel(@FieldMap Map<String, String> map);
+
 }

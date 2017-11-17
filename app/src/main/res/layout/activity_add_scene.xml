@@ -89,12 +89,17 @@
                         android:background="@color/white">
 
                         <ImageView
+                            android:id="@+id/bgImg"
+                            android:background="@drawable/circle_border"
+                            android:layout_centerInParent="true"
                             android:layout_width="72dp"
-                            android:layout_height="72dp"
+                            android:layout_height="72dp" />
+                        <ImageView
+                            android:id="@+id/sceneImg"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:layout_centerInParent="true"
                             android:layout_marginTop="16dp"
-                            android:background="@drawable/circle_border"
-                            android:scaleType="centerInside"
                             android:src="@drawable/ic_sleep" />
                     </RelativeLayout>
 

@@ -10,8 +10,11 @@ import android.view.ViewGroup
 import net.suntrans.tenement.App
 
 import net.suntrans.tenement.R
+import net.suntrans.tenement.Role
 import net.suntrans.tenement.databinding.FragmentMineBinding
 import net.suntrans.tenement.ui.activity.*
+import net.suntrans.tenement.ui.activity.auto.AutomationActivity
+import net.suntrans.tenement.ui.activity.stuff.MyStuffActivity
 
 /**
  * Created by Looney on 2017/11/8.
@@ -29,9 +32,9 @@ class RentMineFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        val manager = App.getMySharedPreferences()!!.getString("manager", "1")
+        val manager = App.getMySharedPreferences()!!.getString("role_id", "1")
 
-        if (manager.equals("1")) {
+        if (Role.ROLE_RENT_ADMIN.equals(manager)) {
             binding!!.myShop.visibility = View.VISIBLE
         } else {
             binding!!.myShop.visibility = View.GONE
@@ -43,11 +46,14 @@ class RentMineFragment : Fragment(), View.OnClickListener {
         binding!!.feedback.setOnClickListener(this)
         binding!!.aboutThis.setOnClickListener(this)
         binding!!.setting.setOnClickListener(this)
+        binding!!.aotoControl.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
         when (v.id) {
             R.id.linearLayout -> {
+                val intent = Intent(activity, ProfileActivity::class.java)
+                startActivity(intent)
             }
             R.id.message -> {
                 val intent = Intent(activity, YichangActivity::class.java)
@@ -55,7 +61,7 @@ class RentMineFragment : Fragment(), View.OnClickListener {
             }
             R.id.myShop -> {
 
-                val intent = Intent(activity, AddStuffActivity::class.java)
+                val intent = Intent(activity, MyStuffActivity::class.java)
                 startActivity(intent)
             }
             R.id.contacts -> {
@@ -72,6 +78,10 @@ class RentMineFragment : Fragment(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.setting -> {
+            }
+            R.id.aotoControl -> {
+                val intent = Intent(activity, AutomationActivity::class.java)
+                startActivity(intent)
             }
         }
     }

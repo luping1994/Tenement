@@ -33,6 +33,9 @@ import rx.schedulers.Schedulers;
  */
 
 public class WelcomeActivity extends BasedActivity {
+
+    private String role_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,14 +76,17 @@ public class WelcomeActivity extends BasedActivity {
                     @Override
                     public void onNext(ResultBody<LoginInfo> loginInfoResultBody) {
                         super.onNext(loginInfoResultBody);
+                        role_id = loginInfoResultBody.data.user.role_id;
                         App.Companion.getMySharedPreferences().edit()
                                 .putString("token", loginInfoResultBody.data.token.access_token)
+                                .putString("role_id", role_id)
+
                                 .commit();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-                                intent.putExtra("role","rent");
+                                intent.putExtra("role_id",role_id);
                                 startActivity(intent);
                                 finish();
                             }

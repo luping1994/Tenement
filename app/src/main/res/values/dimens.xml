@@ -15,4 +15,8 @@
     <dimen name="actionBarSubTitleSize">12sp</dimen>
 
     <dimen name="letTopIconMargin">16dp</dimen>
+
+    <dimen name="profile_item_hight">56dp</dimen>
+    <dimen name="profile_subtitle_textSize">14sp</dimen>
+
 </resources>

@@ -73,7 +73,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.AddStuffActivity"
+            android:name=".ui.activity.stuff.AddStuffActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.DutyActivity"
@@ -87,7 +87,23 @@
         <activity
             android:name=".ui.activity.YichangActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.SettingActivity" />
+        <activity
+            android:name=".ui.activity.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.stuff.MyStuffActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.auto.AutomationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.auto.AddAutoActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.auto.AddAutoByTime" />
+        <activity android:name=".ui.activity.auto.ChooseActionActivity" />
     </application>
 
 </manifest>

@@ -10,13 +10,18 @@ import net.suntrans.tenement.bean.SceneEntity;
 import net.suntrans.tenement.bean.SceneImage;
 import net.suntrans.tenement.bean.SceneItem;
 import net.suntrans.tenement.bean.SceneItemlEntity;
+import net.suntrans.tenement.bean.StuffEntity;
+import net.suntrans.tenement.bean.UploadInfo;
 
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import rx.Observable;
 
 /**
@@ -100,4 +105,22 @@ public interface Api {
     @POST("device/channel/update")
     Observable<ResultBody> updateChannel(@FieldMap Map<String, String> map);
 
+    /**
+     * 添加员工
+     * @param map
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("company/user/store")
+    Observable<ResultBody> addStuff(@FieldMap Map<String, String> map);
+
+    @POST("company/user")
+    Observable<ResultBody<StuffEntity>> getMyStuff();
+
+
+
+    @Multipart
+    @POST("upload/images")
+    Observable<ResultBody<UploadInfo>> upload(
+            @Part MultipartBody.Part image);
 }

@@ -16,4 +16,14 @@
         <item>插座</item>
 
     </string-array>
+
+    <string-array name="weekItem">
+        <item>每周一</item>
+        <item>每周二</item>
+        <item>每周三</item>
+        <item>每周四</item>
+        <item>每周五</item>
+        <item>每周六</item>
+        <item>每周日</item>
+    </string-array>
 </resources>

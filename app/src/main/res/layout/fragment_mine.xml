@@ -141,7 +141,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
                     android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:text="添加员工"
+                    android:text="我的员工"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/content_textSize" />
 
@@ -160,6 +160,24 @@
                     android:paddingLeft="@dimen/activity_horizontal_margin"
                     android:paddingRight="@dimen/activity_horizontal_margin"
                     android:text="我的设备"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/content_textSize" />
+
+                <View
+                    android:layout_width="@dimen/activity_horizontal_margin"
+                    android:layout_height="1dp"
+                    android:background="@color/white" />
+
+                <TextView
+                    android:id="@+id/aotoControl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/mine_item_hight"
+                    android:background="@drawable/item_selector"
+                    android:drawableRight="@drawable/ic_arrow_right"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:text="自动化"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/content_textSize" />
 

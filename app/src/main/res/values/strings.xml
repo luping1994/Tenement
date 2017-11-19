@@ -46,5 +46,10 @@
     <string name="profile">个人资料</string>
     <string name="nav_tx_version_update">版本更新</string>
     <string name="nav_tx_login_out">注销登录</string>
+    <string name="label_select_picture">选择图片</string>
+    <string name="tips_upload_failed">上传失败</string>
+    <string name="tips_uploading">正在上传图片</string>
+
+
 
 </resources>

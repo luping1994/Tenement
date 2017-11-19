@@ -1,0 +1,195 @@
+<layout>
+
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="net.suntrans.tenement.ui.fragment.ChooseTimeFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/createAutomation"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/bgColor"
+                android:gravity="center_vertical|bottom"
+                android:paddingBottom="8dp"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:text="时间"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:id="@+id/llrichu"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/item_selector"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="日出"
+                    android:textColor="@color/textColor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="6:00"
+                    android:textColor="@color/textColor" />
+
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/richu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:checked="false"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:background="@color/bgColor" />
+
+            <LinearLayout
+                android:id="@+id/llriluo"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/item_selector"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="日落"
+                    android:textColor="@color/textColor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="18:00"
+                    android:textColor="@color/textColor" />
+
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/riluo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:background="@color/bgColor" />
+
+            <LinearLayout
+                android:id="@+id/lldantian"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/item_selector"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="当天时间"
+                    android:textColor="@color/textColor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="1:00"
+                    android:textColor="@color/textColor" />
+
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/dantian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <TimePicker
+                android:id="@+id/timepicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:timePickerMode="spinner"
+                android:spinnersShown="true"
+                android:visibility="gone">
+            </TimePicker>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/bgColor" />
+
+            <LinearLayout
+                android:id="@+id/repeatTime"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/profile_item_hight"
+                android:background="@drawable/item_selector"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/content_textSize">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/profile_item_hight"
+                    android:gravity="center_vertical"
+                    android:text="重复"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/content_textSize" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/profile_item_hight"
+                    android:layout_weight="1"
+                    android:gravity="center|right"
+                    android:text="仅一次"
+                    android:textSize="@dimen/profile_subtitle_textSize" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_arrow_right" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</layout>

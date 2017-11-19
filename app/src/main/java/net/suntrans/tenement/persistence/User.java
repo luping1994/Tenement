@@ -40,4 +40,5 @@ public  class User {
     public String created_at;
     public String updated_at;
     public String company_name;
+    public String role_id;
 }

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_bar_size"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:background="@drawable/ripple"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:maxLength="6"
+                android:maxLines="1"
+                android:text="个人信息"
+                android:textColor="@color/white"
+                android:textSize="@dimen/actionBarTitleSize" />
+
+            <TextView
+                android:id="@+id/rightSubTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:gravity="center"
+                android:onClick="rightSubTitleClicked"
+                android:text="添加员工"
+                android:textColor="@color/textcolor"
+                android:textSize="@dimen/actionBarSubTitleSize"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bgColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+            <LinearLayout
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="50dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp" />
+
+                <RelativeLayout
+                    android:id="@+id/llTouxiang"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/profile_item_hight"
+                    android:background="@drawable/item_selector"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/content_textSize">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/profile_item_hight"
+                        android:gravity="center_vertical"
+                        android:text="头像"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/content_textSize" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/touxiangarrow"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_atouxiang"
+                        android:text="王大剑"
+                        android:textSize="@dimen/profile_subtitle_textSize" />
+
+                    <ImageView
+                        android:id="@+id/touxiangarrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_arrow_right" />
+
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="@dimen/activity_horizontal_margin"
+                    android:layout_height="1dp"
+                    android:background="@color/white" />
+
+                <LinearLayout
+                    android:id="@+id/llName"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/profile_item_hight"
+                    android:background="@drawable/item_selector"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/content_textSize">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/profile_item_hight"
+                        android:gravity="center_vertical"
+                        android:text="姓名"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/content_textSize" />
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/profile_item_hight"
+                        android:layout_weight="1"
+                        android:gravity="center|right"
+                        android:text="王大剑"
+                        android:textSize="@dimen/profile_subtitle_textSize" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_arrow_right" />
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/activity_horizontal_margin"
+                    android:layout_height="1dp"
+                    android:background="@color/white" />
+
+                <LinearLayout
+                    android:id="@+id/llTelephone"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/profile_item_hight"
+                    android:background="@drawable/item_selector"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/content_textSize">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/profile_item_hight"
+                        android:gravity="center_vertical"
+                        android:text="手机号"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/content_textSize" />
+
+                    <TextView
+                        android:id="@+id/telephone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/profile_item_hight"
+                        android:layout_weight="1"
+                        android:gravity="center|right"
+                        android:text="15899694150"
+                        android:textSize="@dimen/profile_subtitle_textSize" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_arrow_right" />
+
+
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+</layout>

@@ -15,10 +15,14 @@ import android.widget.AdapterView;
 import android.widget.SimpleAdapter;
 
 import net.suntrans.tenement.R;
+import net.suntrans.tenement.bean.EnvInfo;
+import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.databinding.FragmentRentHomepageBinding;
+import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.DutyActivity;
 import net.suntrans.tenement.ui.activity.EnergyConsumeActivity;
 import net.suntrans.tenement.ui.activity.SceneActivity;
+import net.suntrans.tenement.ui.fragment.BasedFragment;
 import net.suntrans.tenement.ui.fragment.ChannelFragment;
 
 import java.util.ArrayList;
@@ -26,10 +30,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 /**
  *
  */
-public class RentHomepageFragment extends Fragment {
+public class RentHomepageFragment extends BasedFragment {
 
     private FragmentRentHomepageBinding binding;
 
@@ -87,6 +94,7 @@ public class RentHomepageFragment extends Fragment {
             @Override
             public void onRefresh() {
                 fragment.getChannelInfo();
+                getEnv();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -115,7 +123,26 @@ public class RentHomepageFragment extends Fragment {
         }
 
         return datas;
+    }
 
+    @Override
+    public void onResume() {
+        getEnv();
+        super.onResume();
+    }
+
+    private void getEnv(){
+      mCompositeSubscription.add(  api.getHomeEnv()
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribeOn(Schedulers.io())
+              .subscribe(new BaseSubscriber<ResultBody<EnvInfo>>(getContext()){
+                  @Override
+                  public void onNext(ResultBody<EnvInfo> info) {
+                      binding.wendu.setText(info.data.wendu.value);
+                      binding.shidu.setText("湿度:"+info.data.shidu.value+"%");
+                      binding.pm25.setText("PM25:"+info.data.pm25.value+"");
+                  }
+              }));
     }
 
 }

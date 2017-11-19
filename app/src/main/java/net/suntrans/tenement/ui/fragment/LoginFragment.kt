@@ -98,10 +98,11 @@ class LoginFragment : BasedFragment() {
                                 .putString("token", loginInfoResponse.data.token.access_token)
                                 .putString("username",username)
                                 .putString("password",password)
+                                .putString("role_id",loginInfoResponse.data.user.role_id)
                                 .putString("manager",loginInfoResponse.data.user.manager)
                                 .commit()
                         val intent = Intent(activity,MainActivity::class.java)
-                        intent!!.putExtra("role","rent")
+                        intent!!.putExtra("role_id","role_id")
                         startActivity(intent)
                         activity.finish()
                     }

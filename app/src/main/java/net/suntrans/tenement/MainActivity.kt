@@ -20,9 +20,14 @@ class MainActivity : BasedActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        val role = intent.getStringExtra("role")
+        val role = intent.getStringExtra("role_id")
         when (role) {
-            "rent" -> {
+            Role.ROLE_RENT_ADMIN -> {
+                val rentMainFragment = RentMainFragment()
+                supportFragmentManager.beginTransaction().replace(R.id.content, rentMainFragment).commit()
+                println("role = rent")
+            }
+            Role.ROLE_STUFF-> {
                 val rentMainFragment = RentMainFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.content, rentMainFragment).commit()
                 println("role = rent")

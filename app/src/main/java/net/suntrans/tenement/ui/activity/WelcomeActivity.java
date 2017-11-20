@@ -86,7 +86,7 @@ public class WelcomeActivity extends BasedActivity {
                             @Override
                             public void run() {
                                 Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-                                intent.putExtra("role_id",role_id);
+                                intent.putExtra("role_id", role_id);
                                 startActivity(intent);
                                 finish();
                             }
@@ -141,20 +141,20 @@ public class WelcomeActivity extends BasedActivity {
 
                     @Override
                     public void onDeny(String permisson, int position) {
-                       new AlertDialog.Builder(WelcomeActivity.this)
-                               .setMessage("您拒绝了存储权限,某些功能可能不可用,是否继续?")
-                               .setPositiveButton("继续", new DialogInterface.OnClickListener() {
-                                   @Override
-                                   public void onClick(DialogInterface dialog, int which) {
-                                       check();
-                                   }
-                               })
-                               .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                                   @Override
-                                   public void onClick(DialogInterface dialog, int which) {
-                                       finish();
-                                   }
-                               }).create().show();
+                        new AlertDialog.Builder(WelcomeActivity.this)
+                                .setMessage("您已经拒绝了应用的存储权限,某些功能将不可用不可用,是否继续?")
+                                .setPositiveButton("继续", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        check();
+                                    }
+                                })
+                                .setNegativeButton("退出", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                    }
+                                }).create().show();
                     }
 
                     @Override

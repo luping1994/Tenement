@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 
-
 /**
  * Created by Looney on 2017/2/20.
  */

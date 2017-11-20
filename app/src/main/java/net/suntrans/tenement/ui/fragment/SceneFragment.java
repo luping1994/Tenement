@@ -108,7 +108,7 @@ public class SceneFragment extends BasedFragment {
             ImageView imageView = helper.getView(R.id.image);
 //            System.out.println(item.name+","+item.img_url);
             Glide.with(context)
-                    .load(item.img_url)
+                    .load(item.image)
                     .centerCrop()
                     .override(UiUtils.INSTANCE.dip2px(36),UiUtils.INSTANCE.dip2px(36))
                     .crossFade()

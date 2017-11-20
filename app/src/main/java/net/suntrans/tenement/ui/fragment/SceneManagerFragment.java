@@ -112,7 +112,7 @@ public class SceneManagerFragment extends BasedFragment {
             helper.addOnClickListener(R.id.deleteScene);
             ImageView imageView = helper.getView(R.id.image);
             Glide.with(context)
-                    .load(item.img_url)
+                    .load(item.image)
                     .centerCrop()
                     .override(UiUtils.INSTANCE.dip2px(36), UiUtils.INSTANCE.dip2px(36))
                     .crossFade()

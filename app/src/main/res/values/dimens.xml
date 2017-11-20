@@ -7,7 +7,7 @@
     <dimen name="homw_page_shidu_m_rl">16dp</dimen>
     <dimen name="home_page_shidu_textSize">14sp</dimen>
     <dimen name="homepage_channel_fg_height">160dp</dimen>
-    <dimen name="homepage_fun_height">144dp</dimen>
+    <dimen name="homepage_fun_height">300dp</dimen>
     <dimen name="tileTextSize">18sp</dimen>
     <dimen name="mine_item_hight">45dp</dimen>
     <dimen name="content_textSize">16sp</dimen>

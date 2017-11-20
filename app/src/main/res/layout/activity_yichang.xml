@@ -28,7 +28,7 @@
             android:gravity="center"
             android:maxLength="6"
             android:maxLines="1"
-            android:text="反馈与建议"
+            android:text="异常提醒"
             android:textColor="@color/white"
             android:textSize="@dimen/actionBarTitleSize" />
 

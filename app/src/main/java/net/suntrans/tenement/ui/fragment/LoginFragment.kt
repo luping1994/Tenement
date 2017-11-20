@@ -102,7 +102,7 @@ class LoginFragment : BasedFragment() {
                                 .putString("manager",loginInfoResponse.data.user.manager)
                                 .commit()
                         val intent = Intent(activity,MainActivity::class.java)
-                        intent!!.putExtra("role_id","role_id")
+                        intent!!.putExtra("role_id",loginInfoResponse.data.user.role_id)
                         startActivity(intent)
                         activity.finish()
                     }

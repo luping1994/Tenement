@@ -10,10 +10,15 @@
         <item>@string/item_title_pay</item>
         <item>@string/item_title_publicmsg</item>
     </string-array>
-
+<!--1照明 2插座 3空调 4冰箱 5饮水机 6微波炉 7打印机 -->
     <string-array name="channelType">
         <item>照明</item>
         <item>插座</item>
+        <item>空调</item>
+        <item>冰箱</item>
+        <item>饮水机</item>
+        <item>微波炉</item>
+        <item>打印机</item>
 
     </string-array>
 

@@ -62,4 +62,15 @@ public class BasedActivity extends AppCompatActivity {
         onUnsubscribe();
         super.onDestroy();
     }
+
+    public void killAll() {
+        List<BasedActivity> copy;
+        synchronized (mlist) {
+            copy = new LinkedList<BasedActivity>(mlist);
+            for (BasedActivity a :
+                    copy) {
+                a.finish();
+            }
+        }
+    }
 }

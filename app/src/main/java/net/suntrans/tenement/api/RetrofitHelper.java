@@ -46,7 +46,7 @@ public class RetrofitHelper {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
                         String header = App.Companion.getMySharedPreferences().getString("token", "-1");
-                        System.out.println(header);
+//                        System.out.println(header);
                         Request original = chain.request();
 
                         RequestBody newBody = original.body();

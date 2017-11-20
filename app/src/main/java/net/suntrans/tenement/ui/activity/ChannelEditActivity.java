@@ -109,7 +109,7 @@ public class ChannelEditActivity extends BasedActivity {
 
     public void commit(View view) {
         String name = nameTx.getText().toString();
-        String type = spinner.getSelectedItemPosition() + 1 + "";
+        String type = (spinner.getSelectedItemPosition() + 1) + "";
         if (TextUtils.isEmpty(name)) {
             UiUtils.INSTANCE.showToast("名称不能为空");
             return;
@@ -118,7 +118,6 @@ public class ChannelEditActivity extends BasedActivity {
             UiUtils.INSTANCE.showToast("类型不能为空");
             return;
         }
-
         upDate(channel_id,name,type);
     }
 }

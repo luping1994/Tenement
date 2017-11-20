@@ -19,13 +19,10 @@ public class SceneItem {
      * device_title : 六通道
      */
 
-    public int dev_id;
-    public String dev_type;
     public int channel_id;
     public int status;
-    public int number;
-    public String channel_name;
     public int device_type;
-    public String device_name;
-    public String device_title;
+
+    public String name;
+    public String title;
 }

@@ -78,6 +78,8 @@ class RentMineFragment : Fragment(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.setting -> {
+                val intent = Intent(activity, SettingActivity::class.java)
+                startActivity(intent)
             }
             R.id.aotoControl -> {
                 val intent = Intent(activity, AutomationActivity::class.java)

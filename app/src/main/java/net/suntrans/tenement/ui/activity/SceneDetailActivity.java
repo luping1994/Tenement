@@ -217,9 +217,9 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
 
         @Override
         protected void convert(BaseViewHolder helper, SceneItem item) {
-            helper.setText(R.id.name, item.channel_name)
+            helper.setText(R.id.name, item.title)
                     .setText(R.id.status, item.status == 1 ? "打开" : "关闭")
-                    .setTextColor(R.id.name,item.status==1?
+                    .setTextColor(R.id.status,item.status==1?
                             Color.parseColor("#0989fe"):Color.parseColor("#fb5629"));
         }
     }

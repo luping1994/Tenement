@@ -102,8 +102,19 @@
         <activity
             android:name=".ui.activity.auto.AddAutoActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.auto.AddAutoByTime" />
-        <activity android:name=".ui.activity.auto.ChooseActionActivity" />
+        <activity
+            android:name=".ui.activity.auto.AddAutoByTime"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.auto.ChooseActionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.stuff.StuffProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
 </manifest>

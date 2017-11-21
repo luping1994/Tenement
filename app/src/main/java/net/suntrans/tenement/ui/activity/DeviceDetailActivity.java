@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
+import net.suntrans.tenement.DeviceType;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.adapter.DividerItemDecoration;
 import net.suntrans.tenement.api.RetrofitHelper;
@@ -48,15 +49,15 @@ public class DeviceDetailActivity extends BasedActivity {
                 finish();
             }
         });
-        TextView title =  findViewById(R.id.title);
+        TextView title = findViewById(R.id.title);
         title.setText(getIntent().getStringExtra("title"));
         datas = new ArrayList<>();
         dev_id = getIntent().getStringExtra("id");
-        RecyclerView recyclerView =  findViewById(R.id.recyclerview);
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
         myadapter = new Myadapter(R.layout.item_device_detail, datas);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(myadapter);
-        refreshLayout =  findViewById(R.id.refreshlayout);
+        refreshLayout = findViewById(R.id.refreshlayout);
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -69,9 +70,9 @@ public class DeviceDetailActivity extends BasedActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(DeviceDetailActivity.this, ChannelEditActivity.class);
                 intent.putExtra("id", datas.get(position).id);
-                System.out.println(datas.get(position).id);
-                intent.putExtra("title", datas.get(position).name);
+                intent.putExtra("title", datas.get(position).title);
                 intent.putExtra("channel_type", datas.get(position).device_type);
+                intent.putExtra("used", datas.get(position).used);
                 startActivity(intent);
             }
         });
@@ -79,21 +80,23 @@ public class DeviceDetailActivity extends BasedActivity {
 
     class Myadapter extends BaseQuickAdapter<ChannelInfo, BaseViewHolder> {
 
+        private int usedColor;
+        private int unusedColor;
+
         public Myadapter(int layoutResId, @Nullable List<ChannelInfo> data) {
             super(layoutResId, data);
+            usedColor = getResources().getColor(R.color.colorPrimary);
+            unusedColor = getResources().getColor(R.color.enenry_value_textcolr);
         }
 
         @Override
         protected void convert(BaseViewHolder helper, ChannelInfo item) {
-            helper.setText(R.id.name, item.name == null ? "--" : item.name)
-                    .setText(R.id.des, item.datapoint_name == null ? "--" : item.datapoint_name);
+            helper.setText(R.id.name, item.title == null ? "--" : item.title)
+                    .setText(R.id.des, item.name == null ? "--" : item.name)
+                    .setText(R.id.used, "1".equals(item.used) ? "已启用" : "未启用")
+                    .setTextColor(R.id.used, "1".equals(item.used) ? usedColor : unusedColor);
             ImageView imageView = helper.getView(R.id.image);
-            if ("1".equals(item.device_type)) {
-                imageView.setImageResource(R.drawable.ic_light1);
-            } else {
-                imageView.setImageResource(R.drawable.ic_socket);
-
-            }
+                imageView.setImageResource(DeviceType.deviceIcons.get(item.device_type));
         }
     }
 

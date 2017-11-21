@@ -30,10 +30,17 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/zhiwu"
+            android:id="@+id/mobile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="保安"
+            android:text=""
             android:textSize="15sp" />
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_arrow_right" />
 </RelativeLayout>

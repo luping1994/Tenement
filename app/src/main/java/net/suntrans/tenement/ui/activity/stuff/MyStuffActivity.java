@@ -63,6 +63,14 @@ public class MyStuffActivity extends BasedActivity {
                 finish();
             }
         });
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent();
+                intent.setClass(MyStuffActivity.this,StuffProfileActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -110,6 +118,7 @@ public class MyStuffActivity extends BasedActivity {
         @Override
         protected void convert(BaseViewHolder helper, Stuff item) {
             helper.setText(R.id.name, item.truename);
+            helper.setText(R.id.mobile, item.mobile==null?item.mobile:"--");
             final ImageView toxiang = helper.getView(R.id.touxiang);
             Glide.with(MyStuffActivity.this)
                     .load(item.cover)

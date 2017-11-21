@@ -8,20 +8,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import net.suntrans.tenement.App
-
 import net.suntrans.tenement.R
 import net.suntrans.tenement.Role
 import net.suntrans.tenement.databinding.FragmentMineBinding
+import net.suntrans.tenement.persistence.AppDatabase
+import net.suntrans.tenement.persistence.User
 import net.suntrans.tenement.ui.activity.*
 import net.suntrans.tenement.ui.activity.auto.AutomationActivity
 import net.suntrans.tenement.ui.activity.stuff.MyStuffActivity
+import net.suntrans.tenement.ui.fragment.BasedFragment
+import rx.Observable
+import rx.Subscriber
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
 /**
  * Created by Looney on 2017/11/8.
  * Des:
  */
 
-class RentMineFragment : Fragment(), View.OnClickListener {
+class RentMineFragment : BasedFragment(), View.OnClickListener {
 
     private var binding: FragmentMineBinding? = null
 
@@ -32,9 +38,9 @@ class RentMineFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        val manager = App.getMySharedPreferences()!!.getString("role_id", "1")
+        val manager = App.getMySharedPreferences()!!.getInt("role_id", Role.ROLE_RENT_ADMIN)
 
-        if (Role.ROLE_RENT_ADMIN.equals(manager)) {
+        if (Role.ROLE_RENT_ADMIN == manager) {
             binding!!.myShop.visibility = View.VISIBLE
         } else {
             binding!!.myShop.visibility = View.GONE
@@ -47,6 +53,30 @@ class RentMineFragment : Fragment(), View.OnClickListener {
         binding!!.aboutThis.setOnClickListener(this)
         binding!!.setting.setOnClickListener(this)
         binding!!.aotoControl.setOnClickListener(this)
+
+        val id = App.Companion.getMySharedPreferences()!!.getInt("id", 0)
+        println("用户id=" + id)
+        mCompositeSubscription.add(Observable.just(AppDatabase.getInstance(context)
+                .userDao())
+                .observeOn(Schedulers.io())
+                .flatMap { t -> Observable.just(t.getUserById(id)) }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(object : Subscriber<User>() {
+                    override fun onNext(user: User?) {
+                        binding!!.userName.setText(user!!.username)
+                        binding!!.telephone.setText(user!!.mobile)
+                    }
+
+                    override fun onCompleted() {
+                    }
+
+                    override fun onError(e: Throwable?) {
+                        e!!.printStackTrace()
+                    }
+
+                }))
+
     }
 
     override fun onClick(v: View) {

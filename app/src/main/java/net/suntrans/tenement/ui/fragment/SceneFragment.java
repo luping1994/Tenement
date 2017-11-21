@@ -54,7 +54,6 @@ public class SceneFragment extends BasedFragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        System.out.println("onViewCreated");
         datas = new ArrayList<>();
         adapter = new SceneAdapter(R.layout.item_scene, datas,getContext());
         binding.recyclerView.setAdapter(adapter);

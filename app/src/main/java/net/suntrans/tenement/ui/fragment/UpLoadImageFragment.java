@@ -83,7 +83,7 @@ public class UpLoadImageFragment extends BottomSheetDialogFragment implements Vi
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         view.findViewById(R.id.gallery).setOnClickListener(this);
         view.findViewById(R.id.takePhoto).setOnClickListener(this);
-        ll = (ImageView) view.findViewById(R.id.root);
+        ll =  view.findViewById(R.id.root);
         type = getArguments().getString("type");
     }
 
@@ -249,7 +249,8 @@ public class UpLoadImageFragment extends BottomSheetDialogFragment implements Vi
 
                     @Override
                     public void onError(Throwable e) {
-//                       super.onError(e);
+                       super.onError(e);
+//                        e.printStackTrace();
                         dialog.dismiss();
                         UiUtils.INSTANCE.showToast("上传图片失败!");
                     }

@@ -8,6 +8,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import net.suntrans.common.utils.UiUtils;
+import net.suntrans.looney.widgets.SwitchButton;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.api.RetrofitHelper;
 import net.suntrans.tenement.bean.ResultBody;
@@ -28,6 +29,8 @@ public class ChannelEditActivity extends BasedActivity {
     private Spinner spinner;
     private EditText nameTx;
     private String name;
+    private String used;
+    private SwitchButton button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,29 +38,25 @@ public class ChannelEditActivity extends BasedActivity {
         setContentView(R.layout.activity_channel_editor);
         channel_id = getIntent().getIntExtra("id",0)+"";
         channel_type = getIntent().getIntExtra("channel_type",0)+"";
-        spinner = (Spinner) findViewById(R.id.type);
-        nameTx = (EditText) findViewById(R.id.name);
+        used = getIntent().getStringExtra("used");
+        spinner =  findViewById(R.id.type);
+        nameTx =  findViewById(R.id.name);
         name = getIntent().getStringExtra("title");
         nameTx.setText(name);
-        nameTx.setSelection(name.length()>10?10:name.length());
 
+        button = findViewById(R.id.used);
+        button.setChecked("1".equals(used));
         findViewById(R.id.fanhui).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        TextView title = (TextView) findViewById(R.id.title);
+        TextView title =  findViewById(R.id.title);
         title.setText(getIntent().getStringExtra("title"));
 
-        if ("1".equals(channel_type)) {
-            spinner.setSelection(0);
-        } else if ("2".equals(channel_type)) {
-            spinner.setSelection(1, true);
-
-        } else {
-            spinner.setSelection(0);
-        }
+       int selection = Integer.valueOf(channel_type)-1;
+        spinner.setSelection(selection, false);
 
     }
 
@@ -74,7 +73,7 @@ public class ChannelEditActivity extends BasedActivity {
 
     boolean committing = false;
 
-    private void upDate(String id, String name, String channel_type) {
+    private void upDate(String id, String name, String channel_type,String used) {
 
         if (committing) {
             UiUtils.INSTANCE.showToast("正在修改请稍后...");
@@ -83,8 +82,9 @@ public class ChannelEditActivity extends BasedActivity {
 //        System.out.println(id+","+name+","+channel_type);
         Map<String, String> map = new HashMap<>();
         map.put("id", id);
-        map.put("name", name);
+        map.put("title", name);
         map.put("device_type", channel_type);
+        map.put("used", used);
         committing = true;
         addSubscription(RetrofitHelper.getApi().updateChannel(map), new BaseSubscriber<ResultBody>(this) {
             @Override
@@ -118,6 +118,6 @@ public class ChannelEditActivity extends BasedActivity {
             UiUtils.INSTANCE.showToast("类型不能为空");
             return;
         }
-        upDate(channel_id,name,type);
+        upDate(channel_id,name,type,button.isChecked()?"1":"0");
     }
 }

@@ -1,5 +1,7 @@
 package net.suntrans.tenement.api;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+
 import net.suntrans.looney.utils.LogUtil;
 import net.suntrans.tenement.App;
 import net.suntrans.tenement.converter.MyGsonConverterFactory;
@@ -72,6 +74,7 @@ public class RetrofitHelper {
                 if (mOkHttpClient == null) {
                     mOkHttpClient = new OkHttpClient.Builder()
                             .addInterceptor(netInterceptor)
+                            .addNetworkInterceptor(new StethoInterceptor())
                             .connectTimeout(8, TimeUnit.SECONDS)
                             .build();
                 }

@@ -30,7 +30,7 @@ public class LoginInfo {
         public int expires_in;
         public String access_token;
         public String refresh_token;
-        public String expires_time;
+        public long expires_time;
     }
 
 

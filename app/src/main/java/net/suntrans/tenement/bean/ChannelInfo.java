@@ -6,6 +6,7 @@ package net.suntrans.tenement.bean;
  */
 
 public class ChannelInfo {
+
     /**
      * id : 1054
      * name : 通道2
@@ -14,14 +15,14 @@ public class ChannelInfo {
      * device_type : 1
      * used : 1
      */
-
     public int id;
     public String name;
     public String datapoint_name;
     public String number;
     public int status;
-    public String device_type;
+    public int device_type;
     public String used;
+    public String title;
     //以下属性仅用作选择通道时候
     public boolean checked =false;
 }

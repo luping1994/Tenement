@@ -29,7 +29,7 @@
                 android:gravity="center"
                 android:maxLength="6"
                 android:maxLines="1"
-                android:text="个人信息"
+                android:text="员工信息"
                 android:textColor="@color/white"
                 android:textSize="@dimen/actionBarTitleSize" />
 
@@ -88,7 +88,6 @@
                         android:textSize="@dimen/content_textSize" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/touxiang"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:layout_centerVertical="true"
@@ -140,7 +139,7 @@
                         android:layout_height="@dimen/profile_item_hight"
                         android:layout_weight="1"
                         android:gravity="center|right"
-                        android:text="--"
+                        android:text="王大剑"
                         android:textSize="@dimen/profile_subtitle_textSize" />
 
                     <ImageView
@@ -184,7 +183,7 @@
                         android:layout_height="@dimen/profile_item_hight"
                         android:layout_weight="1"
                         android:gravity="center|right"
-                        android:text="--"
+                        android:text="15899694150"
                         android:textSize="@dimen/profile_subtitle_textSize" />
 
                     <ImageView
@@ -202,6 +201,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="20dp" />
 
+                <TextView
+                    android:id="@+id/deleteStuff"
+                    android:text="删除该员工"
+                    android:gravity="center"
+                    android:textColor="@color/enenry_value_textcolr"
+                    android:textSize="@dimen/content_textSize"
+                    android:background="@drawable/item_selector"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp" />
 
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

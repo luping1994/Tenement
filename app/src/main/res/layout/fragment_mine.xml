@@ -74,7 +74,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="top|left"
-                        android:text="15899694150"
+                        android:text="--"
                         android:textColor="@color/secondTextColor"
                         android:textSize="14sp" />
                 </LinearLayout>

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -26,6 +27,8 @@ import java.util.TimerTask;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+
+import static net.suntrans.tenement.DeviceType.deviceIcons;
 
 /**
  * Created by Looney on 2017/11/13.
@@ -73,9 +76,11 @@ public class ChannelFragment extends BasedFragment {
 
         @Override
         protected void convert(BaseViewHolder helper, ChannelInfo item) {
-            helper.setText(R.id.name, item.name);
-            View view = helper.getView(R.id.image);
-            view.setBackgroundResource(item.status == 1 ? R.drawable.bg_device_on : R.drawable.ic_bg_off);
+            helper.setText(R.id.name, item.title);
+            ImageView view = helper.getView(R.id.image);
+            View imageRl = helper.getView(R.id.imageRl);
+            view.setImageResource(deviceIcons.get(item.device_type));
+            imageRl.setBackgroundResource(item.status == 1 ? R.drawable.bg_device_on : R.drawable.ic_bg_off);
         }
     }
 

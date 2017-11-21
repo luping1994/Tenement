@@ -55,7 +55,6 @@
             android:orientation="horizontal">
 
             <TextView
-                android:background="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="16dp"
@@ -64,7 +63,7 @@
                 android:textColor="@color/black" />
 
             <EditText
-                android:background="@drawable/tx_border_bg"
+                android:background="@null"
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -104,6 +103,39 @@
                 android:layout_marginRight="16dp"
                 android:ellipsize="end"
                 android:entries="@array/channelType"
+                android:maxLength="16"
+                android:maxLines="1" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/item_press_true" />
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="是否启用"
+                android:textColor="@color/black" />
+
+            <net.suntrans.looney.widgets.SwitchButton
+                android:id="@+id/used"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:ellipsize="end"
+                android:entries="@array/channelType"
+                android:gravity="center"
                 android:maxLength="16"
                 android:maxLines="1" />
         </LinearLayout>

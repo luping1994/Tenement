@@ -1,13 +1,39 @@
 package net.suntrans.tenement.ui.activity;
 
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+
+import net.suntrans.common.utils.UiUtils;
+import net.suntrans.tenement.App;
 import net.suntrans.tenement.R;
+import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.databinding.ActivityProfileBinding;
+import net.suntrans.tenement.persistence.AppDatabase;
+import net.suntrans.tenement.persistence.User;
+import net.suntrans.tenement.persistence.UserDao;
+import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.fragment.UpLoadImageFragment;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Looney on 2017/11/19.
@@ -16,6 +42,7 @@ import net.suntrans.tenement.ui.fragment.UpLoadImageFragment;
 public class ProfileActivity extends BasedActivity implements View.OnClickListener, UpLoadImageFragment.onUpLoadListener {
 
     private ActivityProfileBinding binding;
+    private User user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,6 +57,52 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
         binding.llTouxiang.setOnClickListener(this);
         binding.llName.setOnClickListener(this);
         binding.llTelephone.setOnClickListener(this);
+        getDataFromLocal();
+    }
+
+    private void getDataFromLocal() {
+        final int id = App.Companion.getMySharedPreferences().getInt("id", 0);
+       mCompositeSubscription.add( Observable.just(AppDatabase.getInstance(this)
+               .userDao())
+               .observeOn(Schedulers.io())
+               .flatMap(new Func1<UserDao, Observable<User>>() {
+                   @Override
+                   public Observable<User> call(UserDao userDao) {
+                       User userById = userDao.getUserById(id);
+                       return Observable.just(userById);
+                   }
+               })
+               .subscribeOn(Schedulers.io())
+               .observeOn(AndroidSchedulers.mainThread())
+               .subscribe(new Subscriber<User>() {
+                   @Override
+                   public void onCompleted() {
+
+                   }
+
+                   @Override
+                   public void onError(Throwable e) {
+
+                   }
+
+                   @Override
+                   public void onNext(User info) {
+                       user = info;
+                       binding.name.setText(user.username);
+                       binding.telephone.setText(user.mobile);
+                       Glide.with(ProfileActivity.this)
+                               .load(user.cover)
+                               .asBitmap()
+                               .override(UiUtils.INSTANCE.dip2px(36), UiUtils.INSTANCE.dip2px(36))
+                               .into(new SimpleTarget<Bitmap>() {
+                                   @Override
+                                   public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                                       binding.touxiang.setImageBitmap(resource);
+                                   }
+                               });
+
+                   }
+               }));
     }
 
     @Override
@@ -39,10 +112,62 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
                 showUploadBottomSheet();
                 break;
             case R.id.llName:
+                showModifyNameDialog();
                 break;
             case R.id.llTelephone:
+                showModifyMobileDialog();
                 break;
         }
+    }
+
+    private void showModifyNameDialog() {
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_change_name,null,false);
+        TextView text = view.findViewById(R.id.text);
+        final String s = text.getText().toString();
+        new AlertDialog.Builder(this)
+                .setTitle("修改姓名")
+                .setView(view)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (TextUtils.isEmpty(s)){
+                            UiUtils.INSTANCE.showToast("请输入姓名");
+                            return;
+                        }
+                        user.nickname = s;
+                        updateProfile();
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).create().show();
+    }
+
+    private void showModifyMobileDialog() {
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_change_phone, null, false);
+        TextView text = view.findViewById(R.id.text);
+        final String s = text.getText().toString();
+        new AlertDialog.Builder(this)
+                .setTitle("修改手机号")
+                .setView(view)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (TextUtils.isEmpty(s)) {
+                            UiUtils.INSTANCE.showToast("请输入手机号码");
+                            return;
+                        }
+                        user.mobile = s;
+                        updateProfile();
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).create().show();
     }
 
     UpLoadImageFragment fragment;
@@ -60,6 +185,25 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
 
     @Override
     public void uploadImageSuccess(String path) {
+        UiUtils.INSTANCE.showToast(path);
+        user.cover = path;
+        updateProfile();
+    }
 
+    private void updateProfile(){
+        Map<String,String> map = new HashMap<>();
+        map.put("nickname",user.nickname);
+        map.put("cover",user.cover);
+        map.put("mobile",user.mobile);
+        api.updateProfile(map)
+                .observeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new BaseSubscriber<ResultBody>(this){
+                    @Override
+                    public void onNext(ResultBody resultBody) {
+                        super.onNext(resultBody);
+
+                    }
+                });
     }
 }

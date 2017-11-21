@@ -11,5 +11,6 @@ public class Stuff {
     public String username;
     public String truename;
     public String nickname;
+    public String mobile;
     public String cover;
 }

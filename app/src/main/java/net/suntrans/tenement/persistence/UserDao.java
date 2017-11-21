@@ -17,36 +17,32 @@
 package net.suntrans.tenement.persistence;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
+
+import java.util.List;
+
+import rx.Observable;
 
 /**
  * Data Access Object for the users table.
  */
 @Dao
 public interface UserDao {
+    @Query("SELECT * FROM user")
+    List<User> getAll();
 
-    /**
-     * Get the user from the table. Since, for simplicity we only have one user in the database,
-     * this query gets all users from the table, but limits the result to just the 1st user.
-     *
-     * @return the user from the table
-     */
-    @Query("SELECT * FROM Users LIMIT 1")
-    rx.Observable<User> getUser();
+    @Query("SELECT * FROM user WHERE id = :id")
+    User getUserById(int id);
 
-    /**
-     * Insert a user in the database. If the user already exists, replace it.
-     *
-     * @param user the user to be inserted.
-     */
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertUser(User user);
+    @Insert
+    void insertAll(User... users);
 
-    /**
-     * Delete all users.
-     */
-    @Query("DELETE FROM Users")
-    void deleteAllUsers();
+    @Delete()
+    void delete(User user);
+
+    @Update
+    void updateUser(User user);
 }

@@ -20,7 +20,7 @@ class MainActivity : BasedActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        val role = intent.getStringExtra("role_id")
+        val role = intent.getIntExtra("role_id",Role.ROLE_RENT_ADMIN)
         when (role) {
             Role.ROLE_RENT_ADMIN -> {
                 val rentMainFragment = RentMainFragment()
@@ -61,5 +61,10 @@ class MainActivity : BasedActivity() {
 
         PgyUpdateManager.register(this,"net.suntrans.tenement.fileProvider")
 
+    }
+
+    override fun onDestroy() {
+        PgyUpdateManager.unregister()
+        super.onDestroy()
     }
 }

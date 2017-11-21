@@ -2,6 +2,8 @@ package net.suntrans.tenement
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
+import net.suntrans.tenement.persistence.AppDatabase
+import net.suntrans.tenement.persistence.User
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,5 +22,19 @@ class ExampleInstrumentedTest {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
         assertEquals("net.suntrans.tenement", appContext.packageName)
+    }
+
+    @Test
+    fun appDatabase(){
+        val appContext = InstrumentationRegistry.getTargetContext()
+
+        val instance = AppDatabase.getInstance(appContext)
+
+        val use =User()
+        use.id=59
+       instance.userDao().delete(use)
+
+
+
     }
 }

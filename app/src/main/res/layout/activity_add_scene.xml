@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
-
+<layout>
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
@@ -25,9 +24,10 @@
 
                     <RelativeLayout
                         android:id="@+id/back"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
                         android:layout_width="48dp"
-                        android:layout_height="48dp">
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin">
+
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -90,10 +90,11 @@
 
                         <ImageView
                             android:id="@+id/bgImg"
-                            android:background="@drawable/circle_border"
-                            android:layout_centerInParent="true"
                             android:layout_width="72dp"
-                            android:layout_height="72dp" />
+                            android:layout_height="72dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/circle_border" />
+
                         <ImageView
                             android:id="@+id/sceneImg"
                             android:layout_width="36dp"
@@ -109,7 +110,6 @@
                         android:background="@color/white">
 
                         <EditText
-                            android:textSize="16sp"
                             android:id="@+id/sceneName"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
@@ -120,7 +120,8 @@
                             android:gravity="center_vertical"
                             android:hint="输入场景名称"
                             android:paddingLeft="@dimen/activity_horizontal_margin"
-                            android:paddingRight="@dimen/activity_horizontal_margin" />
+                            android:paddingRight="@dimen/activity_horizontal_margin"
+                            android:textSize="16sp" />
                     </RelativeLayout>
 
                     <TextView
@@ -144,10 +145,10 @@
                         android:textColor="@color/colorAccent" />
 
                     <android.support.v7.widget.RecyclerView
-                        app:layoutManager="LinearLayoutManager"
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        app:layoutManager="LinearLayoutManager">
 
                     </android.support.v7.widget.RecyclerView>
                 </LinearLayout>

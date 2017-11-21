@@ -107,6 +107,7 @@ public interface Api {
 
     /**
      * 添加员工
+     *
      * @param map
      * @return
      */
@@ -118,9 +119,13 @@ public interface Api {
     Observable<ResultBody<StuffEntity>> getMyStuff();
 
 
+    @FormUrlEncoded
+    @POST("user/profile")
+    Observable<ResultBody> updateProfile(@FieldMap Map<String, String> map);
+
 
     @Multipart
-    @POST("upload/images")
+    @POST("user/cover/upload")
     Observable<ResultBody<UploadInfo>> upload(
             @Part MultipartBody.Part image);
 }

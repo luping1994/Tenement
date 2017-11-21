@@ -25,18 +25,18 @@ import android.content.Context;
  * The Room database that contains the Users table
  */
 @Database(entities = {User.class}, version = 1)
-public abstract class UsersDatabase extends RoomDatabase {
+public abstract class AppDatabase extends RoomDatabase {
 
-    private static UsersDatabase INSTANCE;
+    private static AppDatabase INSTANCE;
 
     public abstract UserDao userDao();
 
-    public static UsersDatabase getInstance(Context context) {
+    public static AppDatabase getInstance(Context context) {
         if (INSTANCE == null) {
-            synchronized (UsersDatabase.class) {
+            synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            UsersDatabase.class, "STtenement.db")
+                            AppDatabase.class, "STtenement")
                             .build();
                 }
             }

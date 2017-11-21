@@ -9,13 +9,16 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.view.WindowManager;
 
+import net.suntrans.common.utils.LogUtil;
 import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.App;
 import net.suntrans.tenement.MainActivity;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.bean.LoginInfo;
 import net.suntrans.tenement.bean.ResultBody;
+import net.suntrans.tenement.persistence.AppDatabase;
 import net.suntrans.tenement.rx.BaseSubscriber;
 
 import java.util.ArrayList;
@@ -24,7 +27,9 @@ import java.util.List;
 import me.weyye.hipermission.HiPermission;
 import me.weyye.hipermission.PermissionCallback;
 import me.weyye.hipermission.PermissonItem;
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 
@@ -34,7 +39,7 @@ import rx.schedulers.Schedulers;
 
 public class WelcomeActivity extends BasedActivity {
 
-    private String role_id;
+    private int role_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,7 @@ public class WelcomeActivity extends BasedActivity {
             finish();
             return;
         }
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
         init();
     }
@@ -65,40 +71,49 @@ public class WelcomeActivity extends BasedActivity {
         ischeck = true;
         String username = App.Companion.getMySharedPreferences().getString("username", "");
         String password = App.Companion.getMySharedPreferences().getString("password", "");
-        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+        String token = App.Companion.getMySharedPreferences().getString("token", "");
+        long expires_time = App.Companion.getMySharedPreferences().getLong("expires_time", 0);
+
+        LogUtil.INSTANCE.i("过期时间"+expires_time+"");
+        LogUtil.INSTANCE.i("当前时间"+System.currentTimeMillis() +"");
+        if (System.currentTimeMillis() >expires_time  || expires_time == 0 || TextUtils.isEmpty(token)) {
             handler.sendEmptyMessageDelayed(START_LOGIN, 2000);
-            return;
+        } else {
+            handler.sendEmptyMessageDelayed(START_MAIN, 2000);
         }
-        mCompositeSubscription.add(api.login(username, password)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<ResultBody<LoginInfo>>(this) {
-                    @Override
-                    public void onNext(ResultBody<LoginInfo> loginInfoResultBody) {
-                        super.onNext(loginInfoResultBody);
-                        role_id = loginInfoResultBody.data.user.role_id;
-                        App.Companion.getMySharedPreferences().edit()
-                                .putString("token", loginInfoResultBody.data.token.access_token)
-                                .putString("role_id", role_id)
-
-                                .commit();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-                                intent.putExtra("role_id", role_id);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }, 2000);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        handler.sendEmptyMessageDelayed(START_LOGIN, 2000);
-                    }
-                }));
+//        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+//            handler.sendEmptyMessageDelayed(START_LOGIN, 2000);
+//            return;
+//        }
+//        mCompositeSubscription.add(api.login(username, password)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new BaseSubscriber<ResultBody<LoginInfo>>(this) {
+//                    @Override
+//                    public void onNext(ResultBody<LoginInfo> loginInfoResultBody) {
+//                        role_id = loginInfoResultBody.data.user.role_id;
+//                        App.Companion.getMySharedPreferences().edit()
+//                                .putString("token", loginInfoResultBody.data.token.access_token)
+//                                .putInt("role_id", role_id)
+//                                .commit();
+//
+//                        handler.postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+//                                intent.putExtra("role_id", role_id);
+//                                startActivity(intent);
+//                                finish();
+//                            }
+//                        }, 2000);
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        super.onError(e);
+//                        handler.sendEmptyMessageDelayed(START_LOGIN, 2000);
+//                    }
+//                }));
 
     }
 

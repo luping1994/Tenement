@@ -10,12 +10,20 @@ import android.view.View;
 import net.suntrans.tenement.App;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.databinding.ActivitySettingBinding;
+import net.suntrans.tenement.persistence.AppDatabase;
+import net.suntrans.tenement.persistence.User;
+import net.suntrans.tenement.persistence.UserDao;
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 
 public class SettingActivity extends BasedActivity {
 
     private ActivitySettingBinding binding;
-
 
 
     @Override
@@ -32,7 +40,7 @@ public class SettingActivity extends BasedActivity {
     }
 
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.signOut:
                 new AlertDialog.Builder(this)
                         .setMessage("注销登录")
@@ -50,13 +58,43 @@ public class SettingActivity extends BasedActivity {
     }
 
     private void signOut() {
-        App.Companion.getMySharedPreferences().edit()
-                .putString("password","")
-                .putString("token","")
-                .putString("role_id","")
-                .commit();
-        killAll();
-        startActivity(new Intent(this,LoginActivity.class));
+
+        final int id = App.Companion.getMySharedPreferences().getInt("id", 0);
+        final User user = new User();
+        user.id = id;
+        mCompositeSubscription.add(Observable.just(AppDatabase.getInstance(this)
+                .userDao())
+                .observeOn(Schedulers.io())
+                .map(new Func1<UserDao, String>() {
+                    @Override
+                    public String call(UserDao userDao) {
+                        userDao.delete(user);
+                        return "ok";
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        App.Companion.getMySharedPreferences().edit()
+                                .clear()
+                                .commit();
+                        killAll();
+                        startActivity(new Intent(SettingActivity.this, LoginActivity.class));
+                    }
+                }));
+
     }
 
 

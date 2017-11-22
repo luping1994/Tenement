@@ -22,6 +22,10 @@ import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.DutyActivity;
 import net.suntrans.tenement.ui.activity.EnergyConsumeActivity;
 import net.suntrans.tenement.ui.activity.SceneActivity;
+import net.suntrans.tenement.ui.activity.admin.CompanyManagerActivity;
+import net.suntrans.tenement.ui.activity.rent.MessageActivity;
+import net.suntrans.tenement.ui.activity.rent.PaymentActivity;
+import net.suntrans.tenement.ui.activity.rent.RepairActivity;
 import net.suntrans.tenement.ui.fragment.BasedFragment;
 import net.suntrans.tenement.ui.fragment.ChannelFragment;
 
@@ -73,7 +77,7 @@ public class RentHomepageFragment extends BasedFragment {
         binding.gridLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
+                switch (position) {
                     case 0:
                         Intent intent = new Intent(getActivity(), SceneActivity.class);
                         startActivity(intent);
@@ -82,9 +86,25 @@ public class RentHomepageFragment extends BasedFragment {
                         Intent intent1 = new Intent(getActivity(), EnergyConsumeActivity.class);
                         startActivity(intent1);
                         break;
+                    case 2:
+                        Intent intent2 = new Intent(getActivity(), MessageActivity.class);
+                        startActivity(intent2);
+                        break;
+                    case 3:
+                        Intent intent3 = new Intent(getActivity(), PaymentActivity.class);
+                        startActivity(intent3);
+                        break;
+                    case 4:
+                        Intent intent4 = new Intent(getActivity(), RepairActivity.class);
+                        startActivity(intent4);
+                        break;
                     case 5:
                         Intent intent5 = new Intent(getActivity(), DutyActivity.class);
                         startActivity(intent5);
+                        break;
+                    case 8:
+                        Intent intent8 = new Intent(getActivity(), CompanyManagerActivity.class);
+                        startActivity(intent8);
                         break;
                 }
             }
@@ -100,7 +120,7 @@ public class RentHomepageFragment extends BasedFragment {
                     public void run() {
                         binding.refreshLayout.setRefreshing(false);
                     }
-                },500);
+                }, 500);
             }
         });
     }
@@ -131,18 +151,18 @@ public class RentHomepageFragment extends BasedFragment {
         super.onResume();
     }
 
-    private void getEnv(){
-      mCompositeSubscription.add(  api.getHomeEnv()
-              .observeOn(AndroidSchedulers.mainThread())
-              .subscribeOn(Schedulers.io())
-              .subscribe(new BaseSubscriber<ResultBody<EnvInfo>>(getContext()){
-                  @Override
-                  public void onNext(ResultBody<EnvInfo> info) {
-                      binding.wendu.setText(info.data.wendu.value);
-                      binding.shidu.setText("湿度:"+info.data.shidu.value+"%");
-                      binding.pm25.setText("PM25:"+info.data.pm25.value+"");
-                  }
-              }));
+    private void getEnv() {
+        mCompositeSubscription.add(api.getHomeEnv()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new BaseSubscriber<ResultBody<EnvInfo>>(getContext()) {
+                    @Override
+                    public void onNext(ResultBody<EnvInfo> info) {
+                        binding.wendu.setText(info.data.wendu.value);
+                        binding.shidu.setText("湿度:" + info.data.shidu.value + "%");
+                        binding.pm25.setText("PM25:" + info.data.pm25.value + "");
+                    }
+                }));
     }
 
 }

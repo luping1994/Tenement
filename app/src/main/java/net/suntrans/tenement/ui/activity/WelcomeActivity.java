@@ -133,8 +133,10 @@ public class WelcomeActivity extends BasedActivity {
                 finish();
             }
             if (msg.what == START_MAIN) {
-                System.out.println("startMain");
-                startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                int role_id = App.Companion.getMySharedPreferences().getInt("role_id", 0);
+                Intent intent =new Intent(WelcomeActivity.this, MainActivity.class);
+                intent.putExtra("role_id",role_id);
+                startActivity(intent);
                 finish();
             }
         }

@@ -64,7 +64,7 @@ class RentMineFragment : BasedFragment(), View.OnClickListener {
                 .subscribeOn(Schedulers.io())
                 .subscribe(object : Subscriber<User>() {
                     override fun onNext(user: User?) {
-                        binding!!.userName.setText(user!!.username)
+                        binding!!.userName.setText(user!!.truename)
                         binding!!.telephone.setText(user!!.mobile)
                     }
 

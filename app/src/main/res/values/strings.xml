@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">三川物业</string>
+    <string name="app_name">三川孵化器</string>
 
     <string name="title_login">登录</string>
     <string name="title_register">注册</string>
@@ -12,6 +12,8 @@
     <string name="item_title_zhibanbiao">值班表</string>
     <string name="item_title_pay">物业缴费</string>
     <string name="item_title_publicmsg">公告消息</string>
+    <string name="item_title_company">企业入驻</string>
+
     <string name="abc">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.~!</string>
     <string name="contacts_way">服务热线:020-8636-1851</string>
     <string name="company_name_CH">广州三川控制系统工程设备有限公司</string>

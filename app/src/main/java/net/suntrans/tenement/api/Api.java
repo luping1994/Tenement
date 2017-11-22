@@ -10,6 +10,7 @@ import net.suntrans.tenement.bean.SceneEntity;
 import net.suntrans.tenement.bean.SceneImage;
 import net.suntrans.tenement.bean.SceneItem;
 import net.suntrans.tenement.bean.SceneItemlEntity;
+import net.suntrans.tenement.bean.Stuff;
 import net.suntrans.tenement.bean.StuffEntity;
 import net.suntrans.tenement.bean.UploadInfo;
 
@@ -120,8 +121,21 @@ public interface Api {
 
 
     @FormUrlEncoded
+    @POST("company/user/edit")
+    Observable<ResultBody<Stuff>> getStuffProfile(@Field("id") String id);
+
+
+    @FormUrlEncoded
     @POST("user/profile")
     Observable<ResultBody> updateProfile(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST("company/user/delete")
+    Observable<ResultBody> deleteStuff(@Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("company/user/update")
+    Observable<ResultBody> updateStuffProfile(@FieldMap Map<String, String> map);
 
 
     @Multipart

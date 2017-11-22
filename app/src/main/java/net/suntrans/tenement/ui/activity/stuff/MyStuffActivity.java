@@ -45,8 +45,6 @@ public class MyStuffActivity extends BasedActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_mystuff);
         datas = new ArrayList<>();
-        adapter = new StuffAdapter(R.layout.item_stuff, datas);
-        binding.recyclerview.setAdapter(adapter);
         binding.refreshlayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         binding.refreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -54,8 +52,7 @@ public class MyStuffActivity extends BasedActivity {
                 getData();
             }
         });
-        adapter.bindToRecyclerView(binding.recyclerview);
-        adapter.setEmptyView(R.layout.recyclerview_empty_view);
+
         binding.recyclerview.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,10 +60,16 @@ public class MyStuffActivity extends BasedActivity {
                 finish();
             }
         });
+        adapter = new StuffAdapter(R.layout.item_stuff, datas);
+        adapter.bindToRecyclerView(binding.recyclerview);
+        adapter.setEmptyView(R.layout.recyclerview_empty_view);
+        binding.recyclerview.setAdapter(adapter);
+
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
+                intent.putExtra("id",datas.get(position).id);
                 intent.setClass(MyStuffActivity.this,StuffProfileActivity.class);
                 startActivity(intent);
             }
@@ -118,7 +121,7 @@ public class MyStuffActivity extends BasedActivity {
         @Override
         protected void convert(BaseViewHolder helper, Stuff item) {
             helper.setText(R.id.name, item.truename);
-            helper.setText(R.id.mobile, item.mobile==null?item.mobile:"--");
+            helper.setText(R.id.mobile, item.mobile==null?"--":item.mobile);
             final ImageView toxiang = helper.getView(R.id.touxiang);
             Glide.with(MyStuffActivity.this)
                     .load(item.cover)
@@ -134,5 +137,7 @@ public class MyStuffActivity extends BasedActivity {
 
         }
     }
+
+
 
 }

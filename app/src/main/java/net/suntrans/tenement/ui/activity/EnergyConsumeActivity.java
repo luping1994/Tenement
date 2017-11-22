@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.github.mikephil.charting.components.AxisBase;
@@ -49,6 +50,10 @@ public class EnergyConsumeActivity extends BasedActivity {
     }
 
     private void initView() {
+        String title = getIntent().getStringExtra("title");
+        if (!TextUtils.isEmpty(title)){
+            binding.title.setText(title);
+        }
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +73,13 @@ public class EnergyConsumeActivity extends BasedActivity {
                         setYearData();
                     }
                 },900);
+            }
+        });
+
+        binding.textView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }

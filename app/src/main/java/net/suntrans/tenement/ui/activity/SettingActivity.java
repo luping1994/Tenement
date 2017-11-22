@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
+import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.App;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.databinding.ActivitySettingBinding;
@@ -53,6 +57,9 @@ public class SettingActivity extends BasedActivity {
                         .setNegativeButton(R.string.qvxiao, null)
                         .create().show();
                 break;
+            case R.id.modifyPassword:
+                showModifyPasswordDialog();
+                break;
         }
 
     }
@@ -82,7 +89,7 @@ public class SettingActivity extends BasedActivity {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        e.printStackTrace();
                     }
 
                     @Override
@@ -95,6 +102,30 @@ public class SettingActivity extends BasedActivity {
                     }
                 }));
 
+    }
+
+    private void showModifyPasswordDialog() {
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_modify_password, null, false);
+        TextView text = view.findViewById(R.id.oldPassword);
+        final String s = text.getText().toString();
+        new AlertDialog.Builder(this)
+                .setTitle("修改密码")
+                .setView(view)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (TextUtils.isEmpty(s)) {
+                            UiUtils.INSTANCE.showToast("请输入旧密码");
+                            return;
+                        }
+
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).create().show();
     }
 
 

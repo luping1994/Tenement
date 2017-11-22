@@ -17,6 +17,7 @@ public class User {
     public int area_id;
     public String username;
     public String nickname;
+    public String truename;
     public String cover;
     public String mobile;
     public int login;

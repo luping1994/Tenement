@@ -53,6 +53,8 @@ public class ChannelFragment extends BasedFragment {
         datas = new ArrayList<>();
         adapter = new ChannelAdapter(R.layout.item_channel, datas);
         binding.recyclerView.setAdapter(adapter);
+        adapter.bindToRecyclerView(binding.recyclerView);
+        adapter.setEmptyView(R.layout.recyclerview_empty_view);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

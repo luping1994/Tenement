@@ -15,7 +15,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import net.suntrans.tenement.DeviceType;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.adapter.DividerItemDecoration;
-import net.suntrans.tenement.api.RetrofitHelper;
 import net.suntrans.tenement.bean.ChannelEntity;
 import net.suntrans.tenement.bean.ChannelInfo;
 import net.suntrans.tenement.bean.ResultBody;
@@ -42,7 +41,7 @@ public class DeviceDetailActivity extends BasedActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_device_detail);
+        setContentView(R.layout.activity_device_moni_detail);
         findViewById(R.id.fanhui).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +53,7 @@ public class DeviceDetailActivity extends BasedActivity {
         datas = new ArrayList<>();
         dev_id = getIntent().getStringExtra("id");
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        myadapter = new Myadapter(R.layout.item_device_detail, datas);
+        myadapter = new Myadapter(R.layout.item_device_moni_detail, datas);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(myadapter);
         refreshLayout = findViewById(R.id.refreshlayout);

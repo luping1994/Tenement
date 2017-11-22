@@ -25,12 +25,10 @@ class MainActivity : BasedActivity() {
             Role.ROLE_RENT_ADMIN -> {
                 val rentMainFragment = RentMainFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.content, rentMainFragment).commit()
-                println("role = rent")
             }
             Role.ROLE_STUFF-> {
                 val rentMainFragment = RentMainFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.content, rentMainFragment).commit()
-                println("role = rent")
             }
             Role.ROLE_TENEMENT_ADMIN -> {
                 val adminMainFragment = AdminMainFragment()

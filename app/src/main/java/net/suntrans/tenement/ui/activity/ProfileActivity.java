@@ -62,47 +62,47 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
 
     private void getDataFromLocal() {
         final int id = App.Companion.getMySharedPreferences().getInt("id", 0);
-       mCompositeSubscription.add( Observable.just(AppDatabase.getInstance(this)
-               .userDao())
-               .observeOn(Schedulers.io())
-               .flatMap(new Func1<UserDao, Observable<User>>() {
-                   @Override
-                   public Observable<User> call(UserDao userDao) {
-                       User userById = userDao.getUserById(id);
-                       return Observable.just(userById);
-                   }
-               })
-               .subscribeOn(Schedulers.io())
-               .observeOn(AndroidSchedulers.mainThread())
-               .subscribe(new Subscriber<User>() {
-                   @Override
-                   public void onCompleted() {
+        mCompositeSubscription.add(Observable.just(AppDatabase.getInstance(this)
+                .userDao())
+                .observeOn(Schedulers.io())
+                .flatMap(new Func1<UserDao, Observable<User>>() {
+                    @Override
+                    public Observable<User> call(UserDao userDao) {
+                        User userById = userDao.getUserById(id);
+                        return Observable.just(userById);
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<User>() {
+                    @Override
+                    public void onCompleted() {
 
-                   }
+                    }
 
-                   @Override
-                   public void onError(Throwable e) {
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
 
-                   }
+                    @Override
+                    public void onNext(User info) {
+                        user = info;
+                        binding.name.setText(user.truename);
+                        binding.telephone.setText(user.mobile);
+                        Glide.with(ProfileActivity.this)
+                                .load(user.cover)
+                                .asBitmap()
+                                .override(UiUtils.INSTANCE.dip2px(36), UiUtils.INSTANCE.dip2px(36))
+                                .into(new SimpleTarget<Bitmap>() {
+                                    @Override
+                                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                                        binding.touxiang.setImageBitmap(resource);
+                                    }
+                                });
 
-                   @Override
-                   public void onNext(User info) {
-                       user = info;
-                       binding.name.setText(user.username);
-                       binding.telephone.setText(user.mobile);
-                       Glide.with(ProfileActivity.this)
-                               .load(user.cover)
-                               .asBitmap()
-                               .override(UiUtils.INSTANCE.dip2px(36), UiUtils.INSTANCE.dip2px(36))
-                               .into(new SimpleTarget<Bitmap>() {
-                                   @Override
-                                   public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                                       binding.touxiang.setImageBitmap(resource);
-                                   }
-                               });
-
-                   }
-               }));
+                    }
+                }));
     }
 
     @Override
@@ -121,16 +121,18 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
     }
 
     private void showModifyNameDialog() {
-        View view = LayoutInflater.from(this).inflate(R.layout.dialog_change_name,null,false);
-        TextView text = view.findViewById(R.id.text);
-        final String s = text.getText().toString();
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_change_name, null, false);
+        final TextView text = view.findViewById(R.id.text);
         new AlertDialog.Builder(this)
                 .setTitle("修改姓名")
                 .setView(view)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (TextUtils.isEmpty(s)){
+                        String s = text.getText().toString();
+
+                        System.out.println(s);
+                        if (TextUtils.isEmpty(s)) {
                             UiUtils.INSTANCE.showToast("请输入姓名");
                             return;
                         }
@@ -147,14 +149,14 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
 
     private void showModifyMobileDialog() {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_change_phone, null, false);
-        TextView text = view.findViewById(R.id.text);
-        final String s = text.getText().toString();
+       final TextView text = view.findViewById(R.id.text);
         new AlertDialog.Builder(this)
                 .setTitle("修改手机号")
                 .setView(view)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                         String s = text.getText().toString();
                         if (TextUtils.isEmpty(s)) {
                             UiUtils.INSTANCE.showToast("请输入手机号码");
                             return;
@@ -190,19 +192,25 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
         updateProfile();
     }
 
-    private void updateProfile(){
-        Map<String,String> map = new HashMap<>();
-        map.put("nickname",user.nickname);
-        map.put("cover",user.cover);
-        map.put("mobile",user.mobile);
+    private void updateProfile() {
+        Map<String, String> map = new HashMap<>();
+        map.put("nickname", user.nickname);
+        map.put("cover", user.cover);
+        map.put("mobile", user.mobile);
         api.updateProfile(map)
-                .observeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new BaseSubscriber<ResultBody>(this){
+                .subscribe(new BaseSubscriber<ResultBody>(this) {
                     @Override
                     public void onNext(ResultBody resultBody) {
                         super.onNext(resultBody);
+                        UiUtils.INSTANCE.showToast(resultBody.msg);
+                    }
 
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        e.printStackTrace();
                     }
                 });
     }

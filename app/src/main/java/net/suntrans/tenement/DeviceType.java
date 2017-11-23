@@ -24,7 +24,7 @@ public class DeviceType {
         deviceIcons.put(SOCKET, R.drawable.ic_socket);
         deviceIcons.put(AIR_CONDITIONER, R.drawable.ic_kongtiao);
         deviceIcons.put(FRIDGE, R.drawable.ic_bingxiang);
-        deviceIcons.put(WATER, R.drawable.ic_xiyiji);
+        deviceIcons.put(WATER, R.drawable.ic_yinshuiji);
         deviceIcons.put(MICRO_WAVE, R.drawable.ic_weibolu);
         deviceIcons.put(PRINTER, R.drawable.ic_dayinji);
     }

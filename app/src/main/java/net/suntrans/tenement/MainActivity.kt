@@ -1,12 +1,8 @@
 package net.suntrans.tenement
 
 import android.databinding.DataBindingUtil
-import android.databinding.DataBindingUtil.setContentView
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.util.DisplayMetrics
 import com.pgyersdk.update.PgyUpdateManager
-import net.suntrans.common.utils.StatusBarCompat
 import net.suntrans.tenement.databinding.ActivityMainBinding
 import net.suntrans.tenement.ui.activity.BasedActivity
 import net.suntrans.tenement.ui.fragment.admin.AdminMainFragment

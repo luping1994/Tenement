@@ -123,7 +123,7 @@
         <activity android:name=".ui.activity.admin.MoniDetailActivity" />
         <activity android:name=".ui.activity.rent.PaymentActivity" />
         <activity android:name=".ui.activity.rent.MessageActivity" />
-        <activity android:name=".ui.activity.rent.RepairActivity" />
+        <activity android:name=".ui.activity.rent.RepairActivity" android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

@@ -12,8 +12,8 @@
 
         <RelativeLayout
             android:id="@+id/imageRl"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/bg_device_on"
             android:scaleType="centerInside">

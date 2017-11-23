@@ -20,15 +20,19 @@
                 android:layout_height="@dimen/action_bar_size"
                 android:background="@color/colorPrimary">
 
-                <ImageView
+                <RelativeLayout
                     android:id="@+id/back"
-                    android:layout_width="wrap_content"
+                    android:layout_width="60dp"
                     android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:background="@drawable/ripple"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_back" />
+                    android:background="@drawable/ripple">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="14dp"
+                        android:src="@drawable/ic_back" />
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/title"

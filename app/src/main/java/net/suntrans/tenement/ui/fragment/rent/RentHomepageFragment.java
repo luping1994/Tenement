@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.SimpleAdapter;
 
+import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.bean.EnvInfo;
 import net.suntrans.tenement.bean.ResultBody;
@@ -21,6 +22,7 @@ import net.suntrans.tenement.databinding.FragmentRentHomepageBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.DutyActivity;
 import net.suntrans.tenement.ui.activity.EnergyConsumeActivity;
+import net.suntrans.tenement.ui.activity.EnvDetailActivity;
 import net.suntrans.tenement.ui.activity.SceneActivity;
 import net.suntrans.tenement.ui.activity.admin.CompanyManagerActivity;
 import net.suntrans.tenement.ui.activity.rent.MessageActivity;
@@ -44,13 +46,14 @@ public class RentHomepageFragment extends BasedFragment {
 
     private FragmentRentHomepageBinding binding;
 
-    private String[] funName = {"模式", "能耗", "消息", "物业缴费", "报修投诉", "值班表"};
+    private String[] funName = {"模式", "能耗", "公告", "物业缴费", "报修投诉", "值班表"};
     // 图片封装为一个数组
     private int[] icon = {R.drawable.ic_mod, R.drawable.ic_energy,
             R.drawable.ic_msg, R.drawable.ic_pay, R.drawable.ic_repair,
             R.drawable.ic_duty};
     private List<Map<String, Object>> datas = new ArrayList<>();
     private ChannelFragment fragment;
+    private EnvInfo envData;
 
     public RentHomepageFragment() {
 
@@ -123,6 +126,19 @@ public class RentHomepageFragment extends BasedFragment {
                 }, 500);
             }
         });
+
+        binding.relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (envData!=null){
+                    Intent intent = new Intent(getActivity(), EnvDetailActivity.class);
+                    startActivity(intent);
+                }else {
+                    UiUtils.INSTANCE.showToast("无法获取环境信息");
+                }
+
+            }
+        });
     }
 
     @Override
@@ -158,9 +174,10 @@ public class RentHomepageFragment extends BasedFragment {
                 .subscribe(new BaseSubscriber<ResultBody<EnvInfo>>(getContext()) {
                     @Override
                     public void onNext(ResultBody<EnvInfo> info) {
-                        binding.wendu.setText(info.data.wendu.value);
-                        binding.shidu.setText("湿度:" + info.data.shidu.value + "%");
-                        binding.pm25.setText("PM25:" + info.data.pm25.value + "");
+                        envData = info.data;
+                        binding.wendu.setText(info.data.wendu.value+"℃");
+                        binding.shidu.setText(" " + info.data.shidu.value + "%");
+                        binding.pm25.setText(" " + info.data.pm25.value + "");
                     }
                 }));
     }

@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
@@ -68,6 +69,7 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
             @Override
             public void onClick(View v) {
                 finish();
+                BottomNavigationView ds;
             }
         });
 
@@ -209,7 +211,7 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
                 }));
     }
 
-    static class SceneItemAdapter extends BaseQuickAdapter<SceneItem, BaseViewHolder> {
+    public static class SceneItemAdapter extends BaseQuickAdapter<SceneItem, BaseViewHolder> {
 
         public SceneItemAdapter(int layoutResId, @Nullable List<SceneItem> data) {
             super(layoutResId, data);

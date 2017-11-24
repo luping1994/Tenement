@@ -1,4 +1,4 @@
-package net.suntrans.tenement.ui.fragment;
+package net.suntrans.tenement.ui.fragment.auto;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.databinding.FragmentChooseTimeBinding;
 import net.suntrans.tenement.ui.activity.BasedActivity;
+import net.suntrans.tenement.ui.fragment.BasedFragment;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,18 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
 import net.suntrans.tenement.BuildConfig;
 import net.suntrans.tenement.R;
-
-
 /**
  * Created by Looney on 2017/7/24.
  */
 
 public class AboutActivity extends BasedActivity {
     private TextView guangwang;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

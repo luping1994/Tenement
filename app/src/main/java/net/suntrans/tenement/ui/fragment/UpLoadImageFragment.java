@@ -250,9 +250,8 @@ public class UpLoadImageFragment extends BottomSheetDialogFragment implements Vi
                     @Override
                     public void onError(Throwable e) {
                        super.onError(e);
-//                        e.printStackTrace();
+                        e.printStackTrace();
                         dialog.dismiss();
-                        UiUtils.INSTANCE.showToast("上传图片失败!");
                     }
 
                     @Override

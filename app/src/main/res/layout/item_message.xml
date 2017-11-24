@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/item_selector"
     android:layout_width="match_parent"
     android:layout_height="140dp">
 
@@ -16,7 +17,6 @@
         android:background="@drawable/ic_msg_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,7 +24,8 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
         android:background="#f95350"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
@@ -44,8 +45,9 @@
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <TextView
+        android:paddingLeft="8dp"
         android:id="@+id/title"
-        android:layout_width="312dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -58,25 +60,25 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.346" />
 
     <TextView
+        android:paddingRight="8dp"
+        android:paddingLeft="8dp"
         android:id="@+id/des"
-        android:layout_width="310dp"
-        android:layout_height="32dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:gravity="start"
         android:text="坚决拥的撒娇的撒看的声卡的飒飒的看啊手机打开撒娇的了大卡司；拉达克撒赖..."
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/title"
+        app:layout_constraintStart_toStartOf="@+id/title"
         app:layout_constraintTop_toBottomOf="@+id/title"
         app:layout_constraintVertical_bias="0.0" />
 

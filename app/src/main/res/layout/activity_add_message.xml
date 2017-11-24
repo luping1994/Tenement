@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/action_bar_size"
+                android:background="@color/colorPrimary">
+
+
+                <RelativeLayout
+                    android:id="@+id/back"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="14dp"
+                        android:src="@drawable/ic_back" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="发布公告"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/actionBarTitleSize" />
+
+                <TextView
+                    android:id="@+id/rightSubTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:gravity="center"
+                    android:onClick="rightSubTitleClicked"
+                    android:text="保存"
+                    android:textColor="@color/textcolor"
+                    android:textSize="@dimen/actionBarSubTitleSize" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bgColor"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/item_selector"
+                    android:hint="标题(必填)"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:textSize="@dimen/content_textSize" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/item_selector"
+                    android:gravity="start"
+                    android:hint="正文(必填)"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:textSize="@dimen/content_textSize" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="96dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/item_selector"
+                    android:padding="@dimen/activity_horizontal_margin">
+
+                    <ImageView
+                        android:id="@+id/addImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_add_gonggao" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_toRightOf="@id/addImage"
+                        android:text="添加图片" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/item_selector"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="选择标签" />
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/label_yiban"
+                            android:button="@null"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:text="一般"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:background="@drawable/label_yiban"
+                            android:button="@null"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:text="重要"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:background="@drawable/label_yiban"
+                            android:button="@null"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:text="紧急"
+                            android:textColor="@color/white" />
+                    </RadioGroup>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</layout>

@@ -1,5 +1,6 @@
 package net.suntrans.tenement.ui.fragment;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,10 +11,12 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
+import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.bean.ChannelInfo;
 import net.suntrans.tenement.bean.MessageInfo;
 import net.suntrans.tenement.databinding.FragmentMessageBinding;
+import net.suntrans.tenement.ui.activity.rent.MessageDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,11 +41,17 @@ public class MessageFragment extends BasedFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         datas = new ArrayList<>();
-        for (int i=0;i<7;i++){
+        for (int i = 0; i < 7; i++) {
             MessageInfo info = new MessageInfo();
             datas.add(info);
         }
         myadapter = new Myadapter(R.layout.item_message, datas);
+        myadapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                startActivity(new Intent(getActivity(),MessageDetailActivity.class));
+            }
+        });
         binding.recyclerView.setAdapter(myadapter);
     }
 

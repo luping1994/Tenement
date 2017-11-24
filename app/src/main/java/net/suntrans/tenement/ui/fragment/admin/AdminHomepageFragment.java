@@ -16,8 +16,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import net.suntrans.tenement.R;
+import net.suntrans.tenement.bean.EnvInfo;
+import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.bean.SimpleData;
 import net.suntrans.tenement.databinding.FragmentAdminHomepageBinding;
+import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.DutyActivity;
 import net.suntrans.tenement.ui.activity.EnergyConsumeActivity;
 import net.suntrans.tenement.ui.activity.SceneActivity;
@@ -25,17 +28,22 @@ import net.suntrans.tenement.ui.activity.admin.CompanyManagerActivity;
 import net.suntrans.tenement.ui.activity.admin.EnergyAllActivity;
 import net.suntrans.tenement.ui.activity.admin.EnergyMoniActivity;
 import net.suntrans.tenement.ui.activity.admin.PublicControlActivity;
+import net.suntrans.tenement.ui.activity.admin.RepairActivity_admin;
 import net.suntrans.tenement.ui.activity.rent.MessageActivity;
 import net.suntrans.tenement.ui.activity.rent.PaymentActivity;
 import net.suntrans.tenement.ui.activity.rent.RepairActivity;
+import net.suntrans.tenement.ui.fragment.BasedFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 /**
  *
  */
-public class AdminHomepageFragment extends Fragment {
+public class AdminHomepageFragment extends BasedFragment {
 
     private FragmentAdminHomepageBinding binding;
 
@@ -86,7 +94,7 @@ public class AdminHomepageFragment extends Fragment {
                         startActivity(intent3);
                         break;
                     case 4:
-                        Intent intent4 = new Intent(getActivity(), RepairActivity.class);
+                        Intent intent4 = new Intent(getActivity(), RepairActivity_admin.class);
                         startActivity(intent4);
                         break;
                     case 5:
@@ -138,4 +146,26 @@ public class AdminHomepageFragment extends Fragment {
         return datas;
 
     }
+
+
+    @Override
+    public void onResume() {
+        getEnv();
+        super.onResume();
+    }
+
+    private void getEnv() {
+        mCompositeSubscription.add(api.getHomeEnv()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new BaseSubscriber<ResultBody<EnvInfo>>(getContext()) {
+                    @Override
+                    public void onNext(ResultBody<EnvInfo> info) {
+                        binding.wendu.setText(info.data.wendu.value);
+                        binding.shidu.setText(" " + info.data.shidu.value + "%");
+                        binding.pm25.setText(" " + info.data.pm25.value + "");
+                    }
+                }));
+    }
+
 }

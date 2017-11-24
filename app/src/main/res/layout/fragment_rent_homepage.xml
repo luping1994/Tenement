@@ -50,7 +50,8 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginBottom="@dimen/homepage_shidu_margin_bottom"
                             android:layout_marginLeft="@dimen/homw_page_shidu_m_rl"
-                            android:text="湿度：59.2%"
+                            android:drawableLeft="@drawable/icon_shidu"
+                            android:text=" 59.2%"
                             android:textColor="@color/textColor"
                             android:textSize="14sp" />
 
@@ -62,7 +63,8 @@
                             android:layout_alignParentRight="true"
                             android:layout_marginBottom="@dimen/homepage_shidu_margin_bottom"
                             android:layout_marginRight="@dimen/homw_page_shidu_m_rl"
-                            android:text="PM2.5：59.2%"
+                            android:drawableLeft="@drawable/icon_pm"
+                            android:text=" 59.2%"
                             android:textColor="@color/textColor"
                             android:textSize="@dimen/home_page_shidu_textSize" />
 
@@ -89,15 +91,15 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/wenduEva"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="12dp"
                                 android:layout_weight="1"
                                 android:gravity="top"
-                                android:text="当前温度"
+                                android:text="舒适"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="14sp" />
-
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -105,7 +107,9 @@
                         android:id="@+id/channelContent"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/homepage_channel_fg_height"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:paddingBottom="18dp"
+                        android:paddingTop="18dp">
 
                     </FrameLayout>
 

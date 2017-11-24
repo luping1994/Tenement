@@ -26,4 +26,20 @@
         <item name="android:windowAnimationStyle">@null</item><!-- 为了避免在有 NavigationBar 的手机上 Dialog 从 NavigationBar 底部上来。去掉 Dialog 的动画，使用 View 的动画。-->
         <item name="android:layout_width">match_parent</item>
     </style>
+
+    <style name="transparentDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowBackground">@android:color/transparent</item><!--背景透明-->
+        <item name="android:backgroundDimEnabled">false</item><!--模糊-->
+
+    </style>
+
+    <!--//dialog的动画-->
+    <style name="dialogWindowAnim" parent="android:Animation" mce_bogus="1">
+        <item name="android:windowEnterAnimation">@anim/window_in</item>
+        <item name="android:windowExitAnimation">@anim/windows_out</item>
+    </style>
 </resources>

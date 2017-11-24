@@ -13,4 +13,6 @@
     <color name="secondTextColor">#999999</color>
 
     <color name="enenry_value_textcolr">#fb5629</color>
+    <color name="grey">#808080</color>
+    <color name="blue">#0000ff</color>
 </resources>

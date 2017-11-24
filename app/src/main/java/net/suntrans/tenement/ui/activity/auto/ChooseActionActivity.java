@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,15 +14,19 @@ import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.bean.ActionType;
 import net.suntrans.tenement.bean.AutoActionItem;
+import net.suntrans.tenement.bean.SceneInfo;
 import net.suntrans.tenement.databinding.ActivityAutoChooseActionBinding;
 import net.suntrans.tenement.ui.activity.BasedActivity;
-import net.suntrans.tenement.ui.fragment.SendMessageFragment;
+import net.suntrans.tenement.ui.fragment.auto.ChooseSceneFragment;
+import net.suntrans.tenement.ui.fragment.auto.SendMessageFragment;
 
 /**
  * Created by Looney on 2017/11/20.
  */
 
-public class ChooseActionActivity extends BasedActivity implements View.OnClickListener, SendMessageFragment.OnFragmentInteractionListener {
+public class ChooseActionActivity extends BasedActivity implements
+        View.OnClickListener, SendMessageFragment.OnFragmentInteractionListener
+        , ChooseSceneFragment.OnFragmentInteractionListener {
 
     private ActivityAutoChooseActionBinding binding;
     private SendMessageFragment fragment;
@@ -50,7 +55,12 @@ public class ChooseActionActivity extends BasedActivity implements View.OnClickL
         switch (view.getId()) {
             case R.id.excuteScene:
                 actionType = ActionType.EXCUTE_SCENE;
-                UiUtils.INSTANCE.showToast("未实现");
+                ChooseSceneFragment chooseSceneFragment = (ChooseSceneFragment) getSupportFragmentManager().findFragmentByTag("chooseScene");
+                if (chooseSceneFragment == null) {
+                    chooseSceneFragment = new ChooseSceneFragment();
+                }
+                navitiveToNextFragment(chooseSceneFragment);
+
                 break;
             case R.id.togleAuto:
                 actionType = ActionType.TOGLE_AUTO;
@@ -68,7 +78,7 @@ public class ChooseActionActivity extends BasedActivity implements View.OnClickL
     }
 
     public void rightSubTitleClicked(View view) {
-        switch (actionType){
+        switch (actionType) {
             case TOGLE_AUTO:
                 break;
             case EXCUTE_SCENE:
@@ -82,8 +92,8 @@ public class ChooseActionActivity extends BasedActivity implements View.OnClickL
                 item.type = actionType.type;
                 item.des = fragment.getMessage();
                 Intent intent = new Intent();
-                intent.putExtra("data",item);
-                setResult(102,intent);
+                intent.putExtra("data", item);
+                setResult(102, intent);
                 finish();
                 break;
         }
@@ -94,25 +104,64 @@ public class ChooseActionActivity extends BasedActivity implements View.OnClickL
 //        transaction.setCustomAnimations(
 //                R.anim.slide_in_right, R.anim.slide_out_left,
 //                R.anim.slide_in_left, R.anim.slide_out_right);
-        if (fragment.isAdded()){
+        if (fragment.isAdded()) {
             transaction.show(fragment);
-        }else {
+        } else {
             transaction.add(R.id.content, fragment, "ADD_ACTION");
             transaction.addToBackStack(null);
         }
-
         transaction.commit();
     }
 
 
     @Override
-    public void onMessage(String message) {
+    public void updateTitle(String title) {
+        binding.title.setText(title);
+        if (title.equals("执行某个场景")) {
+            binding.rightSubTitle.setVisibility(View.INVISIBLE);
+        } else {
+            binding.rightSubTitle.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onSceneSelected(SceneInfo info) {
+        AutoActionItem autoActionItem = new AutoActionItem();
+        autoActionItem.type = ActionType.EXCUTE_SCENE.type;
+        autoActionItem.des = info.name;
+        Intent intent = new Intent();
+        intent.putExtra("data", autoActionItem);
+        setResult(102, intent);
+        finish();
+    }
+
+
+    private final FragmentManager.OnBackStackChangedListener mBackStackChangedListener =
+            new FragmentManager.OnBackStackChangedListener() {
+                @Override
+                public void onBackStackChanged() {
+                    updateSubButton();
+                }
+            };
+
+    private void updateSubButton() {
+        boolean isRoot = getSupportFragmentManager().getBackStackEntryCount() == 0;
+        if (isRoot){
+            binding.title.setText("添加动作");
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getSupportFragmentManager().addOnBackStackChangedListener(mBackStackChangedListener);
 
     }
 
     @Override
-    public void updateTitle(String title) {
-        binding.title.setText(title);
-        binding.rightSubTitle.setVisibility(View.VISIBLE);
+    protected void onPause() {
+        super.onPause();
+        getSupportFragmentManager().removeOnBackStackChangedListener(mBackStackChangedListener);
+
     }
 }

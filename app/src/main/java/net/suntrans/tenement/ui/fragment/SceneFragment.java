@@ -24,6 +24,7 @@ import net.suntrans.tenement.bean.SceneInfo;
 import net.suntrans.tenement.databinding.FragmentSceneBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.AddSceneActivity;
+import net.suntrans.tenement.ui.fragment.rent.AllChannelFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ import rx.schedulers.Schedulers;
  * Des:
  */
 
-public class SceneFragment extends BasedFragment {
+public class SceneFragment extends BasedFragment  {
 
 
     private List<SceneInfo> datas;

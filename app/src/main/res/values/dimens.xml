@@ -6,7 +6,7 @@
     <dimen name="homepage_shidu_margin_bottom">40dp</dimen>
     <dimen name="homw_page_shidu_m_rl">16dp</dimen>
     <dimen name="home_page_shidu_textSize">14sp</dimen>
-    <dimen name="homepage_channel_fg_height">160dp</dimen>
+    <dimen name="homepage_channel_fg_height">196dp</dimen>
     <dimen name="homepage_fun_height">160dp</dimen>
     <dimen name="tileTextSize">18sp</dimen>
     <dimen name="mine_item_hight">45dp</dimen>
@@ -18,5 +18,7 @@
 
     <dimen name="profile_item_hight">56dp</dimen>
     <dimen name="profile_subtitle_textSize">14sp</dimen>
+    <dimen name="homepage_fun_size">72dp</dimen>
+    <dimen name="homepage_channelitem_size">80dp</dimen>
 
 </resources>

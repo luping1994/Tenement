@@ -1,5 +1,8 @@
 package net.suntrans.tenement.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Looney on 2017/11/16.
  * Des:
@@ -19,7 +22,8 @@ public class EnvInfo {
     public EnvItem jiaquan;
     public EnvItem pm25;
 
-    public static class EnvItem {
+    public static class EnvItem implements Parcelable {
+
         /**
          * name : 湿度
          * value : 66.5
@@ -33,6 +37,43 @@ public class EnvInfo {
         public String text;
         public String unit;
         public String color;
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.name);
+            dest.writeString(this.value);
+            dest.writeString(this.text);
+            dest.writeString(this.unit);
+            dest.writeString(this.color);
+        }
+
+        public EnvItem() {
+        }
+
+        protected EnvItem(Parcel in) {
+            this.name = in.readString();
+            this.value = in.readString();
+            this.text = in.readString();
+            this.unit = in.readString();
+            this.color = in.readString();
+        }
+
+        public static final Parcelable.Creator<EnvItem> CREATOR = new Parcelable.Creator<EnvItem>() {
+            @Override
+            public EnvItem createFromParcel(Parcel source) {
+                return new EnvItem(source);
+            }
+
+            @Override
+            public EnvItem[] newArray(int size) {
+                return new EnvItem[size];
+            }
+        };
     }
 
 

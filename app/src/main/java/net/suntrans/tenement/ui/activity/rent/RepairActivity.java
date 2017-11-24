@@ -49,7 +49,7 @@ public class RepairActivity extends BasedActivity implements View.OnClickListene
             }
         });
         WebSettings settings = binding.webview.getSettings();
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         token = App.Companion.getMySharedPreferences().getString("token", "0");
         house_id = "1";
         settings.setJavaScriptEnabled(true);
@@ -61,41 +61,41 @@ public class RepairActivity extends BasedActivity implements View.OnClickListene
         settings.setJavaScriptEnabled(true);
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setLoadWithOverviewMode(true);
-        insertJs();
-        binding.webview.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
+//        insertJs();
+//        binding.webview.setWebViewClient(new WebViewClient() {
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                view.loadUrl(url);
+//                return true;
+//            }
+//
+//            @Override
+//            public void onPageFinished(WebView view, String url) {
+//                super.onPageFinished(view, url);
+//                String js = "";
+//                js += "var newscript = document.createElement(\"script\");";
+//                js += "newscript.src=\"./js/designer.js\";";
+//                js += "newscript.onload=function(){"
+//                        + "init(\""
+//                        + token + "\",\""
+//                        + house_id + "\");};";
+//                js += "document.body.appendChild(newscript);";
+//
+//                System.out.println(js);
+//                binding.webview.loadUrl("javascript:" + js);
+//            }
+//        });
+//        binding.webview.setWebChromeClient(new WebChromeClient() {
+//            @Override
+//            public void onProgressChanged(WebView view, int newProgress) {
+//
+//            }
+//        });
+//        binding.webview.setInitialScale(100);
 
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                String js = "";
-                js += "var newscript = document.createElement(\"script\");";
-                js += "newscript.src=\"./js/designer.js\";";
-                js += "newscript.onload=function(){"
-                        + "init(\""
-                        + token + "\",\""
-                        + house_id + "\");};";
-                js += "document.body.appendChild(newscript);";
-
-                System.out.println(js);
-                binding.webview.loadUrl("javascript:" + js);
-            }
-        });
-        binding.webview.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-
-            }
-        });
-        binding.webview.setInitialScale(100);
-
-//        binding.webview.loadUrl("file:///android_asset/html/repair.html");
-        binding.webview.loadUrl("file:///android_asset/plan/floor_plan.html");
-        binding.webview.addJavascriptInterface(new AndroidtoJs(), "control");
+        binding.webview.loadUrl("file:///android_asset/html/repair.html");
+//        binding.webview.loadUrl("file:///android_asset/plan/floor_plan.html");
+//        binding.webview.addJavascriptInterface(new AndroidtoJs(), "control");
     }
 
 

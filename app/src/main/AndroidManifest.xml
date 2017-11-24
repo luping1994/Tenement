@@ -115,15 +115,44 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".ui.activity.admin.CompanyManagerActivity" />
-        <activity android:name=".ui.activity.admin.AddCompanyActivity" />
-        <activity android:name=".ui.activity.admin.PublicControlActivity" />
-        <activity android:name=".ui.activity.admin.EnergyAllActivity" />
-        <activity android:name=".ui.activity.admin.EnergyMoniActivity" />
-        <activity android:name=".ui.activity.admin.MoniDetailActivity" />
-        <activity android:name=".ui.activity.rent.PaymentActivity" />
-        <activity android:name=".ui.activity.rent.MessageActivity" />
-        <activity android:name=".ui.activity.rent.RepairActivity" android:screenOrientation="landscape"/>
+        <activity
+            android:name=".ui.activity.admin.CompanyManagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.admin.AddCompanyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.admin.PublicControlActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.admin.EnergyAllActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.admin.EnergyMoniActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.admin.MoniDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.rent.PaymentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.rent.MessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.rent.RepairActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.EnvDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.rent.MessageDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AddMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.admin.RepairActivity_admin" />
+        <activity android:name=".ui.activity.admin.RepairDetailActivity" />
     </application>
 
 </manifest>

@@ -1,7 +1,6 @@
 package net.suntrans.tenement.ui.activity.auto;
 
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -13,7 +12,7 @@ import net.suntrans.tenement.R;
 import net.suntrans.tenement.databinding.ActivityAutoChoosetimeBinding;
 import net.suntrans.tenement.ui.activity.BasedActivity;
 import net.suntrans.tenement.ui.fragment.AddActionFragment;
-import net.suntrans.tenement.ui.fragment.ChooseTimeFragment;
+import net.suntrans.tenement.ui.fragment.auto.ChooseTimeFragment;
 
 /**
  * Created by Looney on 2017/11/20.

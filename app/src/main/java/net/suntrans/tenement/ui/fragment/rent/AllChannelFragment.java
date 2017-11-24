@@ -6,10 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.AppCompatCheckBox;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -24,6 +28,7 @@ import net.suntrans.tenement.bean.ChannelInfo;
 import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.databinding.FragmentAllChannelBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
+import net.suntrans.tenement.widgets.FullScreenDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +49,15 @@ public class AllChannelFragment extends android.support.v4.app.DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        BottomSheetDialog dialog = new BottomSheetDialog(getContext());
-        dialog.setCanceledOnTouchOutside(true);
+
+//        BottomSheetDialog dialog = new BottomSheetDialog(getContext());
+        FullScreenDialog dialog = new FullScreenDialog(getContext(),R.style.transparentDialog);
+        WindowManager m = getActivity().getWindowManager();
+//        Display d = m.getDefaultDisplay();  //为获取屏幕宽、高
+//        android.view.WindowManager.LayoutParams p = dialog.getWindow().getAttributes();  //获取对话框当前的参数值
+//        p.height = (int) (d.getHeight()-getResources().getDimension(R.dimen.action_bar_size));   //高度设置为屏幕的0.3
+//        p.width = (int) (d.getWidth());    //宽度设置为屏幕的0.5
+//        dialog.getWindow().setAttributes(p);     //设置生效
         return dialog;
     }
 
@@ -147,7 +159,7 @@ public class AllChannelFragment extends android.support.v4.app.DialogFragment {
 
         @Override
         protected void convert(BaseViewHolder helper, ChannelInfo item) {
-            helper.setText(R.id.name, item.name);
+            helper.setText(R.id.name, item.title);
             AppCompatCheckBox checkBox = helper.getView(R.id.checkbox);
             checkBox.setChecked(item.checked);
         }

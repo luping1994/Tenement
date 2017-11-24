@@ -1,4 +1,4 @@
-package net.suntrans.tenement.ui.fragment;
+package net.suntrans.tenement.ui.fragment.auto;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -13,7 +13,6 @@ import net.suntrans.tenement.databinding.FragmentSendMessageBinding;
 
 public class SendMessageFragment extends Fragment {
 
-    private OnFragmentInteractionListener mListener;
     private FragmentSendMessageBinding binding;
 
     @Override
@@ -29,6 +28,8 @@ public class SendMessageFragment extends Fragment {
         return binding.getRoot();
     }
 
+
+    private OnFragmentInteractionListener mListener;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -47,12 +48,14 @@ public class SendMessageFragment extends Fragment {
         mListener = null;
     }
 
+
+    public interface OnFragmentInteractionListener {
+        void updateTitle(String title);
+    }
+
     public String getMessage(){
         return  binding.neirong.getText().toString();
     }
 
-    public interface OnFragmentInteractionListener {
-        void onMessage(String message);
-        void updateTitle(String title);
-    }
+
 }

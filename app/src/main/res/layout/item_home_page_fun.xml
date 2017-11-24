@@ -6,8 +6,8 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="@dimen/homepage_fun_size"
+        android:layout_height="@dimen/homepage_fun_size"
         android:layout_centerInParent="true">
 
         <LinearLayout

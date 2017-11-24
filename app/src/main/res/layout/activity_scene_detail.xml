@@ -142,6 +142,10 @@
                         android:text="添加设备"
                         android:textColor="@color/colorAccent" />
 
+                    <View
+                        android:background="@color/bgColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"

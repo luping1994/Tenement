@@ -4,7 +4,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bgColor"
-        tools:context="net.suntrans.tenement.ui.fragment.SendMessageFragment">
+        tools:context="net.suntrans.tenement.ui.fragment.auto.SendMessageFragment">
 
         <RelativeLayout
             android:layout_width="match_parent"

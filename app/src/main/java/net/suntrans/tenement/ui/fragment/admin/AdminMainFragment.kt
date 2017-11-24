@@ -1,5 +1,6 @@
 package net.suntrans.tenement.ui.fragment.admin
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import net.suntrans.tenement.R
 import net.suntrans.tenement.adapter.FragmentAdapter
 import net.suntrans.tenement.databinding.FragmentMainBinding
+import net.suntrans.tenement.ui.activity.AddMessageActivity
 import net.suntrans.tenement.ui.fragment.rent.RentMineFragment
 
 /**
@@ -37,7 +39,10 @@ class AdminMainFragment : Fragment() {
         val adapter = FragmentAdapter(childFragmentManager)
         adapter.addFragment(homepageFragment, "首页")
         adapter.addFragment(mineFragment, "我的")
-        binding!!.start.setOnClickListener { println("发布公告") }
+        binding!!.start.setOnClickListener {
+            val intent = Intent(activity, AddMessageActivity::class.java)
+            startActivity(intent)
+        }
 
         binding!!.start.setImageResource(R.drawable.icon_fabu)
         binding!!.viewPager.adapter = adapter

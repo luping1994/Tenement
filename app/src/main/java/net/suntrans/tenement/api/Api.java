@@ -137,6 +137,10 @@ public interface Api {
     @POST("company/user/update")
     Observable<ResultBody> updateStuffProfile(@FieldMap Map<String, String> map);
 
+    @FormUrlEncoded
+    @POST("user/feedback")
+    Observable<ResultBody> feedBack(@FieldMap Map<String, String> map);
+
 
     @Multipart
     @POST("user/cover/upload")

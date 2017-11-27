@@ -141,7 +141,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.rent.RepairActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
         <activity
             android:name=".ui.activity.EnvDetailActivity"
             android:screenOrientation="portrait" />

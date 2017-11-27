@@ -1,6 +1,3 @@
-
-var tokens="";
-var house_ids="";
 if ($("#openType").val() == "alarm") {
     $("#btnAlarm").trigger("click");
 }
@@ -25,7 +22,7 @@ function createImage(data) {
             return d.width
         })
         .attr("height", function (d) {
-            return d.height
+            return d.length
         })
         .attr("xlink:href", function (d) {
             if (d.status)
@@ -34,9 +31,9 @@ function createImage(data) {
         });
 
 
-    imageGroup.attr("transform", function (d) {
-        return "rotate(" + d.radius + "," + d.x2 + "," + d.y2 + ")";
-    });
+    // imageGroup.attr("transform", function (d) {
+    //     return "rotate(" + d.radius + "," + d.x2 + "," + d.y2 + ")";
+    // });
 
     imageGroup.on("click", openConfirmDialog);
 
@@ -46,9 +43,14 @@ function createImage(data) {
 function initContainer() {
     $.ajax({
         url: 'http://192.168.2.234:8080/JsonServlet',
+        // url: 'http://tit.suntrans-cloud.com/api/v1/home/floor_plan',
         // data: {'ruleId':$("#ruleId").val(),'dtuSn':$("#dtuSn").val()},
         type: 'POST',
         dataType: "json",
+        headers: {
+            'Authorization': token
+        },
+        data: {'house_id': house_id},
         success: function (json) {
             //初始化容器样式
             if (json.result) {
@@ -124,16 +126,16 @@ function refreshContainer() {
 //                }
 //            }
 //        });
-    console.log("开始刷新")
+    console.log("开始请求")
 
     $.ajax({
-//            url: 'http://tit.suntrans-cloud.com/api/v1/home/floor_plan',
-        url: 'http://192.168.2.234:8080/JsonServlet',
+        url: 'http://tit.suntrans-cloud.com/api/v1/home/floor_plan',
+        // url: 'http://192.168.2.234:8080/JsonServlet',
         // data: {'ruleId':$("#ruleId").val(),'dtuSn':$("#dtuSn").val()},
         type: 'POST',
         dataType: "json",
         headers: {
-            'Authorization': token,
+            'Authorization': token
         },
         data: {'house_id': house_id},
         success: function (json) {
@@ -145,14 +147,14 @@ function refreshContainer() {
 
 //创建元素
 function createElement(ele) {
-    if (ele.type == "image") {
+    // if (ele.type == "image") {
         createImage(ele);
-    }
+    // }
 }
 
 function openConfirmDialog(d) {
     console.log(d.href);
-       sendCommand(d)
+     sendCommand(d)
 
     // var htmlStr = '';
     // htmlStr += '<input type="hidden" id="channel_id" value="0">';
@@ -165,7 +167,7 @@ function openConfirmDialog(d) {
     // htmlStr += '<a id="qvxiao" href="javascript:void (0);" class="weui-dialog__btn weui-dialog__btn_default">取消</a>';
     // htmlStr += '<a id="queding" href="javascript:void (0);" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>';
     // htmlStr += '</div></div>';
-
+//
 //    var tips = d.status ? "是否关闭" : "是否打开";
 //
 //    $("#title")
@@ -187,55 +189,96 @@ function openConfirmDialog(d) {
 
 function sendCommand(d) {
     console.log('channel_id为：' + d.channel_id);
-     control.switchChannel(d.channel_id+","+d.title);
-
+//    control.switchChannel(d);
+    control.switchChannel(d.channel_id+","+d.title+","+d.status);
 }
+
 //加载容器属性和元件
-//initContainer();
-//setInterval("refreshContainer()", 10000);
+// initContainer();
+// setInterval("refreshContainer()", 2000);
+
+
+var tokens;
+var house_ids;
 
 function init(token, house_id) {
-    //加载容器属性和元件
     tokens = token;
-    house_ids =house_id;
-    initContainerByToken(tokens,house_ids);
-    setInterval("refreshContainerByToken(tokens,house_ids)", 2000);
+    house_ids = house_id;
+    //加载容器属性和元件
+     initContainerByToken(tokens,house_ids);
+    setInterval("refreshContainerByToken(tokens,house_ids)", 5000);
 }
 
-function refreshContainerByToken(token,house_id) {
+
+function refreshContainerByToken(token, house_id) {
 
     console.log("开始请求")
 
     $.ajax({
-//        url: 'http://tit.suntrans-cloud.com/api/v1/home/floor_plan',
-         url: 'http://192.168.2.234:8080/JsonServlet',
+        url: 'http://tit.suntrans-cloud.com/api/v1/home/floor_plan',
+        // url: 'http://192.168.2.234:8080/JsonServlet',
         // data: {'ruleId':$("#ruleId").val(),'dtuSn':$("#dtuSn").val()},
-        type: 'POST',
+        method: 'POST',
         dataType: "json",
-        headers: {
-            'Authorization': token
+        // headers: {
+        //     'Authorization': token
+        // },
+
+        beforeSend: function (xhr) {
+            // token = window.localStorage.getItem('token');
+            xhr.setRequestHeader("Authorization", token);
         },
+
         data: {'house_id': house_id},
         success: function (json) {
-            console.log(json)
-        }
+
+            // if (json.code == 200) {
+                var con = json.container;
+                if (con) {
+                    width = con.width;
+                    height = con.height;
+                    $("div.wrapper-position").css("width", con.width);
+                    $("div.wrapper-position").css("height", con.height);
+                    $("svg.designer").css("width", con.width);
+                    $("svg.designer").css("height", con.height);
+                    $("svg.designer").css("background-color", con.bgColor);
+                    $("svg.designer").css("background-image", "url(" + con.bgImage + ")");
+                    $("svg.designer").empty();
+                    $("body").css("background-color", con.bgColor);
+                }
+                // json.signals.map(function(signal){
+                //  if(signal){
+                // 	 signalMap[''+signal.id]=signal;
+                //  }
+                // });
+                json.elements.map(createElement);
+            // }
+        },
+
     });
     // refreshAlarm();
 }
+
 //初始化容器
-function initContainerByToken(token,house_id) {
+function initContainerByToken(token, house_id) {
     $.ajax({
-        url: 'http://192.168.2.234:8080/JsonServlet',
-        // data: {'ruleId':$("#ruleId").val(),'dtuSn':$("#dtuSn").val()},
-        type: 'POST',
+        // url: 'http://192.168.2.234:8080/JsonServlet',
+        url: 'http://tit.suntrans-cloud.com/api/v1/home/floor_plan',
+        // data: {'ruleId': $("#ruleId").val(), 'dtuSn': $("#dtuSn").val()},
+        method: 'POST',
         dataType: "json",
         headers: {
             'Authorization': token
         },
+        // beforeSend: function (xhr) {
+        //     // token = window.localStorage.getItem('token');
+        //     xhr.setRequestHeader("Authorization", token);
+        // },
+
         data: {'house_id': house_id},
         success: function (json) {
             //初始化容器样式
-            if (json.result) {
+            // if (json.result) {
                 var con = json.container;
                 if (con) {
                     width = con.width;
@@ -256,7 +299,7 @@ function initContainerByToken(token,house_id) {
                 // });
                 json.elements.map(createElement);
             }
-        }
+        // }
     });
     console.log("初始化请求")
-    }
+}

@@ -11,7 +11,7 @@ public class MyAxisValueFormatter2 implements IAxisValueFormatter
     private DecimalFormat mFormat;
 
     public MyAxisValueFormatter2() {
-        mFormat = new DecimalFormat("###,###,###,##0.00");
+        mFormat = new DecimalFormat("###,###,###,##0");
     }
 
     @Override

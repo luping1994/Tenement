@@ -19,12 +19,21 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
 import net.suntrans.tenement.R;
+import net.suntrans.tenement.bean.EnergyHis;
+import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.chart.DayAxisValueFormatter;
 import net.suntrans.tenement.chart.MyAxisValueFormatter2;
 import net.suntrans.tenement.chart.XYMarkerView;
 import net.suntrans.tenement.databinding.ActivityEnergyConsumeBinding;
+import net.suntrans.tenement.rx.BaseSubscriber;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static com.github.mikephil.charting.utils.ColorTemplate.rgb;
 
@@ -36,22 +45,30 @@ public class EnergyConsumeActivity extends BasedActivity {
 
     private ActivityEnergyConsumeBinding binding;
 
-    private  Handler handler = new Handler();
+    private Handler handler = new Handler();
+    private int lastDay;
+    private String id;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_energy_consume);
+        lastDay = getCurrentMonthLastDay();
+        id = getIntent().getStringExtra("id");
+        binding.yesterDayUsedValue.setText(getIntent().getStringExtra("todyUsed")+"kW·h");
+        binding.todayUsedValue.setText(getIntent().getStringExtra("yesterdayUsed")+"kW·h");
+        binding.todayUsed.setText(getIntent().getStringExtra("monthUsed")+"");
+
         initView();
 
         initYearChart();
         initMonthChart();
-        setMonthData();
-        setYearData();
+
     }
 
     private void initView() {
         String title = getIntent().getStringExtra("title");
-        if (!TextUtils.isEmpty(title)){
+        if (!TextUtils.isEmpty(title)) {
             binding.title.setText(title);
         }
         binding.back.setOnClickListener(new View.OnClickListener() {
@@ -69,10 +86,10 @@ public class EnergyConsumeActivity extends BasedActivity {
                     @Override
                     public void run() {
                         binding.refreshLayout.setRefreshing(false);
-                        setMonthData();
-                        setYearData();
+//                        setMonthData();
+                        getEnergyDetailByID(id);
                     }
-                },900);
+                }, 900);
             }
         });
 
@@ -117,7 +134,7 @@ public class EnergyConsumeActivity extends BasedActivity {
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                    return (int)value+"月";
+                return (int) value + "月";
             }
         });
 
@@ -141,15 +158,15 @@ public class EnergyConsumeActivity extends BasedActivity {
         l.setFormSize(9f);
         l.setTextSize(11f);
         l.setXEntrySpace(4f);
-        
-        
+
+
         IAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(binding.yearEle, DayAxisValueFormatter.DAYS);
         XYMarkerView mv = new XYMarkerView(this, xAxisFormatter);
         mv.setChartView(binding.yearEle); // For bounds control
         binding.yearEle.setMarker(mv); // Set the marker to the chart
     }
-    
-    private void initMonthChart(){
+
+    private void initMonthChart() {
         binding.monthEle.setDrawBarShadow(false);
         binding.monthEle.setDrawValueAboveBar(true);
         binding.monthEle.getAxisRight().setEnabled(false);
@@ -174,7 +191,7 @@ public class EnergyConsumeActivity extends BasedActivity {
         IAxisValueFormatter iAxisValueFormatter = new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                return (int)value+"日";
+                return (int) value + "日";
             }
         };
         xAxis.setValueFormatter(iAxisValueFormatter);
@@ -183,11 +200,13 @@ public class EnergyConsumeActivity extends BasedActivity {
 
         YAxis leftAxis = binding.monthEle.getAxisLeft();
 //        leftAxis.setTypeface(mTfLight);
-        leftAxis.setLabelCount(4, false);
-        leftAxis.setValueFormatter(custom);
+        leftAxis.setLabelCount(4, true);
+//        leftAxis.setValueFormatter(custom);
         leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         leftAxis.setSpaceTop(15f);
-        leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+        leftAxis.setAxisMinimum(0);
+        leftAxis.setSpaceMin(1);
+        leftAxis.setGridLineWidth(1);
 
 
         Legend l = binding.monthEle.getLegend();
@@ -205,14 +224,22 @@ public class EnergyConsumeActivity extends BasedActivity {
         mv.setChartView(binding.monthEle); // For bounds control
         binding.monthEle.setMarker(mv); // Set the marker to the chart
     }
-    
-    private void setMonthData(){
+
+    private void setMonthData(List<EnergyHis.HisItem> monthData,String month) {
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
 
-        for (int i=1;i<31;i++){
-            float mult = (100 + 1);
-            int val = (int) (Math.random() * mult);
-            BarEntry entry = new BarEntry(i,val);
+        if (monthData == null || monthData.size() == 0)
+            return;
+
+        for (int i = 1; i < lastDay; i++) {
+            float val = 0;
+            for (int j = 0; j < monthData.size(); j++) {
+                if (monthData.get(j).x == i) {
+                    val = monthData.get(j).y;
+                }
+            }
+
+            BarEntry entry = new BarEntry(i, val);
             yVals1.add(entry);
         }
         BarDataSet set1;
@@ -223,7 +250,7 @@ public class EnergyConsumeActivity extends BasedActivity {
             binding.monthEle.getData().notifyDataChanged();
             binding.monthEle.notifyDataSetChanged();
         } else {
-            set1 = new BarDataSet(yVals1, "本月(11月)用电量");
+            set1 = new BarDataSet(yVals1, "本月("+month+")用电量");
             set1.setColors(MONTH_BAR_COLOR);
             set1.setDrawValues(false);
             ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
@@ -240,12 +267,18 @@ public class EnergyConsumeActivity extends BasedActivity {
 
     }
 
-    private void setYearData() {
+    private void setYearData(List<EnergyHis.HisItem> yearData,String year) {
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
 
+
         for (int i = 1; i <=12; i++) {
-            float mult = (100 + 1);
-            int val = (int) (Math.random() * mult);
+            float val = 0;
+            for (int j = 0; j < yearData.size(); j++) {
+                if (yearData.get(j).x == i) {
+                    val = yearData.get(j).y;
+                }
+            }
+
             BarEntry entry = new BarEntry(i, val);
             yVals1.add(entry);
         }
@@ -257,7 +290,7 @@ public class EnergyConsumeActivity extends BasedActivity {
             binding.yearEle.getData().notifyDataChanged();
             binding.yearEle.notifyDataSetChanged();
         } else {
-            set1 = new BarDataSet(yVals1, "2017年每月用电量");
+            set1 = new BarDataSet(yVals1, year+"年每月用电量");
             set1.setColors(MONTH_BAR_COLOR);
             set1.setDrawValues(false);
             ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
@@ -277,4 +310,45 @@ public class EnergyConsumeActivity extends BasedActivity {
     public static final int[] MONTH_BAR_COLOR = {
             rgb("#c03530")
     };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getEnergyDetailByID(id);
+    }
+
+    private void getEnergyDetailByID(String id) {
+        mCompositeSubscription.add(api.getEnergyDetail(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<ResultBody<EnergyHis>>(this) {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onNext(ResultBody<EnergyHis> data) {
+                        List<EnergyHis.HisItem> monthData = data.data.month;
+                        List<EnergyHis.HisItem> yearData = data.data.year;
+                        setMonthData(monthData,data.data.date_m);
+                        setYearData(yearData,data.data.date_y);
+
+                    }
+                }));
+    }
+
+    public static int getCurrentMonthLastDay() {
+        Calendar a = Calendar.getInstance();
+        a.set(Calendar.DATE, 1);//把日期设置为当月第一天
+        a.roll(Calendar.DATE, -1);//日期回滚一天，也就是最后一天
+        int maxDate = a.get(Calendar.DATE);
+        return maxDate;
+    }
 }

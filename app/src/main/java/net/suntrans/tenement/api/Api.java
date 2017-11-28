@@ -1,10 +1,14 @@
 package net.suntrans.tenement.api;
 
+import net.suntrans.tenement.bean.ChannelAreaEntity;
 import net.suntrans.tenement.bean.ChannelControlMessage;
 import net.suntrans.tenement.bean.ChannelEntity;
 import net.suntrans.tenement.bean.DeviceEntity;
+import net.suntrans.tenement.bean.EnergyHis;
+import net.suntrans.tenement.bean.EnergyListItem;
 import net.suntrans.tenement.bean.EnvInfo;
 import net.suntrans.tenement.bean.LoginInfo;
+import net.suntrans.tenement.bean.ProfileWraper;
 import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.bean.SceneEntity;
 import net.suntrans.tenement.bean.SceneImage;
@@ -13,7 +17,9 @@ import net.suntrans.tenement.bean.SceneItemlEntity;
 import net.suntrans.tenement.bean.Stuff;
 import net.suntrans.tenement.bean.StuffEntity;
 import net.suntrans.tenement.bean.UploadInfo;
+import net.suntrans.tenement.persistence.User;
 
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
@@ -45,8 +51,12 @@ public interface Api {
     @POST("sensus/home")
     Observable<ResultBody<EnvInfo>> getHomeEnv();
 
+    @POST("company/area")
+    Observable<ResultBody<ChannelAreaEntity>> getHomeChannel();
+
+    @FormUrlEncoded
     @POST("company/channel")
-    Observable<ResultBody<ChannelEntity>> getHomeChannel();
+    Observable<ResultBody<ChannelAreaEntity>> getChannelById(@Field("id") String id);
 
 
     @FormUrlEncoded
@@ -146,4 +156,16 @@ public interface Api {
     @POST("user/cover/upload")
     Observable<ResultBody<UploadInfo>> upload(
             @Part MultipartBody.Part image);
+
+    @POST("energy/index")
+    Observable<ResultBody<List<EnergyListItem>>> energyList();
+
+
+    @FormUrlEncoded
+    @POST("energy/show")
+    Observable<ResultBody<EnergyHis>> getEnergyDetail(@Field("id") String id);
+
+    @POST("user/info")
+    Observable<ResultBody<ProfileWraper>> loadUserInfo();
+
 }

@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,7 @@ import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.databinding.FragmentRentHomepageBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.DutyActivity;
-import net.suntrans.tenement.ui.activity.EnergyConsumeActivity;
+import net.suntrans.tenement.ui.activity.EnergyListActivity;
 import net.suntrans.tenement.ui.activity.EnvDetailActivity;
 import net.suntrans.tenement.ui.activity.SceneActivity;
 import net.suntrans.tenement.ui.activity.admin.CompanyManagerActivity;
@@ -29,7 +28,7 @@ import net.suntrans.tenement.ui.activity.rent.MessageActivity;
 import net.suntrans.tenement.ui.activity.rent.PaymentActivity;
 import net.suntrans.tenement.ui.activity.rent.RepairActivity;
 import net.suntrans.tenement.ui.fragment.BasedFragment;
-import net.suntrans.tenement.ui.fragment.ChannelFragment;
+import net.suntrans.tenement.ui.fragment.AreaOrChannelFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,7 +51,7 @@ public class RentHomepageFragment extends BasedFragment {
             R.drawable.ic_msg, R.drawable.ic_pay, R.drawable.ic_repair,
             R.drawable.ic_duty};
     private List<Map<String, Object>> datas = new ArrayList<>();
-    private ChannelFragment fragment;
+    private AreaOrChannelFragment fragment;
     private EnvInfo envData;
 
     public RentHomepageFragment() {
@@ -75,7 +74,7 @@ public class RentHomepageFragment extends BasedFragment {
         int[] to = {R.id.image, R.id.name};
         SimpleAdapter adapter = new SimpleAdapter(getContext(), getData(), R.layout.item_home_page_fun, from, to);
         binding.gridLayout.setAdapter(adapter);
-        fragment = new ChannelFragment();
+        fragment = new AreaOrChannelFragment();
         getChildFragmentManager().beginTransaction().replace(R.id.channelContent, fragment).commit();
         binding.gridLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -86,7 +85,7 @@ public class RentHomepageFragment extends BasedFragment {
                         startActivity(intent);
                         break;
                     case 1:
-                        Intent intent1 = new Intent(getActivity(), EnergyConsumeActivity.class);
+                        Intent intent1 = new Intent(getActivity(), EnergyListActivity.class);
                         startActivity(intent1);
                         break;
                     case 2:

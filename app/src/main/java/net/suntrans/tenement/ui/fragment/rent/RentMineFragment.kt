@@ -2,17 +2,24 @@ package net.suntrans.tenement.ui.fragment.rent
 
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.graphics.Bitmap
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.animation.GlideAnimation
+import com.bumptech.glide.request.target.SimpleTarget
+import net.suntrans.common.utils.UiUtils
 import net.suntrans.tenement.App
 import net.suntrans.tenement.R
 import net.suntrans.tenement.Role
+import net.suntrans.tenement.bean.ProfileWraper
+import net.suntrans.tenement.bean.ResultBody
 import net.suntrans.tenement.databinding.FragmentMineBinding
 import net.suntrans.tenement.persistence.AppDatabase
 import net.suntrans.tenement.persistence.User
+import net.suntrans.tenement.rx.BaseSubscriber
 import net.suntrans.tenement.ui.activity.*
 import net.suntrans.tenement.ui.activity.auto.AutomationActivity
 import net.suntrans.tenement.ui.activity.stuff.MyStuffActivity
@@ -56,6 +63,12 @@ class RentMineFragment : BasedFragment(), View.OnClickListener {
 
         val id = App.Companion.getMySharedPreferences()!!.getInt("id", 0)
         println("用户id=" + id)
+
+
+        getUserInfoByLocal(id)
+    }
+
+    fun getUserInfoByLocal(id:Int) {
         mCompositeSubscription.add(Observable.just(AppDatabase.getInstance(context)
                 .userDao())
                 .observeOn(Schedulers.io())
@@ -66,6 +79,16 @@ class RentMineFragment : BasedFragment(), View.OnClickListener {
                     override fun onNext(user: User?) {
                         binding!!.userName.setText(user!!.truename)
                         binding!!.telephone.setText(user!!.mobile)
+                        Glide.with(context)
+                                .load(user.cover)
+                                .asBitmap()
+                                .override(UiUtils.dip2px(36), UiUtils.dip2px(36))
+                                .into(object : SimpleTarget<Bitmap>() {
+                                    override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
+                                        binding!!.avatar.setImageBitmap(resource)
+                                    }
+                                })
+
                     }
 
                     override fun onCompleted() {
@@ -76,7 +99,11 @@ class RentMineFragment : BasedFragment(), View.OnClickListener {
                     }
 
                 }))
+    }
 
+    override fun onResume() {
+        super.onResume()
+        getUserInfo()
     }
 
     override fun onClick(v: View) {
@@ -116,5 +143,25 @@ class RentMineFragment : BasedFragment(), View.OnClickListener {
                 startActivity(intent)
             }
         }
+    }
+
+    private fun getUserInfo() {
+        api.loadUserInfo()
+                .observeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
+                .subscribe(object : BaseSubscriber<ResultBody<ProfileWraper>>(context) {
+                    override fun onNext(t: ResultBody<ProfileWraper>?) {
+                        super.onNext(t)
+                        AppDatabase.getInstance(context)
+                                .userDao()
+                                .updateUser(t!!.data.user)
+                        getUserInfoByLocal(t.data.user.id)
+                    }
+
+                    override fun onError(e: Throwable?) {
+                        super.onError(e)
+                        e!!.printStackTrace()
+                    }
+                })
     }
 }

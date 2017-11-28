@@ -153,6 +153,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.admin.RepairActivity_admin" />
         <activity android:name=".ui.activity.admin.RepairDetailActivity" />
+        <activity android:name=".ui.activity.EnergyListActivity" />
     </application>
 
 </manifest>

@@ -24,6 +24,7 @@ import net.suntrans.tenement.bean.Stuff;
 import net.suntrans.tenement.databinding.ActivityEnergyAllBinding;
 import net.suntrans.tenement.ui.activity.BasedActivity;
 import net.suntrans.tenement.ui.activity.EnergyConsumeActivity;
+import net.suntrans.tenement.ui.activity.EnergyListActivity;
 import net.suntrans.tenement.ui.activity.stuff.MyStuffActivity;
 import net.suntrans.tenement.ui.activity.stuff.StuffProfileActivity;
 
@@ -74,7 +75,7 @@ public class EnergyAllActivity extends BasedActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
                 intent.setClass(EnergyAllActivity.this,EnergyConsumeActivity.class);
-                intent.putExtra("title",datas.get(position).name);
+//                intent.putExtra("title",datas.get(position).name);
                 startActivity(intent);
             }
         });

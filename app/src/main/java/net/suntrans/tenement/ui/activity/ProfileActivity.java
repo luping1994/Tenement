@@ -18,6 +18,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.App;
 import net.suntrans.tenement.R;
+import net.suntrans.tenement.bean.ProfileWraper;
 import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.databinding.ActivityProfileBinding;
 import net.suntrans.tenement.persistence.AppDatabase;
@@ -32,6 +33,7 @@ import java.util.Map;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -57,7 +59,11 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
         binding.llTouxiang.setOnClickListener(this);
         binding.llName.setOnClickListener(this);
         binding.llTelephone.setOnClickListener(this);
-        getDataFromLocal();
+        if (UiUtils.INSTANCE.isNetworkAvailable()) {
+            getUserProfile();
+        } else {
+            getDataFromLocal();
+        }
     }
 
     private void getDataFromLocal() {
@@ -149,14 +155,14 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
 
     private void showModifyMobileDialog() {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_change_phone, null, false);
-       final TextView text = view.findViewById(R.id.text);
+        final TextView text = view.findViewById(R.id.text);
         new AlertDialog.Builder(this)
                 .setTitle("修改手机号")
                 .setView(view)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                         String s = text.getText().toString();
+                        String s = text.getText().toString();
                         if (TextUtils.isEmpty(s)) {
                             UiUtils.INSTANCE.showToast("请输入手机号码");
                             return;
@@ -197,9 +203,17 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
         map.put("nickname", user.nickname);
         map.put("cover", user.cover);
         map.put("mobile", user.mobile);
-        api.updateProfile(map)
-                .observeOn(AndroidSchedulers.mainThread())
+        mCompositeSubscription.add(api.updateProfile(map)
+                .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
+                .doOnNext(new Action1<ResultBody>() {
+                    @Override
+                    public void call(ResultBody body) {
+                        AppDatabase.getInstance(ProfileActivity.this)
+                                .userDao().updateUser(user);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<ResultBody>(this) {
                     @Override
                     public void onNext(ResultBody resultBody) {
@@ -212,6 +226,34 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
                         super.onError(e);
                         e.printStackTrace();
                     }
-                });
+                }));
+    }
+
+    private void getUserProfile() {
+        addSubscription(api.loadUserInfo(), new BaseSubscriber<ResultBody<ProfileWraper>>(this) {
+            @Override
+            public void onNext(ResultBody<ProfileWraper> result) {
+                user = result.data.user;
+                binding.name.setText(user.truename);
+                binding.telephone.setText(user.mobile);
+                System.out.println(result.data);
+                Glide.with(ProfileActivity.this)
+                        .load(user.cover)
+                        .asBitmap()
+                        .override(UiUtils.INSTANCE.dip2px(36), UiUtils.INSTANCE.dip2px(36))
+                        .into(new SimpleTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                                binding.touxiang.setImageBitmap(resource);
+                            }
+                        });
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                e.printStackTrace();
+            }
+        });
     }
 }

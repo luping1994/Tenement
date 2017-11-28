@@ -3,6 +3,7 @@ package net.suntrans.tenement
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import com.pgyersdk.update.PgyUpdateManager
+import net.suntrans.tenement.BuildConfig.DEBUG
 import net.suntrans.tenement.databinding.ActivityMainBinding
 import net.suntrans.tenement.ui.activity.BasedActivity
 import net.suntrans.tenement.ui.fragment.admin.AdminMainFragment
@@ -16,13 +17,13 @@ class MainActivity : BasedActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        val role = intent.getIntExtra("role_id",Role.ROLE_RENT_ADMIN)
+        val role = intent.getIntExtra("role_id", Role.ROLE_RENT_ADMIN)
         when (role) {
             Role.ROLE_RENT_ADMIN -> {
                 val rentMainFragment = RentMainFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.content, rentMainFragment).commit()
             }
-            Role.ROLE_STUFF-> {
+            Role.ROLE_STUFF -> {
                 val rentMainFragment = RentMainFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.content, rentMainFragment).commit()
             }
@@ -53,12 +54,14 @@ class MainActivity : BasedActivity() {
 //        System.out.println("设备真实高度=" + heightPixels);
 //        System.out.println("设备密度dpi=" + densityDpi);
 
-        PgyUpdateManager.register(this,"net.suntrans.tenement.fileProvider")
+        if (!DEBUG)
+            PgyUpdateManager.register(this, "net.suntrans.tenement.fileProvider")
 
     }
 
     override fun onDestroy() {
-        PgyUpdateManager.unregister()
+        if (!DEBUG)
+            PgyUpdateManager.unregister()
         super.onDestroy()
     }
 }

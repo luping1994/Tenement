@@ -12,7 +12,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/action_bar_size"
                 android:background="@color/colorPrimary">

@@ -4,7 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/homepage_channel_fg_height"
+        android:layout_height="match_parent"
         app:layoutManager="GridLayoutManager"
        >
 

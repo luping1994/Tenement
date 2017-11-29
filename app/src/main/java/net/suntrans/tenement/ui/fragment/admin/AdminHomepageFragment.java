@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
+import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.bean.EnvInfo;
 import net.suntrans.tenement.bean.ResultBody;
@@ -23,6 +24,7 @@ import net.suntrans.tenement.databinding.FragmentAdminHomepageBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.DutyActivity;
 import net.suntrans.tenement.ui.activity.EnergyConsumeActivity;
+import net.suntrans.tenement.ui.activity.EnvDetailActivity;
 import net.suntrans.tenement.ui.activity.SceneActivity;
 import net.suntrans.tenement.ui.activity.admin.CompanyManagerActivity;
 import net.suntrans.tenement.ui.activity.admin.EnergyAllActivity;
@@ -53,6 +55,7 @@ public class AdminHomepageFragment extends BasedFragment {
     private int[] icon = {R.drawable.ic_nenghao, R.drawable.ic_deng,
             R.drawable.ic_mode_large, R.drawable.ic_nenghaofenxi, R.drawable.ic_fuwu,
             R.drawable.ic_zhibanbiao, R.drawable.ic_jiaofei, R.drawable.ic_gonggao, R.drawable.ic_company};
+    private EnvInfo envInfo;
 
     public AdminHomepageFragment() {
 
@@ -116,7 +119,20 @@ public class AdminHomepageFragment extends BasedFragment {
                 }
             }
         });
+        binding.relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (envInfo!=null){
+                    Intent intent = new Intent(getActivity(), EnvDetailActivity.class);
+                    intent.putExtra("id",envInfo.id);
+                    intent.putExtra("name",envInfo.name);
+                    startActivity(intent);
+                }else {
+                    UiUtils.INSTANCE.showToast("无法获取环境信息");
+                }
 
+            }
+        });
 
     }
 
@@ -161,6 +177,7 @@ public class AdminHomepageFragment extends BasedFragment {
                 .subscribe(new BaseSubscriber<ResultBody<EnvInfo>>(getContext()) {
                     @Override
                     public void onNext(ResultBody<EnvInfo> info) {
+                        envInfo = info.data;
                         binding.wendu.setText(info.data.wendu.value);
                         binding.shidu.setText(" " + info.data.shidu.value + "%");
                         binding.pm25.setText(" " + info.data.pm25.value + "");

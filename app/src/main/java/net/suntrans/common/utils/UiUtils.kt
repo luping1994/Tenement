@@ -8,6 +8,8 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.support.annotation.RequiresApi
@@ -61,13 +63,21 @@ object UiUtils {
             return false
         }
 
+    var handler = Handler(Looper.getMainLooper())
 
     fun showToast(str: String) {
         if (mToast == null) {
             mToast = Toast.makeText(App.application, str, Toast.LENGTH_SHORT)
         }
         mToast!!.setText(str)
-        mToast!!.show()
+
+        if (Thread.currentThread()!=Looper.getMainLooper().thread){
+            handler.post(Runnable { mToast!!.show() })
+        }else{
+
+            mToast!!.show()
+        }
+
     }
 
     fun showToast(context: Context,str: String) {
@@ -75,7 +85,14 @@ object UiUtils {
             mToast = Toast.makeText(context, str, Toast.LENGTH_SHORT)
         }
         mToast!!.setText(str)
-        mToast!!.show()
+
+        if (Thread.currentThread()!=Looper.getMainLooper().thread){
+            handler.post(Runnable { mToast!!.show() })
+        }else{
+
+            mToast!!.show()
+        }
+
     }
 
     fun showToastLong(str: String) {

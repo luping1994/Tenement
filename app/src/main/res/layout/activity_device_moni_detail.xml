@@ -12,10 +12,10 @@
         android:background="@color/colorPrimary">
 
         <RelativeLayout
-            android:background="@drawable/ripple"
             android:id="@+id/fanhui"
             android:layout_width="60dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/ripple">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -34,6 +34,19 @@
             android:text=""
             android:textColor="@color/white"
             android:textSize="@dimen/actionBarTitleSize" />
+
+        <TextView
+            android:id="@+id/rightSubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:gravity="center"
+            android:onClick="rightSubTitleClicked"
+            android:text="能耗"
+            android:textColor="@color/textcolor"
+            android:textSize="@dimen/actionBarSubTitleSize"
+            android:visibility="visible" />
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout

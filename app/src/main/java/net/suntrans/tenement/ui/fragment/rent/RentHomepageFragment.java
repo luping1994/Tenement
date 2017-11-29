@@ -131,6 +131,8 @@ public class RentHomepageFragment extends BasedFragment {
             public void onClick(View v) {
                 if (envData!=null){
                     Intent intent = new Intent(getActivity(), EnvDetailActivity.class);
+                    intent.putExtra("id",envData.id);
+                    intent.putExtra("name",envData.name);
                     startActivity(intent);
                 }else {
                     UiUtils.INSTANCE.showToast("无法获取环境信息");
@@ -175,6 +177,7 @@ public class RentHomepageFragment extends BasedFragment {
                     public void onNext(ResultBody<EnvInfo> info) {
                         envData = info.data;
                         binding.wendu.setText(info.data.wendu.value+"℃");
+                        binding.wenduEva.setText(info.data.wendu.text);
                         binding.shidu.setText(" " + info.data.shidu.value + "%");
                         binding.pm25.setText(" " + info.data.pm25.value + "");
                     }

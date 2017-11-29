@@ -14,11 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import net.suntrans.common.utils.UiUtils;
+import net.suntrans.tenement.DeviceType;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.adapter.DividerItemDecoration;
 import net.suntrans.tenement.api.Api;
@@ -162,6 +164,8 @@ public class AllChannelFragment extends android.support.v4.app.DialogFragment {
             helper.setText(R.id.name, item.title);
             AppCompatCheckBox checkBox = helper.getView(R.id.checkbox);
             checkBox.setChecked(item.checked);
+            ImageView imageView = helper.getView(R.id.image);
+            imageView.setImageResource(DeviceType.deviceIcons.get(item.device_type));
         }
     }
 

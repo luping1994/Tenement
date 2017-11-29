@@ -73,7 +73,7 @@ public class ChannelFragment extends android.support.v4.app.DialogFragment {
             //设置gravity
             window.setGravity(Gravity.CENTER);
         }
-        dialog.setCancelable(false);
+//        dialog.setCancelable(false);
         return dialog;
     }
 
@@ -152,7 +152,7 @@ public class ChannelFragment extends android.support.v4.app.DialogFragment {
             public void run() {
                 getChannelInfo(id);
             }
-        }, 500, 5000);
+        }, 500, 3000);
     }
 
     @Override

@@ -90,6 +90,7 @@ public class SettingActivity extends BasedActivity {
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
+                        UiUtils.INSTANCE.showToast(e.getMessage());
                     }
 
                     @Override

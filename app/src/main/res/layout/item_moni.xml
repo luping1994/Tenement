@@ -7,20 +7,21 @@
     android:paddingRight="@dimen/activity_horizontal_margin">
 
     <TextView
-        android:padding="2dp"
-        android:textColor="@color/white"
-        android:background="@color/colorPrimary"
-        android:text="正常"
-        android:id="@+id/image"
+        android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:background="@color/colorPrimary"
+        android:padding="2dp"
+        android:text="正常"
+        android:textColor="@color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_toRightOf="@id/image"
+        android:layout_toLeftOf="@id/arrow"
+        android:layout_toRightOf="@id/status"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
@@ -32,25 +33,59 @@
             android:textColor="@color/textColor"
             android:textSize="18sp" />
 
-       <LinearLayout
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content">
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="功率:1000W"
-               android:textSize="15sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-           <TextView
-               android:layout_marginLeft="30dp"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="电流:3.0A"
-               android:textSize="15sp" />
-       </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="功率 "
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/power_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="1000W"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="电流 "
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/current"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3.0A"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

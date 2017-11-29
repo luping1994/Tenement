@@ -51,10 +51,10 @@ public class RepairActivity extends BasedActivity implements View.OnClickListene
             }
         });
         WebSettings settings = binding.webview.getSettings();
-        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN;
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getWindow().getDecorView().setSystemUiVisibility(uiOptions);
+//        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//                | View.SYSTEM_UI_FLAG_FULLSCREEN;
+////        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().getDecorView().setSystemUiVisibility(uiOptions);
         token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQxYmVmZWZmYzZmNTE4NThlNDU0M2VlYmYxMzFjMmVmMjQzZmY2MmJjM2EyYmNjMTg4ZjBhNmRkODg0YjgxM2JmMTVlMDY2MTg2MDY4ODdkIn0.eyJhdWQiOiIyIiwianRpIjoiNDFiZWZlZmZjNmY1MTg1OGU0NTQzZWViZjEzMWMyZWYyNDNmZjYyYmMzYTJiY2MxODhmMGE2ZGQ4ODRiODEzYmYxNWUwNjYxODYwNjg4N2QiLCJpYXQiOjE1MTE3NzM3NDYsIm5iZiI6MTUxMTc3Mzc0NiwiZXhwIjoxNTEyMjkyMTQ2LCJzdWIiOiI5Iiwic2NvcGVzIjpbXX0.SxqL9OxAItrPJaHTaT0Lq3kmFr3Hwlf-qGmZyYs1ACGzZB0O9opKumZubwKG1Wdb3Njw6NxjxVPCpNQpv9RETosOl6sSug0AaFNI0w4Mo-3Yvv5AQwOmETILo2BNa9zg9mAIXsh3dcMww0EZWjDRZk7BFkGZUtvF3E8edAkqldsRY7EEaGYJy_TCaaMmplXi8SDA4fnfACJGNu9Z-mqsb1cNIThdbTczu1JQ-bHXWPmNEyP77P26n5jXDi8uHvZPSVOq4ZPcq_f8uhf1zZtmrDwvZF3rQoq6f3qS01xfqbooUQ0qNZqZFLW_18wzs0eKVst_8AnVNCnJ2st7mCtk1WKOJG1y_56KX1nDWLvFjHjF_D9pke0e7rWa83AuiKOTt80jMcxUmrGvvsI3io1rZuJg0HZrb9Wl-bk2ltS52rRd3A1sCApvZZ4Fn1MC55qP3sa3HtjP5caZOwWjnR4hwimxWZQKyjtCiZPoNw07J9tG95hs78RanrkRX1s-RMoYrd5Abrn3GDG2x0vXJIyGnNFn8445K-rHp5zgzZwc27g8zaE3gCqtimji8Y6f3Slj5Esv6t1AqvjNj4qJBx2YzpXw26h0VqbiukzxMuRRl9v-OHtmA_MxHQKUC9-s4TuUtTy16VvVPeavUYDg-830V5heTUIJ8_TY-KBzah5Uko0";
         house_id = "1";
         settings.setJavaScriptEnabled(true);
@@ -91,41 +91,41 @@ public class RepairActivity extends BasedActivity implements View.OnClickListene
 // * 适应内容大小 2、LayoutAlgorithm.SINGLE_COLUMN:适应屏幕，内容将自动缩放
 // */
 //        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
-        insertJs();
-        binding.webview.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
+//        insertJs();
+//        binding.webview.setWebViewClient(new WebViewClient() {
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                view.loadUrl(url);
+//                return true;
+//            }
+//
+//            @Override
+//            public void onPageFinished(WebView view, String url) {
+//                super.onPageFinished(view, url);
+//                String js = "";
+//                js += "var newscript = document.createElement(\"script\");";
+//                js += "newscript.src=\"./js/designer.js\";";
+//                js += "newscript.onload=function(){"
+//                        + "init(\""
+//                        + token + "\",\""
+//                        + house_id + "\");};";
+//                js += "document.body.appendChild(newscript);";
+//
+//                System.out.println(js);
+//                binding.webview.loadUrl("javascript:" + js);
+//            }
+//        });
+//        binding.webview.setWebChromeClient(new WebChromeClient() {
+//            @Override
+//            public void onProgressChanged(WebView view, int newProgress) {
+//
+//            }
+//        });
+//        binding.webview.setInitialScale(100);
 
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                String js = "";
-                js += "var newscript = document.createElement(\"script\");";
-                js += "newscript.src=\"./js/designer.js\";";
-                js += "newscript.onload=function(){"
-                        + "init(\""
-                        + token + "\",\""
-                        + house_id + "\");};";
-                js += "document.body.appendChild(newscript);";
-
-                System.out.println(js);
-                binding.webview.loadUrl("javascript:" + js);
-            }
-        });
-        binding.webview.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-
-            }
-        });
-        binding.webview.setInitialScale(100);
-
-//        binding.webview.loadUrl("file:///android_asset/html/repair.html");
-        binding.webview.loadUrl("file:///android_asset/plan/floor_plan.html");
-        binding.webview.addJavascriptInterface(new AndroidtoJs(), "control");
+        binding.webview.loadUrl("file:///android_asset/html/repair.html");
+//        binding.webview.loadUrl("file:///android_asset/plan/floor_plan.html");
+//        binding.webview.addJavascriptInterface(new AndroidtoJs(), "control");
     }
 
 

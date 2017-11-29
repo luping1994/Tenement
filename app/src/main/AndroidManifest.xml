@@ -141,7 +141,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.rent.RepairActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.EnvDetailActivity"
             android:screenOrientation="portrait" />
@@ -154,6 +154,7 @@
         <activity android:name=".ui.activity.admin.RepairActivity_admin" />
         <activity android:name=".ui.activity.admin.RepairDetailActivity" />
         <activity android:name=".ui.activity.EnergyListActivity" />
+        <activity android:name=".ui.activity.AmmeterParameterActivity" />
     </application>
 
 </manifest>

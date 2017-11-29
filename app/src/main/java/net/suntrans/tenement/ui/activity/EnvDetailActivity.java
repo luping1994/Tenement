@@ -11,8 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.suntrans.tenement.R;
-import net.suntrans.tenement.api.RetrofitHelper;
+import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.bean.SensusEntity;
+import net.suntrans.tenement.rx.BaseSubscriber;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -27,7 +28,7 @@ public class EnvDetailActivity extends BasedActivity {
     private DisplayMetrics displayMetrics = new DisplayMetrics();
     private int Pwidth;
     private SwipeRefreshLayout refreshLayout;
-    private String din;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class EnvDetailActivity extends BasedActivity {
         setContentView(R.layout.activity_env_detail);
         rootLL = (LinearLayout) findViewById(R.id.rootLL);
         time = (TextView) findViewById(R.id.time);
-        din = getIntent().getStringExtra("id");
+        id = getIntent().getStringExtra("id");
 
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);//获取屏幕大小的信息
         Pwidth = displayMetrics.widthPixels;   //屏幕宽度,先锋的宽度是800px，小米2a的宽度是720px
@@ -47,7 +48,7 @@ public class EnvDetailActivity extends BasedActivity {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getData(din);
+                getData(id);
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -242,29 +243,28 @@ public class EnvDetailActivity extends BasedActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getData(din);
+        getData(id);
     }
 
-    private void getData(String din) {
-//        api.getEnvDetail(din)
-//                .compose(this.<EnvDetailEntity>bindUntilEvent(ActivityEvent.DESTROY))
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new BaseSubscriber<EnvDetailEntity>(this) {
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        super.onError(e);
-//                        if (refreshLayout != null)
-//                            refreshLayout.setRefreshing(false);
-//                    }
-//
-//                    @Override
-//                    public void onNext(EnvDetailEntity info) {
-//                        info.data.setEva();
-//                        initView(info.data);
-//                        if (refreshLayout != null)
-//                            refreshLayout.setRefreshing(false);
-//                    }
-//                });
+    private void getData(String id) {
+      mCompositeSubscription.add(  api.loadSensusInfo(id)
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribe(new BaseSubscriber<ResultBody<SensusEntity.SixDetailData>>(this) {
+                  @Override
+                  public void onError(Throwable e) {
+                      super.onError(e);
+                      if (refreshLayout != null)
+                          refreshLayout.setRefreshing(false);
+                  }
+
+                  @Override
+                  public void onNext(ResultBody<SensusEntity.SixDetailData> info) {
+                      info.data.setEva();
+                      initView(info.data);
+                      if (refreshLayout != null)
+                          refreshLayout.setRefreshing(false);
+                  }
+              }));
     }
 }

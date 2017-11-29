@@ -10,6 +10,8 @@ import android.os.Parcelable;
 
 public class EnvInfo {
 
+    public String id;
+    public String name;
 
     /**
      * wendu : {"name":"温度","value":"26.15","text":"舒适","unit":"°C","color":"#FFFFFF"}

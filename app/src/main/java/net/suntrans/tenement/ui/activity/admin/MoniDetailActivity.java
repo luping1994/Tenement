@@ -14,10 +14,9 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import net.suntrans.tenement.DeviceType;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.adapter.DividerItemDecoration;
-import net.suntrans.tenement.bean.ChannelEntity;
-import net.suntrans.tenement.bean.ChannelInfo;
-import net.suntrans.tenement.bean.EnergyListInfo;
+import net.suntrans.tenement.bean.MonitorEntity;
 import net.suntrans.tenement.bean.ResultBody;
+import net.suntrans.tenement.bean.RoomChannel;
 import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.BasedActivity;
 
@@ -34,8 +33,8 @@ import rx.schedulers.Schedulers;
 
 public class MoniDetailActivity extends BasedActivity {
 
-    private String dev_id;
-    private List<ChannelInfo> datas;
+    private String room_id;
+    private List<RoomChannel> datas;
     private Myadapter myadapter;
     private SwipeRefreshLayout refreshLayout;
 
@@ -54,13 +53,7 @@ public class MoniDetailActivity extends BasedActivity {
         TextView title = findViewById(R.id.title);
         title.setText(getIntent().getStringExtra("title"));
         datas = new ArrayList<>();
-
-        for (int i=1;i<7;i++){
-            ChannelInfo info = new ChannelInfo();
-            info.title="通道"+i;
-            datas.add(info);
-        }
-        dev_id = getIntent().getStringExtra("id");
+        room_id = getIntent().getStringExtra("id");
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         myadapter = new Myadapter(R.layout.item_device_moni_detail, datas);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -76,21 +69,28 @@ public class MoniDetailActivity extends BasedActivity {
 
     }
 
-    class Myadapter extends BaseQuickAdapter<ChannelInfo, BaseViewHolder> {
+    public void rightSubTitleClicked(View view) {
+
+    }
+
+    class Myadapter extends BaseQuickAdapter<RoomChannel, BaseViewHolder> {
 
         private int usedColor;
         private int unusedColor;
 
-        public Myadapter(int layoutResId, @Nullable List<ChannelInfo> data) {
+        public Myadapter(int layoutResId, @Nullable List<RoomChannel> data) {
             super(layoutResId, data);
             usedColor = getResources().getColor(R.color.colorPrimary);
             unusedColor = getResources().getColor(R.color.enenry_value_textcolr);
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, ChannelInfo item) {
-            helper.setText(R.id.name, item.title == null ? "--" : item.title)
-                    .setText(R.id.used, "1".equals(item.used) ? "10A" : "10A");
+        protected void convert(BaseViewHolder helper, RoomChannel item) {
+            helper.setText(R.id.name, item.title == null ? "--" : item.title);
+            helper.setText(R.id.des, item.name);
+            ImageView imageView = helper.getView(R.id.image);
+            imageView.setImageResource(DeviceType.deviceIcons.get(item.device_type));
+            helper.setText(R.id.used,"电流:"+item.current+"A");
 
         }
     }
@@ -102,12 +102,13 @@ public class MoniDetailActivity extends BasedActivity {
     }
 
     private void getData() {
-        if (dev_id == null)
+        if (room_id == null)
             return;
-        mCompositeSubscription.add(api.getDeviceChannel(dev_id)
+
+        mCompositeSubscription.add(api.loadMonitorRoomChannel(room_id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new BaseSubscriber<ResultBody<ChannelEntity>>(this) {
+                .subscribe(new BaseSubscriber<ResultBody<MonitorEntity>>(this) {
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
@@ -115,7 +116,7 @@ public class MoniDetailActivity extends BasedActivity {
                     }
 
                     @Override
-                    public void onNext(ResultBody<ChannelEntity> deviceDetailResult) {
+                    public void onNext(ResultBody<MonitorEntity> deviceDetailResult) {
                         super.onNext(deviceDetailResult);
                         refreshLayout.setRefreshing(false);
                         datas.clear();

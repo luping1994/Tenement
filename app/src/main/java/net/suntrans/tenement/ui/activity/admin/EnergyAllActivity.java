@@ -20,8 +20,10 @@ import net.suntrans.tenement.R;
 import net.suntrans.tenement.adapter.DividerItemDecoration;
 import net.suntrans.tenement.bean.CompanyInfo;
 import net.suntrans.tenement.bean.EnergyListInfo;
+import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.bean.Stuff;
 import net.suntrans.tenement.databinding.ActivityEnergyAllBinding;
+import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.BasedActivity;
 import net.suntrans.tenement.ui.activity.EnergyConsumeActivity;
 import net.suntrans.tenement.ui.activity.EnergyListActivity;
@@ -52,17 +54,12 @@ public class EnergyAllActivity extends BasedActivity {
             }
         });
         datas = new ArrayList<>();
-        for (int i=201;i<210;i++){
-            EnergyListInfo info = new EnergyListInfo();
-            info.name=i+"";
-            info.value = "当日用电:"+i+"kW·h";
-            datas.add(info);
-        }
+
         binding.refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         binding.refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                binding.refreshLayout.setRefreshing(false);
+                getData();
             }
         });
         adapter = new EnergyAllAdapter(R.layout.item_common, datas);
@@ -75,7 +72,8 @@ public class EnergyAllActivity extends BasedActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
                 intent.setClass(EnergyAllActivity.this,EnergyConsumeActivity.class);
-//                intent.putExtra("title",datas.get(position).name);
+                intent.putExtra("title",datas.get(position).name);
+                intent.putExtra("id",datas.get(position).id);
                 startActivity(intent);
             }
         });
@@ -92,10 +90,32 @@ public class EnergyAllActivity extends BasedActivity {
         @Override
         protected void convert(BaseViewHolder helper, EnergyListInfo item) {
             helper.setText(R.id.name, item.name);
-            helper.setText(R.id.value, item.value==null?"--":item.value);
+            helper.setText(R.id.value, item.today==null?"--":"当日用电:"+item.today+"kW·h");
             final ImageView toxiang = helper.getView(R.id.touxiang);
-
-
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
+    }
+
+    private void getData(){
+        addSubscription(api.loadEnergyArea(),new BaseSubscriber<ResultBody<List<EnergyListInfo>>>(this){
+            @Override
+            public void onNext(ResultBody<List<EnergyListInfo>> listResultBody) {
+                    datas.clear();
+                    datas.addAll(listResultBody.data);
+                    adapter.notifyDataSetChanged();
+                    binding.refreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                binding.refreshLayout.setRefreshing(false);
+            }
+        });
     }
 }

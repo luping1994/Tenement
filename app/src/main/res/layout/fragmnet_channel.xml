@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/homepage_channel_fg_height"
-        >
-
-        <ImageView
-            android:id="@+id/delete"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ic_delete" />
+        android:layout_height="@dimen/homepage_channel_fg_height">
 
         <RelativeLayout
-            android:layout_centerInParent="true"
             android:layout_width="match_parent"
             android:layout_height="@dimen/homepage_channel_fg_height"
-            android:padding="24dp">
+            android:layout_centerInParent="true"
+            android:padding="16dp">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -29,6 +20,12 @@
             </android.support.v7.widget.RecyclerView>
         </RelativeLayout>
 
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_delete" />
     </RelativeLayout>
 
 </layout>

@@ -98,7 +98,7 @@ public class AreaOrChannelFragment extends BasedFragment {
             public void run() {
                 getChannelInfo();
             }
-        }, 500, 5000);
+        }, 500, 3000);
     }
 
     @Override
@@ -151,6 +151,7 @@ public class AreaOrChannelFragment extends BasedFragment {
                                     @Override
                                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                         ChannelFragment fragment = ChannelFragment.newInstance(areaDatas.get(position).id + "");
+                                        fragment.setCancelable(false);
                                         fragment.show(getChildFragmentManager(),"channelFragment");
                                     }
                                 });

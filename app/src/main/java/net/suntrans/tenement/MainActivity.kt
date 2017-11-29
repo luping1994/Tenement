@@ -32,6 +32,11 @@ class MainActivity : BasedActivity() {
                 supportFragmentManager.beginTransaction().replace(R.id.content, adminMainFragment).commit()
 
             }
+            else ->{
+                val adminMainFragment = AdminMainFragment()
+                supportFragmentManager.beginTransaction().replace(R.id.content, adminMainFragment).commit()
+            }
+
         }
 
 //        println(StatusBarCompat.getNavigationBarHeight(this))

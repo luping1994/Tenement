@@ -26,20 +26,28 @@ public class XYMarkerView extends MarkerView {
     private IAxisValueFormatter xAxisValueFormatter;
 
     private DecimalFormat format;
+    public static final int YEAR = 1;
+    public static final int MONTH = 2;
 
-    public XYMarkerView(Context context, IAxisValueFormatter xAxisValueFormatter) {
+    private int type = 1;
+
+    public XYMarkerView(Context context, IAxisValueFormatter xAxisValueFormatter, int type) {
         super(context, R.layout.custom_marker_view);
 
         this.xAxisValueFormatter = xAxisValueFormatter;
         tvContent = (TextView) findViewById(R.id.tvContent);
-        format = new DecimalFormat("###.0");
+        format = new DecimalFormat("####");
+        this.type = type;
     }
 
 
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
 
-        tvContent.setText(e.getX()+":"+e.getY()+"");
+        if (type == YEAR)
+            tvContent.setText((int) e.getX() + "月:" + e.getY() + "kW·h");
+        else if (type == MONTH)
+            tvContent.setText((int)e.getX() + "日:" + e.getY() + "kW·h");
 
         super.refreshContent(e, highlight);
     }

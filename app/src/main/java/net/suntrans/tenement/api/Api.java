@@ -1,23 +1,27 @@
 package net.suntrans.tenement.api;
 
+import net.suntrans.tenement.bean.Ameter;
 import net.suntrans.tenement.bean.ChannelAreaEntity;
 import net.suntrans.tenement.bean.ChannelControlMessage;
 import net.suntrans.tenement.bean.ChannelEntity;
 import net.suntrans.tenement.bean.DeviceEntity;
 import net.suntrans.tenement.bean.EnergyHis;
+import net.suntrans.tenement.bean.EnergyListInfo;
 import net.suntrans.tenement.bean.EnergyListItem;
 import net.suntrans.tenement.bean.EnvInfo;
 import net.suntrans.tenement.bean.LoginInfo;
+import net.suntrans.tenement.bean.Monitor;
+import net.suntrans.tenement.bean.MonitorEntity;
 import net.suntrans.tenement.bean.ProfileWraper;
 import net.suntrans.tenement.bean.ResultBody;
+import net.suntrans.tenement.bean.RoomChannel;
 import net.suntrans.tenement.bean.SceneEntity;
 import net.suntrans.tenement.bean.SceneImage;
-import net.suntrans.tenement.bean.SceneItem;
 import net.suntrans.tenement.bean.SceneItemlEntity;
+import net.suntrans.tenement.bean.SensusEntity;
 import net.suntrans.tenement.bean.Stuff;
 import net.suntrans.tenement.bean.StuffEntity;
 import net.suntrans.tenement.bean.UploadInfo;
-import net.suntrans.tenement.persistence.User;
 
 import java.util.List;
 import java.util.Map;
@@ -161,11 +165,34 @@ public interface Api {
     Observable<ResultBody<List<EnergyListItem>>> energyList();
 
 
+    /**
+     * @param id 房间号
+     * @return
+     */
     @FormUrlEncoded
     @POST("energy/show")
     Observable<ResultBody<EnergyHis>> getEnergyDetail(@Field("id") String id);
 
     @POST("user/info")
     Observable<ResultBody<ProfileWraper>> loadUserInfo();
+
+    @FormUrlEncoded
+    @POST("sensus/show")
+    Observable<ResultBody<SensusEntity.SixDetailData>> loadSensusInfo(@Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("energy/current")
+    Observable<ResultBody<Ameter>> loadAmeter(@Field("sno") String sno);
+
+    @POST("monitor/index")
+    Observable<ResultBody<List<Monitor>>> loadMonitorIndex();
+
+
+    @FormUrlEncoded
+    @POST("monitor/channel")
+    Observable<ResultBody<MonitorEntity>> loadMonitorRoomChannel(@Field("id") String id);
+
+    @POST("energy/area")
+    Observable<ResultBody<List<EnergyListInfo>>> loadEnergyArea();
 
 }

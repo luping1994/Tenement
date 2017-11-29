@@ -219,12 +219,13 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
                     public void onNext(ResultBody resultBody) {
                         super.onNext(resultBody);
                         UiUtils.INSTANCE.showToast(resultBody.msg);
+                        getDataFromLocal();
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
-                        e.printStackTrace();
+//                        e.printStackTrace();
                     }
                 }));
     }

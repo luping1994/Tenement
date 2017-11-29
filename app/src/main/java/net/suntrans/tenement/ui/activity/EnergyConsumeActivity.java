@@ -1,5 +1,6 @@
 package net.suntrans.tenement.ui.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +19,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
+import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.bean.EnergyHis;
 import net.suntrans.tenement.bean.ResultBody;
@@ -48,6 +50,7 @@ public class EnergyConsumeActivity extends BasedActivity {
     private Handler handler = new Handler();
     private int lastDay;
     private String id;
+    private String sno;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +62,18 @@ public class EnergyConsumeActivity extends BasedActivity {
         binding.todayUsedValue.setText(getIntent().getStringExtra("yesterdayUsed")+"kW·h");
         binding.todayUsed.setText(getIntent().getStringExtra("monthUsed")+"");
 
+        binding.textView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(sno)){
+                    UiUtils.INSTANCE.showToast("无法获取电表信息");
+                    return;
+                }
+                Intent intent = new Intent(EnergyConsumeActivity.this, AmmeterParameterActivity.class);
+                intent.putExtra("sno",sno);
+                startActivity(intent);
+            }
+        });
         initView();
 
         initYearChart();
@@ -93,12 +108,7 @@ public class EnergyConsumeActivity extends BasedActivity {
             }
         });
 
-        binding.textView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
     }
 
     @Override
@@ -161,7 +171,7 @@ public class EnergyConsumeActivity extends BasedActivity {
 
 
         IAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(binding.yearEle, DayAxisValueFormatter.DAYS);
-        XYMarkerView mv = new XYMarkerView(this, xAxisFormatter);
+        XYMarkerView mv = new XYMarkerView(this, xAxisFormatter,XYMarkerView.YEAR);
         mv.setChartView(binding.yearEle); // For bounds control
         binding.yearEle.setMarker(mv); // Set the marker to the chart
     }
@@ -196,7 +206,6 @@ public class EnergyConsumeActivity extends BasedActivity {
         };
         xAxis.setValueFormatter(iAxisValueFormatter);
 
-        IAxisValueFormatter custom = new MyAxisValueFormatter2();
 
         YAxis leftAxis = binding.monthEle.getAxisLeft();
 //        leftAxis.setTypeface(mTfLight);
@@ -220,7 +229,7 @@ public class EnergyConsumeActivity extends BasedActivity {
         l.setXEntrySpace(4f);
 
 
-        XYMarkerView mv = new XYMarkerView(this, iAxisValueFormatter);
+        XYMarkerView mv = new XYMarkerView(this, iAxisValueFormatter,XYMarkerView.MONTH);
         mv.setChartView(binding.monthEle); // For bounds control
         binding.monthEle.setMarker(mv); // Set the marker to the chart
     }
@@ -231,7 +240,7 @@ public class EnergyConsumeActivity extends BasedActivity {
         if (monthData == null || monthData.size() == 0)
             return;
 
-        for (int i = 1; i < lastDay; i++) {
+        for (int i = 1; i <=lastDay; i++) {
             float val = 0;
             for (int j = 0; j < monthData.size(); j++) {
                 if (monthData.get(j).x == i) {
@@ -250,7 +259,7 @@ public class EnergyConsumeActivity extends BasedActivity {
             binding.monthEle.getData().notifyDataChanged();
             binding.monthEle.notifyDataSetChanged();
         } else {
-            set1 = new BarDataSet(yVals1, "本月("+month+")用电量");
+            set1 = new BarDataSet(yVals1, "本月("+month+"月)用电量");
             set1.setColors(MONTH_BAR_COLOR);
             set1.setDrawValues(false);
             ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
@@ -335,6 +344,7 @@ public class EnergyConsumeActivity extends BasedActivity {
 
                     @Override
                     public void onNext(ResultBody<EnergyHis> data) {
+                        sno = data.data.sno;
                         List<EnergyHis.HisItem> monthData = data.data.month;
                         List<EnergyHis.HisItem> yearData = data.data.year;
                         setMonthData(monthData,data.data.date_m);

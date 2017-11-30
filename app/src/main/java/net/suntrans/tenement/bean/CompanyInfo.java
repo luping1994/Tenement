@@ -7,11 +7,19 @@ package net.suntrans.tenement.bean;
 public class CompanyInfo {
 
 
-    public int id;
-    public String username;
-    public String truename;
-    public String nickname;
-    public String mobile;
-    public String cover;
-    public String value;
+    /**
+     * id : 3
+     * name : 三川研发中心
+     * address : 204
+     * status : 1
+     * date_start : 2017-11-29 11:15:12
+     * date_end : 2018-11-29 11:15:21
+     */
+
+    public String id;
+    public String name;
+    public String address;
+    public String status;
+    public String date_start;
+    public String date_end;
 }

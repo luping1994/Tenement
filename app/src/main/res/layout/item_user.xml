@@ -15,17 +15,11 @@
         android:orientation="horizontal"
         android:paddingLeft="@dimen/activity_horizontal_margin">
 
-        <TextView
-
-            android:paddingRight="8dp"
-            android:paddingLeft="8dp"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:background="#f95350"
-            android:text="紧急"
-            android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:src="@drawable/ic_xiaoma"
+            android:id="@+id/image"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -34,7 +28,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -47,10 +41,11 @@
 
             <TextView
                 android:autoLink="phone"
-                android:id="@+id/time"
+                android:id="@+id/telephone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
+                android:drawableLeft="@drawable/item_user_phone"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text=" 15899694150"
@@ -60,6 +55,15 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/arrow"
+        android:text="在线"
+        android:textSize="14sp"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/arrow"

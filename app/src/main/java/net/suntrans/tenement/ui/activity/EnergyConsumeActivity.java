@@ -58,9 +58,9 @@ public class EnergyConsumeActivity extends BasedActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_energy_consume);
         lastDay = getCurrentMonthLastDay();
         id = getIntent().getStringExtra("id");
-        binding.yesterDayUsedValue.setText(getIntent().getStringExtra("todyUsed")+"kW·h");
-        binding.todayUsedValue.setText(getIntent().getStringExtra("yesterdayUsed")+"kW·h");
-        binding.todayUsed.setText(getIntent().getStringExtra("monthUsed")+"");
+        binding.todayUsedValue.setText(getIntent().getStringExtra("todyUsed")+"kW·h");
+        binding.yesterdayUsedValue.setText(getIntent().getStringExtra("yesterdayUsed")+"kW·h");
+        binding.monthUsed.setText(getIntent().getStringExtra("monthUsed")+"");
 
         binding.textView2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -345,11 +345,13 @@ public class EnergyConsumeActivity extends BasedActivity {
                     @Override
                     public void onNext(ResultBody<EnergyHis> data) {
                         sno = data.data.sno;
+                        binding.yesterdayUsedValue.setText(data.data.el_yesterday+"kW·h");
+                        binding.todayUsedValue.setText(data.data.el_today+"kW·h");
+                        binding.monthUsed.setText(data.data.el_month);
                         List<EnergyHis.HisItem> monthData = data.data.month;
                         List<EnergyHis.HisItem> yearData = data.data.year;
                         setMonthData(monthData,data.data.date_m);
                         setYearData(yearData,data.data.date_y);
-
                     }
                 }));
     }

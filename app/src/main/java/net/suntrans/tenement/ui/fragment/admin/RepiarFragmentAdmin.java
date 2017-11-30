@@ -13,7 +13,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.adapter.DividerItemDecoration;
-import net.suntrans.tenement.bean.MessageInfo;
 import net.suntrans.tenement.bean.RepairItem;
 import net.suntrans.tenement.databinding.FragmentMessageBinding;
 import net.suntrans.tenement.ui.activity.admin.RepairDetailActivity;

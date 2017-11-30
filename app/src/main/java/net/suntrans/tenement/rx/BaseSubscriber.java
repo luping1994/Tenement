@@ -22,6 +22,9 @@ public class BaseSubscriber<T> extends Subscriber<T> {
         this.context = context;
     }
 
+    public BaseSubscriber() {
+    }
+
     @Override
     public void onStart() {
         if (!UiUtils.INSTANCE.isNetworkAvailable()) {
@@ -37,7 +40,7 @@ public class BaseSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onError(Throwable e) {
-        ApiErrorHelper.handleCommonError(context,e);
+        ApiErrorHelper.handleCommonError(context, e);
     }
 
     @Override

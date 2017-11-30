@@ -75,6 +75,9 @@ public class DeviceDetailActivity extends BasedActivity {
                 startActivity(intent);
             }
         });
+
+        findViewById(R.id.llBottom).setVisibility(View.GONE);
+
     }
 
     class Myadapter extends BaseQuickAdapter<ChannelInfo, BaseViewHolder> {

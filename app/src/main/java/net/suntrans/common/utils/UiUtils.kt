@@ -69,26 +69,32 @@ object UiUtils {
         if (mToast == null) {
             mToast = Toast.makeText(App.application, str, Toast.LENGTH_SHORT)
         }
-        mToast!!.setText(str)
 
-        if (Thread.currentThread()!=Looper.getMainLooper().thread){
-            handler.post(Runnable { mToast!!.show() })
-        }else{
-
+        if (Thread.currentThread() != Looper.getMainLooper().thread) {
+            handler.post(Runnable {
+                mToast!!.setText(str)
+                mToast!!.show()
+            }
+            )
+        } else {
+            mToast!!.setText(str)
             mToast!!.show()
         }
 
     }
 
-    fun showToast(context: Context,str: String) {
+    fun showToast(context: Context, str: String) {
         if (mToast == null) {
             mToast = Toast.makeText(context, str, Toast.LENGTH_SHORT)
         }
-        mToast!!.setText(str)
 
-        if (Thread.currentThread()!=Looper.getMainLooper().thread){
-            handler.post(Runnable { mToast!!.show() })
-        }else{
+
+        if (Thread.currentThread() != Looper.getMainLooper().thread) {
+            handler.post(Runnable {
+                mToast!!.show()
+                mToast!!.setText(str)
+            })
+        } else {
 
             mToast!!.show()
         }

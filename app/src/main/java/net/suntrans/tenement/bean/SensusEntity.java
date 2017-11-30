@@ -34,6 +34,7 @@ public class SensusEntity extends ResultBody<SensusEntity.Data>{
 
     public static class SixDetailData implements Parcelable {
 
+        public String name;
         public String updated_at;
         public String pm25Eva;
         public String pm1Eva;
@@ -406,6 +407,7 @@ public class SensusEntity extends ResultBody<SensusEntity.Data>{
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.name);
             dest.writeString(this.updated_at);
             dest.writeString(this.pm25Eva);
             dest.writeString(this.pm1Eva);
@@ -445,6 +447,7 @@ public class SensusEntity extends ResultBody<SensusEntity.Data>{
         }
 
         protected SixDetailData(Parcel in) {
+            this.name = in.readString();
             this.updated_at = in.readString();
             this.pm25Eva = in.readString();
             this.pm1Eva = in.readString();

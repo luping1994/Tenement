@@ -4,6 +4,7 @@ import net.suntrans.tenement.bean.Ameter;
 import net.suntrans.tenement.bean.ChannelAreaEntity;
 import net.suntrans.tenement.bean.ChannelControlMessage;
 import net.suntrans.tenement.bean.ChannelEntity;
+import net.suntrans.tenement.bean.CompanyEntity;
 import net.suntrans.tenement.bean.DeviceEntity;
 import net.suntrans.tenement.bean.EnergyHis;
 import net.suntrans.tenement.bean.EnergyListInfo;
@@ -12,6 +13,7 @@ import net.suntrans.tenement.bean.EnvInfo;
 import net.suntrans.tenement.bean.LoginInfo;
 import net.suntrans.tenement.bean.Monitor;
 import net.suntrans.tenement.bean.MonitorEntity;
+import net.suntrans.tenement.bean.NoticeEntity;
 import net.suntrans.tenement.bean.ProfileWraper;
 import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.bean.RoomChannel;
@@ -194,5 +196,18 @@ public interface Api {
 
     @POST("energy/area")
     Observable<ResultBody<List<EnergyListInfo>>> loadEnergyArea();
+
+    @POST("manager/owner/index")
+    Observable<ResultBody<CompanyEntity>> loadCompany();
+
+    @POST("energy/summary")
+    Observable<ResultBody<Map<String,String>>> loadEnergySummary();
+
+    @FormUrlEncoded
+    @POST("switch/slc/area")
+    Observable<ResultBody<Map<String, String>>> switchSlcArea(@FieldMap Map<String,String> map);
+
+    @POST("notice/index")
+    Observable<ResultBody<NoticeEntity>> loadNoticeList();
 
 }

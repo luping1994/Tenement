@@ -18,6 +18,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.adapter.DividerItemDecoration;
+import net.suntrans.tenement.bean.CompanyEntity;
 import net.suntrans.tenement.bean.CompanyInfo;
 import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.bean.Stuff;
@@ -60,7 +61,7 @@ public class CompanyManagerActivity extends BasedActivity {
         });
         adapter.bindToRecyclerView(binding.recyclerview);
         adapter.setEmptyView(R.layout.recyclerview_empty_view);
-        binding.recyclerview.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        binding.recyclerview.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +72,7 @@ public class CompanyManagerActivity extends BasedActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
-                intent.setClass(CompanyManagerActivity.this,StuffProfileActivity.class);
+                intent.setClass(CompanyManagerActivity.this, CompanyDetailActivity.class);
                 startActivity(intent);
             }
         });
@@ -85,25 +86,25 @@ public class CompanyManagerActivity extends BasedActivity {
     }
 
     private void getData() {
-//        mCompositeSubscription.add(api.getMyStuff()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new BaseSubscriber<ResultBody<StuffEntity>>(this.getApplicationContext()) {
-//                    @Override
-//                    public void onNext(ResultBody<StuffEntity> body) {
-//                        datas.clear();
-//                        datas.addAll(body.data.lists);
-//                        adapter.notifyDataSetChanged();
-//                        binding.refreshlayout.setRefreshing(false);
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        super.onError(e);
-//                        binding.refreshlayout.setRefreshing(false);
-//                    }
-//                }));
+        mCompositeSubscription.add(api.loadCompany()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<ResultBody<CompanyEntity>>(this.getApplicationContext()) {
+                    @Override
+                    public void onNext(ResultBody<CompanyEntity> body) {
+                        datas.clear();
+                        datas.addAll(body.data.lists);
+                        adapter.notifyDataSetChanged();
+                        binding.refreshlayout.setRefreshing(false);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        binding.refreshlayout.setRefreshing(false);
+                    }
+                }));
     }
 
     public void rightSubTitleClicked(View view) {
@@ -121,19 +122,9 @@ public class CompanyManagerActivity extends BasedActivity {
 
         @Override
         protected void convert(BaseViewHolder helper, CompanyInfo item) {
-            helper.setText(R.id.name, item.truename);
-            helper.setText(R.id.mobile, item.mobile==null?item.mobile:"--");
-            final ImageView toxiang = helper.getView(R.id.touxiang);
-            Glide.with(CompanyManagerActivity.this)
-                    .load(item.cover)
-                    .asBitmap()
-                    .override(imgSize, imgSize)
-                    .into(new SimpleTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                            toxiang.setImageBitmap(resource);
-                        }
-                    });
+            helper.setText(R.id.name, item.name);
+            helper.setText(R.id.status, item.status);
+            helper.setText(R.id.startTime, item.date_start == null ? "--" : item.date_start + "~" + item.date_end);
 
 
         }

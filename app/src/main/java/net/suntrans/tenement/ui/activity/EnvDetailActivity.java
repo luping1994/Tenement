@@ -29,13 +29,14 @@ public class EnvDetailActivity extends BasedActivity {
     private int Pwidth;
     private SwipeRefreshLayout refreshLayout;
     private String id;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_env_detail);
-        rootLL = (LinearLayout) findViewById(R.id.rootLL);
-        time = (TextView) findViewById(R.id.time);
+        rootLL =  findViewById(R.id.rootLL);
+        time =  findViewById(R.id.time);
         id = getIntent().getStringExtra("id");
 
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);//获取屏幕大小的信息
@@ -44,7 +45,7 @@ public class EnvDetailActivity extends BasedActivity {
         if (info != null)
             info.setEva();
         initView(info);
-        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refreshlayout);
+        refreshLayout =  findViewById(R.id.refreshlayout);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -57,7 +58,8 @@ public class EnvDetailActivity extends BasedActivity {
                 }, 2000);
             }
         });
-        TextView title = (TextView) findViewById(R.id.title);
+        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        title = findViewById(R.id.title);
         title.setText(getIntent().getStringExtra("name"));
         findViewById(R.id.fanhui).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -260,6 +262,7 @@ public class EnvDetailActivity extends BasedActivity {
 
                   @Override
                   public void onNext(ResultBody<SensusEntity.SixDetailData> info) {
+                      title.setText(info.data.name);
                       info.data.setEva();
                       initView(info.data);
                       if (refreshLayout != null)

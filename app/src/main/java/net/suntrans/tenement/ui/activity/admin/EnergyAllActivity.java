@@ -32,6 +32,7 @@ import net.suntrans.tenement.ui.activity.stuff.StuffProfileActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Looney on 2017/11/22.
@@ -66,14 +67,17 @@ public class EnergyAllActivity extends BasedActivity {
         adapter.bindToRecyclerView(binding.recyclerView);
         adapter.setEmptyView(R.layout.recyclerview_empty_view);
         binding.recyclerView.setAdapter(adapter);
-        binding.recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        binding.recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
-                intent.setClass(EnergyAllActivity.this,EnergyConsumeActivity.class);
-                intent.putExtra("title",datas.get(position).name);
-                intent.putExtra("id",datas.get(position).id);
+                intent.setClass(EnergyAllActivity.this, EnergyConsumeActivity.class);
+                intent.putExtra("title", datas.get(position).name);
+                intent.putExtra("id", datas.get(position).id);
+                intent.putExtra("monthUsed",datas.get(position).electricity);
+                intent.putExtra("todyUsed",datas.get(position).today);
+                intent.putExtra("yesterdayUsed",datas.get(position).yesterday);
                 startActivity(intent);
             }
         });
@@ -90,7 +94,7 @@ public class EnergyAllActivity extends BasedActivity {
         @Override
         protected void convert(BaseViewHolder helper, EnergyListInfo item) {
             helper.setText(R.id.name, item.name);
-            helper.setText(R.id.value, item.today==null?"--":"当日用电:"+item.today+"kW·h");
+            helper.setText(R.id.value, item.today == null ? "--" : "当日用电:" + item.today + "kW·h");
             final ImageView toxiang = helper.getView(R.id.touxiang);
         }
     }
@@ -101,20 +105,34 @@ public class EnergyAllActivity extends BasedActivity {
         getData();
     }
 
-    private void getData(){
-        addSubscription(api.loadEnergyArea(),new BaseSubscriber<ResultBody<List<EnergyListInfo>>>(this){
+    private void getData() {
+        addSubscription(api.loadEnergyArea(), new BaseSubscriber<ResultBody<List<EnergyListInfo>>>(this) {
             @Override
             public void onNext(ResultBody<List<EnergyListInfo>> listResultBody) {
-                    datas.clear();
-                    datas.addAll(listResultBody.data);
-                    adapter.notifyDataSetChanged();
-                    binding.refreshLayout.setRefreshing(false);
+                datas.clear();
+                datas.addAll(listResultBody.data);
+                adapter.notifyDataSetChanged();
+                binding.refreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
                 binding.refreshLayout.setRefreshing(false);
+            }
+        });
+        addSubscription(api.loadEnergySummary(), new BaseSubscriber<ResultBody<Map<String,String>>>(this) {
+            @Override
+            public void onNext(ResultBody<Map<String,String>> body) {
+                Map<String, String> data = body.data;
+                binding.monthUsed.setText(data.get("month"));
+                binding.todayUsedValue.setText(data.get("today")+"kW·h");
+                binding.yesterdayUsedValue.setText(data.get("yesterday")+"kW·h");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
             }
         });
     }

@@ -56,6 +56,40 @@
 
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="120dp">
+
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="80dp"
+                android:layout_above="@+id/guangwang"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/logo_h" />
+
+            <TextView
+                android:id="@+id/guangwang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/name1"
+                android:layout_marginBottom="4dp"
+                android:gravity="center"
+                android:text="@string/company_name_CH"
+                android:textColor="@color/textColor"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/name1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+        </RelativeLayout>
 
     </LinearLayout>
 

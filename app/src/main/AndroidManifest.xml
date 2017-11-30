@@ -151,10 +151,21 @@
         <activity
             android:name=".ui.activity.AddMessageActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.admin.RepairActivity_admin" />
-        <activity android:name=".ui.activity.admin.RepairDetailActivity" />
-        <activity android:name=".ui.activity.EnergyListActivity" />
-        <activity android:name=".ui.activity.AmmeterParameterActivity" />
+        <activity
+            android:name=".ui.activity.admin.RepairActivity_admin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.admin.RepairDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.EnergyListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AmmeterParameterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.admin.CompanyDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

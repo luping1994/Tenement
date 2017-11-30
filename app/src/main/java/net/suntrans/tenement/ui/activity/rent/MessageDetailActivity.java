@@ -82,7 +82,7 @@ public class MessageDetailActivity extends BasedActivity implements View.OnClick
 //        });
 //        binding.webview.setInitialScale(100);
 
-        binding.webview.loadUrl("file:///android_asset/html/message_detail.html");
+        binding.webview.loadUrl(getIntent().getStringExtra("url"));
 //        binding.webview.loadUrl("file:///android_asset/plan/floor_plan.html");
 //        binding.webview.addJavascriptInterface(new AndroidtoJs(), "control");
     }

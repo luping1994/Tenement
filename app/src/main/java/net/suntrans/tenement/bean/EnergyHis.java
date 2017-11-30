@@ -40,6 +40,9 @@ public class EnergyHis {
     public String date_d;
     public String date_m;
     public String date_y;
+    public String el_today;
+    public String el_yesterday;
+    public String el_month;
 
     public static class HisItem {
         public int x;

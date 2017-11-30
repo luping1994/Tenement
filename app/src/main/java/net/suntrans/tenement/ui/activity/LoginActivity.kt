@@ -1,14 +1,13 @@
 package net.suntrans.tenement.ui.activity
 
 import android.databinding.DataBindingUtil
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.pgyersdk.update.PgyUpdateManager
+import net.suntrans.tenement.BuildConfig.DEBUG
 import net.suntrans.tenement.R
 import net.suntrans.tenement.adapter.FragmentAdapter
 import net.suntrans.tenement.databinding.ActivityLoginBinding
 import net.suntrans.tenement.ui.fragment.LoginFragment
-import net.suntrans.tenement.ui.fragment.RegisterFragment
 
 class LoginActivity : BasedActivity() {
     var binding: ActivityLoginBinding? = null
@@ -23,13 +22,14 @@ class LoginActivity : BasedActivity() {
 //        adapter.addFragment(registerFragment, getString(R.string.title_register))
         binding!!.mViewPager.adapter = adapter
         binding!!.mTabLayout.setupWithViewPager(binding!!.mViewPager)
-
-        PgyUpdateManager.register(this,"net.suntrans.tenement.fileProvider")
+        if (!DEBUG)
+            PgyUpdateManager.register(this, "net.suntrans.tenement.fileProvider")
     }
 
     override fun onDestroy() {
         try {
-            PgyUpdateManager.unregister()
+            if (!DEBUG)
+                PgyUpdateManager.unregister()
         } finally {
 
         }

@@ -4,18 +4,20 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
-import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.R;
-import net.suntrans.tenement.bean.ChannelInfo;
-import net.suntrans.tenement.bean.MessageInfo;
+import net.suntrans.tenement.bean.NoticeEntity;
+import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.databinding.FragmentMessageBinding;
+import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.rent.MessageDetailActivity;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ import java.util.List;
  */
 
 public class MessageFragment extends BasedFragment {
-    private List<MessageInfo> datas;
+    private List<NoticeEntity.NoticeItem> datas;
     private FragmentMessageBinding binding;
     private Myadapter myadapter;
 
@@ -41,35 +43,67 @@ public class MessageFragment extends BasedFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         datas = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
-            MessageInfo info = new MessageInfo();
-            datas.add(info);
-        }
+
         myadapter = new Myadapter(R.layout.item_message, datas);
         myadapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(new Intent(getActivity(),MessageDetailActivity.class));
+                Intent intent = new Intent(getActivity(), MessageDetailActivity.class);
+                intent.putExtra("url", datas.get(position).url);
+                startActivity(intent);
             }
         });
+        binding.refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getData();
+            }
+        });
+        binding.refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         binding.recyclerView.setAdapter(myadapter);
+
     }
 
-    class Myadapter extends BaseQuickAdapter<MessageInfo, BaseViewHolder> {
+    class Myadapter extends BaseQuickAdapter<NoticeEntity.NoticeItem, BaseViewHolder> {
 
         private int usedColor;
         private int unusedColor;
 
-        public Myadapter(int layoutResId, @Nullable List<MessageInfo> data) {
+        public Myadapter(int layoutResId, @Nullable List<NoticeEntity.NoticeItem> data) {
             super(layoutResId, data);
-            usedColor = getResources().getColor(R.color.colorPrimary);
-            unusedColor = getResources().getColor(R.color.enenry_value_textcolr);
+
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, MessageInfo item) {
-
+        protected void convert(BaseViewHolder helper, NoticeEntity.NoticeItem item) {
+            TextView status = helper.getView(R.id.status);
+            helper.setText(R.id.time, item.created_at)
+                    .setText(R.id.title, item.title);
 
         }
+    }
+
+    @Override
+    public void onResume() {
+        getData();
+        super.onResume();
+    }
+
+    private void getData() {
+        addSubscription(api.loadNoticeList(), new BaseSubscriber<ResultBody<NoticeEntity>>() {
+            @Override
+            public void onNext(ResultBody<NoticeEntity> body) {
+                datas.clear();
+                datas.addAll(body.data.lists);
+                myadapter.notifyDataSetChanged();
+                binding.refreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                binding.refreshLayout.setRefreshing(false);
+            }
+        });
     }
 }

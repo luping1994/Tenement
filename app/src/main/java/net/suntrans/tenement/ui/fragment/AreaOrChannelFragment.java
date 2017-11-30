@@ -185,7 +185,7 @@ public class AreaOrChannelFragment extends BasedFragment {
                             if (areaAdapter==null){
                                 areaDatas = new ArrayList<>();
                                 areaDatas.addAll(channelEntityResultBody.data.lists);
-                                areaAdapter = new AreaAdapter(R.layout.item_area_four,areaDatas);
+                                areaAdapter = new AreaAdapter(R.layout.item_area_three,areaDatas);
                                 GridLayoutManager layoutManager = new GridLayoutManager(getContext(),3, LinearLayoutManager.VERTICAL,false);
                                 binding.recyclerView.setLayoutManager(layoutManager);
                                 binding.recyclerView.setAdapter(areaAdapter);

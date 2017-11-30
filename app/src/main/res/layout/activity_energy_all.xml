@@ -91,7 +91,7 @@
 
 
                             <TextView
-                                android:id="@+id/todayUsed"
+                                android:id="@+id/monthUsed"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="8dp"
@@ -114,8 +114,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
                                 android:text="kW·h"
-                                app:layout_constraintBaseline_toBaselineOf="@+id/todayUsed"
-                                app:layout_constraintStart_toEndOf="@+id/todayUsed" />
+                                app:layout_constraintBaseline_toBaselineOf="@+id/monthUsed"
+                                app:layout_constraintStart_toEndOf="@+id/monthUsed" />
 
                             <TextView
                                 android:id="@+id/energyTitle"
@@ -129,7 +129,7 @@
                                 android:textColor="@color/black"
                                 android:textSize="18sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toStartOf="@+id/todayUsed"
+                                app:layout_constraintEnd_toStartOf="@+id/monthUsed"
                                 app:layout_constraintHorizontal_bias="0.246"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -150,16 +150,16 @@
                                 app:layout_constraintStart_toStartOf="@+id/un" />
 
                             <TextView
-                                android:id="@+id/yesterdayUsed"
+                                android:id="@+id/todayUsed"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="16dp"
-                                android:text="今日用电"
+                                android:text="今日总用电"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="@+id/energyTitle" />
 
                             <TextView
-                                android:id="@+id/yesterDayUsedValue"
+                                android:id="@+id/todayUsedValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="16dp"
@@ -167,10 +167,10 @@
                                 android:text="null"
                                 android:textColor="@color/enenry_value_textcolr"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/yesterdayUsed" />
+                                app:layout_constraintStart_toEndOf="@+id/todayUsed" />
 
                             <TextView
-                                android:id="@+id/todayUsedValue"
+                                android:id="@+id/yesterdayUsedValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="16dp"
@@ -186,10 +186,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginStart="8dp"
-                                android:text="总用电量"
-                                app:layout_constraintEnd_toEndOf="@+id/todayUsed"
-                                app:layout_constraintStart_toStartOf="@+id/todayUsed"
-                                app:layout_constraintTop_toBottomOf="@+id/todayUsed" />
+                                android:text="当月用电量"
+                                app:layout_constraintEnd_toEndOf="@+id/monthUsed"
+                                app:layout_constraintStart_toStartOf="@+id/monthUsed"
+                                app:layout_constraintTop_toBottomOf="@+id/monthUsed" />
 
                             <TextView
                                 android:id="@+id/energytips"
@@ -197,9 +197,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="16dp"
                                 android:layout_marginTop="8dp"
-                                android:text="昨日用电"
+                                android:text="昨日总用电"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toStartOf="@+id/todayUsedValue"
+                                app:layout_constraintEnd_toStartOf="@+id/yesterdayUsedValue"
                                 app:layout_constraintTop_toTopOf="@+id/textView7"
                                 app:layout_constraintVertical_bias="1.0" />
 

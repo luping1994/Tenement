@@ -37,8 +37,8 @@ public class ApiErrorHelper {
                 UiUtils.INSTANCE.showToast(((ApiException) e).msg);
             }
         } else {
-            if (e.getMessage() != null)
-                UiUtils.INSTANCE.showToast(e.getMessage());
+//            if (e.getMessage() != null)
+//                UiUtils.INSTANCE.showToast(e.getMessage());
         }
     }
 }

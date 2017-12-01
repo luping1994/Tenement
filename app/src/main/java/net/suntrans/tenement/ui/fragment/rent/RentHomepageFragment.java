@@ -1,10 +1,16 @@
 package net.suntrans.tenement.ui.fragment.rent;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -59,6 +65,7 @@ public class RentHomepageFragment extends BasedFragment {
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,7 +75,10 @@ public class RentHomepageFragment extends BasedFragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        this.getActivity().registerReceiver(receiver, filter);//注册网络监听广播
         //新建适配器
         String[] from = {"image", "name"};
         int[] to = {R.id.image, R.id.name};
@@ -140,11 +150,18 @@ public class RentHomepageFragment extends BasedFragment {
 
             }
         });
+        binding.tips.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+            }
+        });
     }
 
     @Override
     public void onDestroy() {
         handler.removeCallbacksAndMessages(null);
+        this.getActivity().unregisterReceiver(receiver);
         super.onDestroy();
     }
 
@@ -180,8 +197,35 @@ public class RentHomepageFragment extends BasedFragment {
                         binding.wenduEva.setText(info.data.wendu.text);
                         binding.shidu.setText(" " + info.data.shidu.value + "%");
                         binding.pm25.setText(" " + info.data.pm25.value + "");
+
+                        binding.shiduEnv.setText("   "+info.data.shidu.text);
+                        binding.pm25Eva.setText(" "+info.data.pm25.text);
                     }
                 }));
     }
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ConnectivityManager manager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetworkInfo = manager.getActiveNetworkInfo();
+            if (activeNetworkInfo==null){
+               binding.tips.setVisibility(View.VISIBLE);
+            }else {
+                if (!activeNetworkInfo.isAvailable()||activeNetworkInfo.isFailover()){
+                    //network is not available
+                    binding.tips.setVisibility(View.VISIBLE);
+
+                }else {
+                    //network is available
+                    binding.tips.setVisibility(View.GONE);
+
+                }
+            }
+        }
+    };
+
+
 
 }

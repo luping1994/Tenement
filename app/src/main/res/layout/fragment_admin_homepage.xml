@@ -18,6 +18,19 @@
             android:background="@color/bgColor"
             android:orientation="vertical">
 
+            <TextView
+                android:visibility="gone"
+                android:drawableRight="@drawable/ic_arrow_right"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:drawableLeft="@drawable/ic_info_red"
+                android:text="  网络不可用,请检查网络设置"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:background="#ffdada"
+                android:id="@+id/tips"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
 
             <RelativeLayout
                 android:id="@+id/relativeLayout"

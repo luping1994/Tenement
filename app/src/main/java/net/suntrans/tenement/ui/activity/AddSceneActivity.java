@@ -1,23 +1,31 @@
 package net.suntrans.tenement.ui.activity;
 
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import net.suntrans.common.utils.UiUtils;
 import net.suntrans.looney.widgets.LoadingDialog;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.adapter.DividerItemDecoration;
+import net.suntrans.tenement.bean.ChannelInfo;
 import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.bean.SceneItem;
 import net.suntrans.tenement.databinding.ActivityAddSceneBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.fragment.PicChooseFragment;
 import net.suntrans.tenement.ui.fragment.rent.AllChannelFragment;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +37,7 @@ import java.util.Map;
  * Des:
  */
 
-public class AddSceneActivity extends BasedActivity implements PicChooseFragment.onItemChooseListener,  AllChannelFragment.onChannelSelectedListener {
+public class AddSceneActivity extends BasedActivity implements PicChooseFragment.onItemChooseListener, AllChannelFragment.onChannelSelectedListener {
 
     private ActivityAddSceneBinding binding;
     private LoadingDialog dialog;
@@ -74,6 +82,13 @@ public class AddSceneActivity extends BasedActivity implements PicChooseFragment
         adapter.setEmptyView(R.layout.recyclerview_empty_view);
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                showModifyDialog(position);
+            }
+        });
     }
 
 
@@ -96,7 +111,27 @@ public class AddSceneActivity extends BasedActivity implements PicChooseFragment
         Map<String, String> map = new HashMap<>();
         map.put("name", name);
         map.put("image", imgId);
-        System.out.println(name + "," + imgId);
+        if (datas.size()!=0){
+            try {
+                JSONArray array = new JSONArray();
+                for (SceneItem item :
+                        datas) {
+                    JSONObject jsonObject = new JSONObject();
+
+                    jsonObject.put("id", item.channel_id);
+                    jsonObject.put("status", item.status);
+                    array.put(jsonObject);
+
+                }
+                System.out.println(array.toString());
+                map.put("channels", array.toString());
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+//        System.out.println(name + "," + imgId);
 
         addSubscription(api.createScene(map), new BaseSubscriber<ResultBody>(getApplicationContext()) {
             @Override
@@ -131,8 +166,41 @@ public class AddSceneActivity extends BasedActivity implements PicChooseFragment
         imgId = id;
     }
 
+
+    @Override
+    public void onChannelSelected(List<ChannelInfo> items) {
+        datas.clear();
+        for (int i = 0; i < items.size(); i++) {
+            SceneItem item = new SceneItem();
+            item.channel_id = items.get(i).id;
+            item.title = items.get(i).title;
+            datas.add(item);
+        }
+        adapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onChannelSelected(String ids) {
+        //do nothing
+    }
 
+    private void showModifyDialog(final int position) {
+        String[] items = {"打开", "关闭", "删除"};
+        new AlertDialog.Builder(this)
+                .setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == 0) {
+                            datas.get(position).status = 1;
+                        } else if (which == 1) {
+                            datas.get(position).status = 0;
+
+                        } else if (which == 2) {
+                            adapter.remove(position);
+                        }
+                        adapter.notifyDataSetChanged();
+                        System.out.println(datas.size());
+                    }
+                }).create().show();
     }
 }

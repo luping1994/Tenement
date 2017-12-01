@@ -28,6 +28,7 @@ import net.suntrans.tenement.api.RetrofitHelper;
 import net.suntrans.tenement.bean.ChannelEntity;
 import net.suntrans.tenement.bean.ChannelInfo;
 import net.suntrans.tenement.bean.ResultBody;
+import net.suntrans.tenement.bean.SceneItem;
 import net.suntrans.tenement.databinding.FragmentAllChannelBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.widgets.FullScreenDialog;
@@ -55,11 +56,7 @@ public class AllChannelFragment extends android.support.v4.app.DialogFragment {
 //        BottomSheetDialog dialog = new BottomSheetDialog(getContext());
         FullScreenDialog dialog = new FullScreenDialog(getContext(),R.style.transparentDialog);
         WindowManager m = getActivity().getWindowManager();
-//        Display d = m.getDefaultDisplay();  //为获取屏幕宽、高
-//        android.view.WindowManager.LayoutParams p = dialog.getWindow().getAttributes();  //获取对话框当前的参数值
-//        p.height = (int) (d.getHeight()-getResources().getDimension(R.dimen.action_bar_size));   //高度设置为屏幕的0.3
-//        p.width = (int) (d.getWidth());    //宽度设置为屏幕的0.5
-//        dialog.getWindow().setAttributes(p);     //设置生效
+
         return dialog;
     }
 
@@ -122,6 +119,7 @@ public class AllChannelFragment extends android.support.v4.app.DialogFragment {
         binding.queding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                List<ChannelInfo> infos = new ArrayList<>();
                 if (onChannelSelectedListener!=null){
                     int count = 0;
                     StringBuilder channel = new StringBuilder();
@@ -131,6 +129,7 @@ public class AllChannelFragment extends android.support.v4.app.DialogFragment {
                             count++;
                             channel.append(s.id)
                                     .append(",");
+                            infos.add(s);
                         }
                     }
                     if (count < 1) {
@@ -138,7 +137,9 @@ public class AllChannelFragment extends android.support.v4.app.DialogFragment {
                         return;
                     }
                     final String ids = channel.substring(0, channel.length() - 1);
+
                     onChannelSelectedListener.onChannelSelected(ids);
+                    onChannelSelectedListener.onChannelSelected(infos);
                 }
                 dismiss();
 
@@ -206,6 +207,7 @@ public class AllChannelFragment extends android.support.v4.app.DialogFragment {
     }
 
     public interface onChannelSelectedListener {
+        void onChannelSelected(List<ChannelInfo> items);
         void onChannelSelected(String ids);
     }
 }

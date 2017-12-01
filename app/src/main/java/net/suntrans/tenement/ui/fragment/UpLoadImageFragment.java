@@ -216,7 +216,6 @@ public class UpLoadImageFragment extends BottomSheetDialogFragment implements Vi
     private void handleCropResult(@NonNull Intent result) {
         final Uri resultUri = UCrop.getOutput(result);
         if (resultUri != null) {
-//            System.out.println(resultUri.toString());
             File file = new File(getContext().getCacheDir(), destinationFileName);
             upLoad(file);
         } else {

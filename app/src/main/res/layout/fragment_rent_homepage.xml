@@ -29,19 +29,26 @@
                     android:background="@color/bgColor"
                     android:orientation="vertical">
 
+                    <TextView
+                        android:id="@+id/tips"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="#ffdada"
+                        android:drawableLeft="@drawable/ic_info_red"
+                        android:drawableRight="@drawable/ic_arrow_right"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:text="  网络不可用,请检查网络设置"
+                        android:textColor="@color/textColor"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
 
                     <RelativeLayout
                         android:id="@+id/relativeLayout"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/homepage_header_height"
                         android:layout_centerInParent="true"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/ic_homepage_header"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:background="@drawable/ic_homepage_header">
 
                         <TextView
                             android:id="@+id/shidu"
@@ -56,13 +63,36 @@
                             android:textSize="14sp" />
 
                         <TextView
-                            android:id="@+id/pm25"
+                            android:id="@+id/shiduEnv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="@dimen/homepage_shidu_margin_bottom"
+                            android:layout_toRightOf="@id/shidu"
+                            android:text=" "
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp" />
+
+                        <TextView
+
+                            android:id="@+id/pm25Eva"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
                             android:layout_alignParentRight="true"
                             android:layout_marginBottom="@dimen/homepage_shidu_margin_bottom"
                             android:layout_marginRight="@dimen/homw_page_shidu_m_rl"
+                            android:text=" "
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/home_page_shidu_textSize" />
+
+                        <TextView
+                            android:id="@+id/pm25"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="@dimen/homepage_shidu_margin_bottom"
+                            android:layout_toLeftOf="@id/pm25Eva"
                             android:drawableLeft="@drawable/icon_pm"
                             android:text=" 59.2%"
                             android:textColor="@color/textColor"
@@ -97,7 +127,7 @@
                                 android:layout_marginBottom="12dp"
                                 android:layout_weight="1"
                                 android:gravity="top"
-                                android:text="舒适"
+                                android:text=""
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="14sp" />
                         </LinearLayout>

@@ -66,17 +66,22 @@ object UiUtils {
     var handler = Handler(Looper.getMainLooper())
 
     fun showToast(str: String) {
-        if (mToast == null) {
-            mToast = Toast.makeText(App.application, str, Toast.LENGTH_SHORT)
-        }
 
         if (Thread.currentThread() != Looper.getMainLooper().thread) {
             handler.post(Runnable {
+                if (mToast == null) {
+                    mToast = Toast.makeText(App.application, str, Toast.LENGTH_SHORT)
+                }
+
                 mToast!!.setText(str)
                 mToast!!.show()
             }
             )
         } else {
+            if (mToast == null) {
+                mToast = Toast.makeText(App.application, str, Toast.LENGTH_SHORT)
+            }
+
             mToast!!.setText(str)
             mToast!!.show()
         }

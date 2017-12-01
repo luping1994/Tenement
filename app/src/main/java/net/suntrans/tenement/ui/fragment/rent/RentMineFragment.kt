@@ -152,10 +152,12 @@ class RentMineFragment : BasedFragment(), View.OnClickListener {
                 .subscribe(object : BaseSubscriber<ResultBody<ProfileWraper>>(context) {
                     override fun onNext(t: ResultBody<ProfileWraper>?) {
                         super.onNext(t)
+
                         AppDatabase.getInstance(context)
                                 .userDao()
                                 .updateUser(t!!.data.user)
                         getUserInfoByLocal(t.data.user.id)
+//                        throw RuntimeException("test")
                     }
 
                     override fun onError(e: Throwable?) {

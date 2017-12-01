@@ -1,1 +1,1 @@
-include ':app', ':looney'
+include ':app', ':looney', ':matisse'

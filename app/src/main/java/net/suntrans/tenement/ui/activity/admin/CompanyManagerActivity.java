@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
@@ -122,8 +123,11 @@ public class CompanyManagerActivity extends BasedActivity {
 
         @Override
         protected void convert(BaseViewHolder helper, CompanyInfo item) {
-            helper.setText(R.id.name, item.name);
-            helper.setText(R.id.status, item.status);
+            helper.setText(R.id.name, item.name)
+                    .setText(R.id.roomName,item.address);
+            TextView status = helper.getView(R.id.status);
+            status.setText( item.status.equals("1")?"在租":"退租");
+            status.setBackgroundResource(item.status.equals("1")?R.drawable.bg_device_on:R.drawable.ic_bg_off);
             helper.setText(R.id.startTime, item.date_start == null ? "--" : item.date_start + "~" + item.date_end);
 
 

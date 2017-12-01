@@ -1,9 +1,15 @@
 package net.suntrans.tenement.ui.fragment.admin;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -71,7 +77,10 @@ public class AdminHomepageFragment extends BasedFragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        this.getActivity().registerReceiver(receiver, filter);//注册网络监听广播
+
         funName = getResources().getStringArray(R.array.admin_page_item_title);
         SimpleAdapter adapter = new SimpleAdapter(R.layout.item_home_page_fun_admin, getData());
         binding.recyclerView.setAdapter(adapter);
@@ -134,6 +143,13 @@ public class AdminHomepageFragment extends BasedFragment {
             }
         });
 
+        binding.tips.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Settings.ACTION_SETTINGS));
+            }
+        });
+
     }
 
     static class SimpleAdapter extends BaseQuickAdapter<SimpleData, BaseViewHolder> {
@@ -184,5 +200,33 @@ public class AdminHomepageFragment extends BasedFragment {
                     }
                 }));
     }
+
+    @Override
+    public void onDestroy() {
+        this.getActivity().unregisterReceiver(receiver);
+        super.onDestroy();
+    }
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ConnectivityManager manager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetworkInfo = manager.getActiveNetworkInfo();
+            if (activeNetworkInfo==null){
+                binding.tips.setVisibility(View.VISIBLE);
+            }else {
+                if (!activeNetworkInfo.isAvailable()||activeNetworkInfo.isFailover()){
+                    //network is not available
+                    binding.tips.setVisibility(View.VISIBLE);
+
+                }else {
+                    //network is available
+                    binding.tips.setVisibility(View.GONE);
+
+                }
+            }
+        }
+    };
 
 }

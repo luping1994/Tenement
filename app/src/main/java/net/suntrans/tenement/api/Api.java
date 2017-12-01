@@ -163,6 +163,8 @@ public interface Api {
     Observable<ResultBody<UploadInfo>> upload(
             @Part MultipartBody.Part image);
 
+
+
     @POST("energy/index")
     Observable<ResultBody<List<EnergyListItem>>> energyList();
 
@@ -210,4 +212,12 @@ public interface Api {
     @POST("notice/index")
     Observable<ResultBody<NoticeEntity>> loadNoticeList();
 
+    @FormUrlEncoded
+    @POST("notice/store")
+    Observable<ResultBody> storeNotice(@FieldMap Map<String,String> map);
+
+    @Multipart
+    @POST("notice/upload")
+    Observable<ResultBody<UploadInfo>> uploadNoticeFile(
+            @Part MultipartBody.Part image);
 }

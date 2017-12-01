@@ -18,6 +18,7 @@ import net.suntrans.common.utils.UiUtils;
 import net.suntrans.looney.widgets.LoadingDialog;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.adapter.DividerItemDecoration;
+import net.suntrans.tenement.bean.ChannelInfo;
 import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.bean.SceneItem;
 import net.suntrans.tenement.bean.SceneItemlEntity;
@@ -182,6 +183,11 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
 
             }
         });
+    }
+
+    @Override
+    public void onChannelSelected(List<ChannelInfo> items) {
+
     }
 
     @Override

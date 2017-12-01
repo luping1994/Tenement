@@ -237,7 +237,7 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
                 user = result.data.user;
                 binding.name.setText(user.truename);
                 binding.telephone.setText(user.mobile);
-                System.out.println(result.data);
+
                 Glide.with(ProfileActivity.this)
                         .load(user.cover)
                         .asBitmap()

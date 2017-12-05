@@ -170,6 +170,7 @@
                                 app:layout_constraintStart_toEndOf="@+id/todayUsed" />
 
                             <TextView
+                                android:paddingLeft="8dp"
                                 android:id="@+id/yesterdayUsedValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

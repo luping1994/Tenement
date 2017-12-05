@@ -19,7 +19,7 @@ import net.suntrans.tenement.ui.fragment.MessageFragment;
 
 /**
  * Created by Looney on 2017/11/22.
- * Des:
+ * Des:消息中心页面
  */
 
 public class MessageActivity extends BasedActivity {

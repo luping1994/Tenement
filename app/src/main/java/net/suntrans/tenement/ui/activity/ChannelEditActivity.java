@@ -76,7 +76,7 @@ public class ChannelEditActivity extends BasedActivity {
     private void upDate(String id, String name, String channel_type,String used) {
 
         if (committing) {
-            UiUtils.INSTANCE.showToast("正在修改请稍后...");
+            UiUtils.showToast("正在修改请稍后...");
             return;
         }
 //        System.out.println(id+","+name+","+channel_type);
@@ -102,7 +102,7 @@ public class ChannelEditActivity extends BasedActivity {
             @Override
             public void onNext(ResultBody result) {
                 committing = false;
-                UiUtils.INSTANCE.showToast(result.msg);
+                UiUtils.showToast(result.msg);
             }
         });
     }
@@ -111,11 +111,11 @@ public class ChannelEditActivity extends BasedActivity {
         String name = nameTx.getText().toString();
         String type = (spinner.getSelectedItemPosition() + 1) + "";
         if (TextUtils.isEmpty(name)) {
-            UiUtils.INSTANCE.showToast("名称不能为空");
+            UiUtils.showToast("名称不能为空");
             return;
         }
         if (TextUtils.isEmpty(type)) {
-            UiUtils.INSTANCE.showToast("类型不能为空");
+            UiUtils.showToast("类型不能为空");
             return;
         }
         upDate(channel_id,name,type,button.isChecked()?"1":"0");

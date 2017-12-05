@@ -13,8 +13,8 @@ android {
         applicationId "net.suntrans.tenement"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 13
-        versionName "0.2.1"
+        versionCode 15
+        versionName "0.2.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     dataBinding {
@@ -63,6 +63,7 @@ dependencies {
     kapt "com.android.databinding:compiler:2.3.2"
     api 'me.weyye.hipermission:library:1.0.3'
     api 'com.github.yalantis:ucrop:2.2.1'
+    compile 'com.blankj:utilcode:1.9.10'
     //    // Retrofit
     //    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     //    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'

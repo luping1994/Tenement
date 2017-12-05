@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,7 +22,8 @@
                 android:text="  企业名称"
                 android:textColor="@color/textColor" />
 
-            <EditText
+            <TextView
+                android:gravity="center_vertical"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2.5"
@@ -49,14 +51,15 @@
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_com_number"
                 android:gravity="center_vertical"
-                android:text="  房間號"
+                android:text="  房间号"
                 android:textColor="@color/textColor" />
 
-            <EditText
+            <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2.5"
                 android:background="@null"
+                android:gravity="center_vertical"
                 android:text="201"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -80,10 +83,11 @@
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_com_dianbiao"
                 android:gravity="center_vertical"
-                android:text="  電表起碼"
+                android:text="  电表起码"
                 android:textColor="@color/textColor" />
 
-            <EditText
+            <TextView
+                android:gravity="center_vertical"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2.5"
@@ -111,10 +115,11 @@
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_com_phone"
                 android:gravity="center_vertical"
-                android:text="  聯係電話"
+                android:text="  联系电话"
                 android:textColor="@color/textColor" />
 
-            <EditText
+            <TextView
+                android:gravity="center_vertical"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2.5"
@@ -142,10 +147,11 @@
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_com_qixian"
                 android:gravity="center_vertical"
-                android:text="  合約期限"
+                android:text="  合约期限"
                 android:textColor="@color/textColor" />
 
-            <EditText
+            <TextView
+                android:gravity="center_vertical"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2.5"

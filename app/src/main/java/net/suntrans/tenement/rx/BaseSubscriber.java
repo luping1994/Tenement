@@ -5,7 +5,6 @@ import android.util.Log;
 
 
 import net.suntrans.common.utils.NetworkUtils;
-import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.api.ApiErrorCode;
 import net.suntrans.tenement.api.ApiErrorHelper;
 import net.suntrans.tenement.api.ApiException;
@@ -32,6 +31,7 @@ public class BaseSubscriber<T> extends Subscriber<T> {
         if (!NetworkUtils.isNetworkAvailable()) {
             Log.d("netWork","网络连接不可用");
             this.onError(new ApiException(ApiErrorCode.ERROR_NO_INTERNET, "network interrupt"));
+            this.unsubscribe();
             return;
         }
     }

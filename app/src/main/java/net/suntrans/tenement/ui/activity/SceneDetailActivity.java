@@ -131,7 +131,7 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
         addSubscription(api.updateSceneChannel(map), new BaseSubscriber<ResultBody>(this) {
             @Override
             public void onNext(ResultBody resultBody) {
-                UiUtils.INSTANCE.showToast(resultBody.msg);
+                UiUtils.showToast(resultBody.msg);
                 getData();
             }
         });
@@ -144,7 +144,7 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
         addSubscription(api.deleteSceneChannel(map), new BaseSubscriber<ResultBody>(this) {
             @Override
             public void onNext(ResultBody resultBody) {
-                UiUtils.INSTANCE.showToast(resultBody.msg);
+                UiUtils.showToast(resultBody.msg);
                 getData();
             }
         });
@@ -153,7 +153,7 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
     private void updateScene() {
         String name = binding.sceneName.getText().toString();
         if (TextUtils.isEmpty(name)) {
-            UiUtils.INSTANCE.showToast("名称不能为空");
+            UiUtils.showToast("名称不能为空");
             return;
         }
         if (dialog == null) {
@@ -171,7 +171,7 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
             @Override
             public void onNext(ResultBody resultBody) {
                 super.onNext(resultBody);
-                UiUtils.INSTANCE.showToast(resultBody.msg);
+                UiUtils.showToast(resultBody.msg);
                 dialog.dismiss();
             }
 
@@ -206,7 +206,7 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
                     @Override
                     public void onNext(ResultBody resultBody) {
                         super.onNext(resultBody);
-                        UiUtils.INSTANCE.showToast(resultBody.msg);
+                        UiUtils.showToast(resultBody.msg);
                         getData();
                     }
 
@@ -259,7 +259,7 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
 
     @Override
     public void onPicChoose(String id, String path) {
-        UiUtils.INSTANCE.showToast(id);
+        UiUtils.showToast(id);
         if (fragment != null) {
             fragment.dismiss();
         }
@@ -267,7 +267,7 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
                 .load(path)
                 .dontTransform()
                 .crossFade()
-                .override(UiUtils.INSTANCE.dip2px(64), UiUtils.INSTANCE.dip2px(64))
+                .override(UiUtils.dip2px(64), UiUtils.dip2px(64))
                 .into(binding.sceneImg);
         imgId = id;
     }

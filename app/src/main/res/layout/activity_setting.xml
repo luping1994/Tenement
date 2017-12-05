@@ -14,10 +14,10 @@
             android:background="@color/colorPrimary">
 
             <RelativeLayout
-                android:background="@drawable/ripple"
                 android:id="@+id/fanhui"
                 android:layout_width="60dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@drawable/ripple">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -55,21 +55,32 @@
                     android:background="@color/item_press_true" />
 
                 <LinearLayout
+                    android:background="@drawable/item_selector"
+                    android:id="@+id/profileRL"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:orientation="horizontal"
                     android:visibility="visible">
 
                     <TextView
-                        android:id="@+id/profile"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:background="@drawable/item_selector"
                         android:gravity="center_vertical"
                         android:onClick="onClick"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
                         android:text="清除缓存"
                         android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:paddingRight="16dp"
+                        android:id="@+id/profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|right"
+                        android:onClick="onClick"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:text="0kb"
                         android:textSize="15sp" />
                 </LinearLayout>
 
@@ -141,6 +152,7 @@
                             android:visibility="invisible" />
                     </RelativeLayout>
                 </FrameLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="16dp"

@@ -77,7 +77,7 @@ class RentMineFragment : BasedFragment(), View.OnClickListener {
                 .subscribeOn(Schedulers.io())
                 .subscribe(object : Subscriber<User>() {
                     override fun onNext(user: User?) {
-                        binding!!.userName.setText(user!!.truename)
+                        binding!!.userName.setText(user!!.nickname)
                         binding!!.telephone.setText(user!!.mobile)
                         Glide.with(context)
                                 .load(user.cover)

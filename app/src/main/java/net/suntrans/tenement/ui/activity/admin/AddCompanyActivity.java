@@ -3,23 +3,15 @@ package net.suntrans.tenement.ui.activity.admin;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.R;
-import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.databinding.ActivityAddCompanyBinding;
-import net.suntrans.tenement.databinding.ActivityAddStuffBinding;
-import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.BasedActivity;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Looney on 2017/11/17.
@@ -72,7 +64,7 @@ public class AddCompanyActivity extends BasedActivity implements View.OnClickLis
 //        addSubscription(api.addStuff(map), new BaseSubscriber<ResultBody>(this) {
 //            @Override
 //            public void onNext(ResultBody resultBody) {
-//                UiUtils.INSTANCE.showToast(resultBody.msg);
+//                UiUtils.showToast(resultBody.msg);
 //            }
 //        });
     }

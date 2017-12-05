@@ -1,158 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            android:orientation="vertical">
+            android:layout_height="@dimen/action_bar_size"
+            android:background="@color/colorPrimary">
+
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/action_bar_size"
-                android:background="@color/colorPrimary">
+                android:id="@+id/back"
+                android:layout_width="60dp"
+                android:layout_height="match_parent">
 
-
-                <RelativeLayout
-                    android:id="@+id/back"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="14dp"
-                        android:src="@drawable/ic_back" />
-                </RelativeLayout>
-
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:text="发布公告"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/actionBarTitleSize" />
-
-                <TextView
-                    android:id="@+id/rightSubTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:gravity="center"
-                    android:onClick="rightSubTitleClicked"
-                    android:text="保存"
-                    android:textColor="@color/textcolor"
-                    android:textSize="@dimen/actionBarSubTitleSize" />
-
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:src="@drawable/ic_back" />
             </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="发布公告"
+                android:textColor="@color/white"
+                android:textSize="@dimen/actionBarTitleSize" />
+
+            <TextView
+                android:id="@+id/rightSubTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:gravity="center"
+                android:onClick="rightSubTitleClicked"
+                android:text="保存"
+                android:textColor="@color/textcolor"
+                android:textSize="@dimen/actionBarSubTitleSize" />
+
+        </RelativeLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/bgColor"
-                android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="30dp"
-                    android:background="@color/white"
-                    android:hint="标题(必填)"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:textSize="@dimen/content_textSize" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="30dp"
-                    android:background="@color/white"
-                    android:gravity="start"
-                    android:hint="正文(必填)"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:textSize="@dimen/content_textSize" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="96dp"
-                    android:layout_marginTop="30dp"
-                    android:background="@drawable/item_selector"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    app:layoutManager="GridLayoutManager"
-                    app:spanCount="1">
-
-
-                </android.support.v7.widget.RecyclerView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="30dp"
-                    android:background="@drawable/item_selector"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin">
+                    android:layout_height="match_parent"
+                    android:background="@color/bgColor"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="选择标签" />
-
-                    <RadioGroup
+                    <EditText
+                        android:id="@+id/title"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:layout_height="50dp"
+                        android:layout_marginTop="30dp"
+                        android:background="@color/white"
+                        android:hint="标题(必填)"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:textSize="@dimen/content_textSize" />
 
-                        <RadioButton
+                    <EditText
+                        android:id="@+id/content"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="30dp"
+                        android:background="@color/white"
+                        android:gravity="start"
+                        android:hint="正文(必填)"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:textSize="@dimen/content_textSize" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:background="@drawable/item_selector"
+                        android:minHeight="90dp"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin">
+
+
+                    </android.support.v7.widget.RecyclerView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="30dp"
+                        android:background="@drawable/item_selector"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin">
+
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/label_yiban"
-                            android:button="@null"
-                            android:paddingLeft="8dp"
-                            android:paddingRight="8dp"
-                            android:text="一般"
-                            android:textColor="@color/white" />
+                            android:text="选择标签" />
 
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="16dp"
-                            android:background="@drawable/label_yiban"
-                            android:button="@null"
-                            android:paddingLeft="8dp"
-                            android:paddingRight="8dp"
-                            android:text="重要"
-                            android:textColor="@color/white" />
+                        <RadioGroup
+                            android:id="@+id/radiogroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="16dp"
-                            android:background="@drawable/label_yiban"
-                            android:button="@null"
-                            android:paddingLeft="8dp"
-                            android:paddingRight="8dp"
-                            android:text="紧急"
-                            android:textColor="@color/white" />
-                    </RadioGroup>
+                            <RadioButton
+                                android:minHeight="25dp"
+
+                                android:id="@+id/radio0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/label_yiban"
+                                android:button="@null"
+                                android:paddingLeft="8dp"
+                                android:paddingRight="8dp"
+                                android:text="一般"
+                                android:textColor="@color/white" />
+
+                            <RadioButton
+                                android:id="@+id/radio1"
+                                android:minHeight="25dp"
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="16dp"
+                                android:background="@drawable/label_yiban"
+                                android:button="@null"
+                                android:paddingLeft="8dp"
+                                android:paddingRight="8dp"
+                                android:text="重要"
+                                android:textColor="@color/white" />
+
+                            <RadioButton
+                                android:minHeight="25dp"
+                                android:id="@+id/radio2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="16dp"
+                                android:background="@drawable/label_yiban"
+                                android:button="@null"
+                                android:paddingLeft="8dp"
+                                android:paddingRight="8dp"
+                                android:text="紧急"
+                                android:textColor="@color/white" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
                 </LinearLayout>
-
             </LinearLayout>
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+
+
 </layout>

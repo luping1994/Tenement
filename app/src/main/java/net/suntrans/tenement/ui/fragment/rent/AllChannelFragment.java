@@ -4,15 +4,11 @@ import android.app.Dialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.AppCompatCheckBox;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
@@ -28,7 +24,6 @@ import net.suntrans.tenement.api.RetrofitHelper;
 import net.suntrans.tenement.bean.ChannelEntity;
 import net.suntrans.tenement.bean.ChannelInfo;
 import net.suntrans.tenement.bean.ResultBody;
-import net.suntrans.tenement.bean.SceneItem;
 import net.suntrans.tenement.databinding.FragmentAllChannelBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.widgets.FullScreenDialog;
@@ -133,7 +128,7 @@ public class AllChannelFragment extends android.support.v4.app.DialogFragment {
                         }
                     }
                     if (count < 1) {
-                        UiUtils.INSTANCE.showToast("请至少选择一个设备");
+                        UiUtils.showToast("请至少选择一个设备");
                         return;
                     }
                     final String ids = channel.substring(0, channel.length() - 1);

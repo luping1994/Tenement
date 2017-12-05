@@ -27,7 +27,7 @@ public class NoticeEntity {
          */
 
         public String id;
-        public String vtype;
+        public int vtype;
         public String title;
         public String created_at;
         public String url;

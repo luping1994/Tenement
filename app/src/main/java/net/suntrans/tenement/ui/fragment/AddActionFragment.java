@@ -69,7 +69,7 @@ public class AddActionFragment extends Fragment {
             datas.add(info);
             adapter.notifyDataSetChanged();
         }
-        System.out.println("onActivityResult");
+
     }
 
     @Override

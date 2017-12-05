@@ -1,7 +1,6 @@
 package net.suntrans.tenement.ui.fragment.auto;
 
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,9 +21,7 @@ import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.bean.SceneEntity;
 import net.suntrans.tenement.bean.SceneInfo;
 import net.suntrans.tenement.databinding.FragmentChooseSceneBinding;
-import net.suntrans.tenement.databinding.FragmentSceneBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
-import net.suntrans.tenement.ui.activity.AddSceneActivity;
 import net.suntrans.tenement.ui.fragment.BasedFragment;
 
 import java.util.ArrayList;
@@ -99,11 +96,11 @@ public class ChooseSceneFragment extends BasedFragment {
         protected void convert(BaseViewHolder helper, SceneInfo item) {
             helper.setText(R.id.name, item.name);
             ImageView imageView = helper.getView(R.id.image);
-//            System.out.println(item.name+","+item.img_url);
+
             Glide.with(context)
                     .load(item.image)
                     .centerCrop()
-                    .override(UiUtils.INSTANCE.dip2px(36),UiUtils.INSTANCE.dip2px(36))
+                    .override(UiUtils.dip2px(36), UiUtils.dip2px(36))
                     .crossFade()
                     .placeholder(R.drawable.ic_nopic)
                     .into(imageView);

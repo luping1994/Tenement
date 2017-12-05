@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,7 +113,7 @@ public class SceneManagerFragment extends BasedFragment {
             Glide.with(context)
                     .load(item.image)
                     .centerCrop()
-                    .override(UiUtils.INSTANCE.dip2px(36), UiUtils.INSTANCE.dip2px(36))
+                    .override(UiUtils.dip2px(36), UiUtils.dip2px(36))
                     .crossFade()
                     .placeholder(R.drawable.ic_sleep)
                     .into(imageView);
@@ -147,7 +146,7 @@ public class SceneManagerFragment extends BasedFragment {
             dialog.setWaitText("正在删除场景");
             dialog.setCancelable(false);
         }
-        System.out.println(id);
+
         dialog.show();
         mCompositeSubscription.add(api.deleteScene(id)
                 .subscribeOn(Schedulers.io())

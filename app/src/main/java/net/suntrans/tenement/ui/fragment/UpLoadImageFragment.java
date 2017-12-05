@@ -104,7 +104,7 @@ public class UpLoadImageFragment extends BottomSheetDialogFragment implements Vi
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
                 && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            UiUtils.INSTANCE.showToast("无法获取存储权限,该功能将不可用");
+            UiUtils.showToast("无法获取存储权限,该功能将不可用");
             new AlertDialog.Builder(getContext())
                     .setMessage("无法获取存储权限,是否前往设置")
                     .setPositiveButton("设置", new DialogInterface.OnClickListener() {
@@ -181,15 +181,15 @@ public class UpLoadImageFragment extends BottomSheetDialogFragment implements Vi
                 if (selectedUri != null) {
                     startCropActivity(data.getData());
                 } else {
-                    UiUtils.INSTANCE.showToast("选择图片失败");
+                    UiUtils.showToast("选择图片失败");
                 }
             } else if (requestCode == UCrop.REQUEST_CROP) {
                 handleCropResult(data);
             } else {
-                UiUtils.INSTANCE.showToast("服务器错误");
+                UiUtils.showToast("服务器错误");
             }
         } else {
-            UiUtils.INSTANCE.showToast("取消操作");
+            UiUtils.showToast("取消操作");
         }
 
     }
@@ -202,7 +202,7 @@ public class UpLoadImageFragment extends BottomSheetDialogFragment implements Vi
             uCrop.withAspectRatio(16, 9);
         } else if (type.equals(SCALE_TYPE_1_1)) {
             uCrop.withAspectRatio(1, 1);
-            uCrop.withMaxResultSize(UiUtils.INSTANCE.dip2px(40), UiUtils.INSTANCE.dip2px(40));
+            uCrop.withMaxResultSize(UiUtils.dip2px(40), UiUtils.dip2px(40));
         }
 
         UCrop.Options options = new UCrop.Options();
@@ -219,7 +219,7 @@ public class UpLoadImageFragment extends BottomSheetDialogFragment implements Vi
             File file = new File(getContext().getCacheDir(), destinationFileName);
             upLoad(file);
         } else {
-            UiUtils.INSTANCE.showToast("裁剪图片失败");
+            UiUtils.showToast("裁剪图片失败");
         }
     }
 
@@ -263,10 +263,10 @@ public class UpLoadImageFragment extends BottomSheetDialogFragment implements Vi
                                     loadListener.uploadImageSuccess(info.data.image);
                                 dismiss();
                             } else {
-                                UiUtils.INSTANCE.showToast(getString(R.string.tips_upload_failed));
+                                UiUtils.showToast(getString(R.string.tips_upload_failed));
                             }
                         } else {
-                            UiUtils.INSTANCE.showToast(getString(R.string.tips_upload_failed));
+                            UiUtils.showToast(getString(R.string.tips_upload_failed));
                         }
                     }
                 });

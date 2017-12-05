@@ -112,7 +112,7 @@ public class MyStuffActivity extends BasedActivity {
 
     class StuffAdapter extends BaseQuickAdapter<Stuff, BaseViewHolder> {
 
-        int imgSize = UiUtils.INSTANCE.dip2px(36);
+        int imgSize = UiUtils.dip2px(36);
 
         public StuffAdapter(int layoutResId, @Nullable List<Stuff> data) {
             super(layoutResId, data);

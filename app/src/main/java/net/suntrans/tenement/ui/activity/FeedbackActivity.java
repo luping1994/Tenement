@@ -71,21 +71,21 @@ public class FeedbackActivity extends BasedActivity implements View.OnClickListe
         } else if (mCheckedTypeId == R.id.chengxucuowu) {
             type = getString(R.string.progress_error);
         } else {
-            UiUtils.INSTANCE.showToast(getString(R.string.title_feedback_type));
+            UiUtils.showToast(getString(R.string.title_feedback_type));
             return;
         }
         String qus = binding.jianyi.getText().toString();
         String email = binding.email.getText().toString();
         if (TextUtils.isEmpty(qus)) {
-            UiUtils.INSTANCE.showToast(getString(R.string.tips_content_is_empty));
+            UiUtils.showToast(getString(R.string.tips_content_is_empty));
             return;
         }
         if (TextUtils.isEmpty(email)) {
-            UiUtils.INSTANCE.showToast(getString(R.string.tips_contacts_is_empty));
+            UiUtils.showToast(getString(R.string.tips_contacts_is_empty));
             return;
         }
         if (!email.matches("^[_a-zA-Z0-9\\-\\.]+@([\\-_a-zA-Z0-9]+\\.)+[a-zA-Z0-9]{2,3}$") && !email.matches("^[1-9]\\d{4,12}$")) {
-            UiUtils.INSTANCE.showToast(getString(R.string.tips_contacts_is_error));
+            UiUtils.showToast(getString(R.string.tips_contacts_is_error));
             return;
         }
 //        if (dialog == null) {

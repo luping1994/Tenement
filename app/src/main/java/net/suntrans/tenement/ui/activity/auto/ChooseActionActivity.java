@@ -64,7 +64,7 @@ public class ChooseActionActivity extends BasedActivity implements
                 break;
             case R.id.togleAuto:
                 actionType = ActionType.TOGLE_AUTO;
-                UiUtils.INSTANCE.showToast("未实现");
+                UiUtils.showToast("未实现");
                 break;
             case R.id.sendMessage:
                 actionType = ActionType.SEND_MESSAGE;
@@ -85,7 +85,7 @@ public class ChooseActionActivity extends BasedActivity implements
                 break;
             case SEND_MESSAGE:
                 if (TextUtils.isEmpty(fragment.getMessage())) {
-                    UiUtils.INSTANCE.showToast("请输入内容");
+                    UiUtils.showToast("请输入内容");
                     return;
                 }
                 item = new AutoActionItem();

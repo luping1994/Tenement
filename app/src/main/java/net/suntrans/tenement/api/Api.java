@@ -29,6 +29,8 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -218,6 +220,6 @@ public interface Api {
 
     @Multipart
     @POST("notice/upload")
-    Observable<ResultBody<UploadInfo>> uploadNoticeFile(
+    Observable<ResultBody<Map<String,String>>> uploadNoticeFile(
             @Part MultipartBody.Part image);
 }

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -145,7 +146,7 @@ public class RentHomepageFragment extends BasedFragment {
                     intent.putExtra("name",envData.name);
                     startActivity(intent);
                 }else {
-                    UiUtils.INSTANCE.showToast("无法获取环境信息");
+                    UiUtils.showToast("无法获取环境信息");
                 }
 
             }
@@ -194,12 +195,16 @@ public class RentHomepageFragment extends BasedFragment {
                     public void onNext(ResultBody<EnvInfo> info) {
                         envData = info.data;
                         binding.wendu.setText(info.data.wendu.value+"℃");
-                        binding.wenduEva.setText(info.data.wendu.text);
                         binding.shidu.setText(" " + info.data.shidu.value + "%");
                         binding.pm25.setText(" " + info.data.pm25.value + "");
 
+                        binding.wenduEva.setText(info.data.wendu.text);
                         binding.shiduEnv.setText("   "+info.data.shidu.text);
                         binding.pm25Eva.setText(" "+info.data.pm25.text);
+
+                        binding.wenduEva.setTextColor(Color.parseColor(info.data.wendu.color));
+                        binding.shiduEnv.setTextColor(Color.parseColor(info.data.shidu.color));
+                        binding.pm25Eva.setTextColor(Color.parseColor(info.data.pm25.color));
                     }
                 }));
     }

@@ -2,17 +2,12 @@ package net.suntrans.tenement.ui.activity.admin;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -22,14 +17,9 @@ import net.suntrans.tenement.adapter.DividerItemDecoration;
 import net.suntrans.tenement.bean.CompanyEntity;
 import net.suntrans.tenement.bean.CompanyInfo;
 import net.suntrans.tenement.bean.ResultBody;
-import net.suntrans.tenement.bean.Stuff;
-import net.suntrans.tenement.bean.StuffEntity;
 import net.suntrans.tenement.databinding.ActivityMycompanyBinding;
-import net.suntrans.tenement.databinding.ActivityMystuffBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.BasedActivity;
-import net.suntrans.tenement.ui.activity.stuff.AddStuffActivity;
-import net.suntrans.tenement.ui.activity.stuff.StuffProfileActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,7 +105,7 @@ public class CompanyManagerActivity extends BasedActivity {
 
     class CompanyAdapter extends BaseQuickAdapter<CompanyInfo, BaseViewHolder> {
 
-        int imgSize = UiUtils.INSTANCE.dip2px(36);
+        int imgSize = UiUtils.dip2px(36);
 
         public CompanyAdapter(int layoutResId, @Nullable List<CompanyInfo> data) {
             super(layoutResId, data);

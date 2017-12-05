@@ -20,7 +20,6 @@ package net.suntrans.tenement.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -74,7 +73,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setColor(context.getResources().getColor(R.color.bgColor));
-        offset = UiUtils.INSTANCE.dip2px(1, context);
+        offset = UiUtils.dip2px(1, context);
         setOrientation(orientation);
     }
 

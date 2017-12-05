@@ -12,25 +12,12 @@ import android.text.TextUtils;
 import android.view.WindowManager;
 
 import net.suntrans.common.utils.LogUtil;
-import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.App;
 import net.suntrans.tenement.MainActivity;
 import net.suntrans.tenement.R;
-import net.suntrans.tenement.bean.LoginInfo;
-import net.suntrans.tenement.bean.ResultBody;
-import net.suntrans.tenement.persistence.AppDatabase;
-import net.suntrans.tenement.rx.BaseSubscriber;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import me.weyye.hipermission.HiPermission;
 import me.weyye.hipermission.PermissionCallback;
-import me.weyye.hipermission.PermissonItem;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 
 /**
@@ -176,7 +163,7 @@ public class WelcomeActivity extends BasedActivity {
 
                     @Override
                     public void onGuarantee(String permisson, int position) {
-                        System.out.println("guarantee");
+                        LogUtil.INSTANCE.i("guarantee");
                         check();
                     }
                 });

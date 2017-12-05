@@ -164,7 +164,7 @@ public class RepairActivity extends BasedActivity implements View.OnClickListene
 //        addSubscription(api.addStuff(map), new BaseSubscriber<ResultBody>(this) {
 //            @Override
 //            public void onNext(ResultBody resultBody) {
-//                UiUtils.INSTANCE.showToast(resultBody.msg);
+//                UiUtils.showToast(resultBody.msg);
 //            }
 //        });
     }

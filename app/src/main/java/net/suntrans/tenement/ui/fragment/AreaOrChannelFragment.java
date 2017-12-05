@@ -3,7 +3,6 @@ package net.suntrans.tenement.ui.fragment;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +19,9 @@ import net.suntrans.tenement.bean.ChannelAreaEntity;
 import net.suntrans.tenement.bean.ChannelControlMessage;
 import net.suntrans.tenement.bean.ChannelInfo;
 import net.suntrans.tenement.bean.ResultBody;
-import net.suntrans.tenement.databinding.FragmentAllChannelBinding;
-import net.suntrans.tenement.databinding.FragmnetChannelBinding;
 import net.suntrans.tenement.databinding.FragmnetChannelOrAreaBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
+import net.suntrans.tenement.widgets.FullyGridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +55,7 @@ public class AreaOrChannelFragment extends BasedFragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-
+        binding.recyclerView.setNestedScrollingEnabled(false);
 
     }
 
@@ -119,7 +117,7 @@ public class AreaOrChannelFragment extends BasedFragment {
                             if (adapter == null) {
                                 datas = new ArrayList<>();
                                 adapter = new ChannelAdapter(R.layout.item_channel, datas);
-                                GridLayoutManager layoutManager = new GridLayoutManager(getContext(),3, LinearLayoutManager.VERTICAL,false);
+                                FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(getContext(),3, LinearLayoutManager.VERTICAL,false);
                                 binding.recyclerView.setLayoutManager(layoutManager);
                                 binding.recyclerView.setAdapter(adapter);
                                 adapter.bindToRecyclerView(binding.recyclerView);
@@ -128,7 +126,7 @@ public class AreaOrChannelFragment extends BasedFragment {
                                     @Override
                                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                         if (position == -1) {
-                                            UiUtils.INSTANCE.showToast(getActivity().getApplicationContext(), "请稍后...");
+                                            UiUtils.showToast(getActivity().getApplicationContext(), "请稍后...");
                                             return;
                                         }
                                         sendOrder(datas.get(position).id + "", datas.get(position).status == 1 ? "0" : "1");
@@ -144,7 +142,7 @@ public class AreaOrChannelFragment extends BasedFragment {
                                 areaDatas = new ArrayList<>();
                                 areaDatas.addAll(channelEntityResultBody.data.lists);
                                 areaAdapter = new AreaAdapter(R.layout.item_area_two,areaDatas);
-                                GridLayoutManager layoutManager = new GridLayoutManager(getContext(),2, LinearLayoutManager.VERTICAL,false);
+                                FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(getContext(),2, LinearLayoutManager.VERTICAL,false);
                                 binding.recyclerView.setLayoutManager(layoutManager);
                                 binding.recyclerView.setAdapter(areaAdapter);
                                 areaAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -166,7 +164,7 @@ public class AreaOrChannelFragment extends BasedFragment {
                                 areaDatas = new ArrayList<>();
                                 areaDatas.addAll(channelEntityResultBody.data.lists);
                                 areaAdapter = new AreaAdapter(R.layout.item_area_three,areaDatas);
-                                GridLayoutManager layoutManager = new GridLayoutManager(getContext(),3, LinearLayoutManager.VERTICAL,false);
+                                FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(getContext(),3, LinearLayoutManager.VERTICAL,false);
                                 binding.recyclerView.setLayoutManager(layoutManager);
                                 binding.recyclerView.setAdapter(areaAdapter);
                                 areaAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -186,7 +184,7 @@ public class AreaOrChannelFragment extends BasedFragment {
                                 areaDatas = new ArrayList<>();
                                 areaDatas.addAll(channelEntityResultBody.data.lists);
                                 areaAdapter = new AreaAdapter(R.layout.item_area_three,areaDatas);
-                                GridLayoutManager layoutManager = new GridLayoutManager(getContext(),3, LinearLayoutManager.VERTICAL,false);
+                                FullyGridLayoutManager layoutManager = new FullyGridLayoutManager(getContext(),3, LinearLayoutManager.VERTICAL,false);
                                 binding.recyclerView.setLayoutManager(layoutManager);
                                 binding.recyclerView.setAdapter(areaAdapter);
                                 areaAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -216,7 +214,7 @@ public class AreaOrChannelFragment extends BasedFragment {
 
     public void sendOrder(String id, String cmd) {
         if (sending) {
-            UiUtils.INSTANCE.showToast(getActivity().getApplicationContext(), "请稍后...");
+            UiUtils.showToast(getActivity().getApplicationContext(), "请稍后...");
             return;
         }
         sending = true;

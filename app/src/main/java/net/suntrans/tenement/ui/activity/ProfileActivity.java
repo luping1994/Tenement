@@ -59,7 +59,7 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
         binding.llTouxiang.setOnClickListener(this);
         binding.llName.setOnClickListener(this);
         binding.llTelephone.setOnClickListener(this);
-        if (UiUtils.INSTANCE.isNetworkAvailable()) {
+        if (UiUtils.isNetworkAvailable()) {
             getUserProfile();
         } else {
             getDataFromLocal();
@@ -94,12 +94,14 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
                     @Override
                     public void onNext(User info) {
                         user = info;
-                        binding.name.setText(user.truename);
+                        binding.name.setText(user.nickname);
                         binding.telephone.setText(user.mobile);
+                        binding.truename.setText(user.truename);
+
                         Glide.with(ProfileActivity.this)
                                 .load(user.cover)
                                 .asBitmap()
-                                .override(UiUtils.INSTANCE.dip2px(36), UiUtils.INSTANCE.dip2px(36))
+                                .override(UiUtils.dip2px(36), UiUtils.dip2px(36))
                                 .into(new SimpleTarget<Bitmap>() {
                                     @Override
                                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
@@ -130,20 +132,19 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_change_name, null, false);
         final TextView text = view.findViewById(R.id.text);
         new AlertDialog.Builder(this)
-                .setTitle("修改姓名")
+                .setTitle("修改昵称")
                 .setView(view)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String s = text.getText().toString();
 
-                        System.out.println(s);
                         if (TextUtils.isEmpty(s)) {
-                            UiUtils.INSTANCE.showToast("请输入姓名");
+                            UiUtils.showToast("请输入姓名");
                             return;
                         }
                         user.nickname = s;
-                        updateProfile();
+                        updateProfile("nickname",s);
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
@@ -164,11 +165,11 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
                     public void onClick(DialogInterface dialog, int which) {
                         String s = text.getText().toString();
                         if (TextUtils.isEmpty(s)) {
-                            UiUtils.INSTANCE.showToast("请输入手机号码");
+                            UiUtils.showToast("请输入手机号码");
                             return;
                         }
                         user.mobile = s;
-                        updateProfile();
+                        updateProfile("mobile",s);
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
@@ -193,16 +194,14 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
 
     @Override
     public void uploadImageSuccess(String path) {
-        UiUtils.INSTANCE.showToast(path);
-        user.cover = path;
-        updateProfile();
+        user.cover = "http://gzfhq.suntrans-cloud.com/"+path;
+        updateProfile("cover",path);
     }
 
-    private void updateProfile() {
+    private void updateProfile(String key,String value) {
         Map<String, String> map = new HashMap<>();
-        map.put("nickname", user.nickname);
-        map.put("cover", user.cover);
-        map.put("mobile", user.mobile);
+        map.put(key, value);
+
         mCompositeSubscription.add(api.updateProfile(map)
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
@@ -218,43 +217,57 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
                     @Override
                     public void onNext(ResultBody resultBody) {
                         super.onNext(resultBody);
-                        UiUtils.INSTANCE.showToast(resultBody.msg);
+                        UiUtils.showToast(resultBody.msg);
                         getDataFromLocal();
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
-//                        e.printStackTrace();
+                        e.printStackTrace();
                     }
                 }));
     }
 
     private void getUserProfile() {
-        addSubscription(api.loadUserInfo(), new BaseSubscriber<ResultBody<ProfileWraper>>(this) {
-            @Override
-            public void onNext(ResultBody<ProfileWraper> result) {
-                user = result.data.user;
-                binding.name.setText(user.truename);
-                binding.telephone.setText(user.mobile);
+        api.loadUserInfo()
+                .observeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
+                .doOnNext(new Action1<ResultBody<ProfileWraper>>() {
+                    @Override
+                    public void call(ResultBody<ProfileWraper> profileWraperResultBody) {
+                        AppDatabase.getInstance(ProfileActivity.this)
+                                .userDao().updateUser(profileWraperResultBody.data.user);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<ResultBody<ProfileWraper>>(this) {
+                    @Override
+                    public void onNext(ResultBody<ProfileWraper> result) {
 
-                Glide.with(ProfileActivity.this)
-                        .load(user.cover)
-                        .asBitmap()
-                        .override(UiUtils.INSTANCE.dip2px(36), UiUtils.INSTANCE.dip2px(36))
-                        .into(new SimpleTarget<Bitmap>() {
-                            @Override
-                            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                                binding.touxiang.setImageBitmap(resource);
-                            }
-                        });
-            }
 
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                e.printStackTrace();
-            }
-        });
+                        user = result.data.user;
+                        binding.name.setText(user.nickname);
+                        binding.telephone.setText(user.mobile);
+                        binding.truename.setText(user.truename);
+
+                        Glide.with(ProfileActivity.this)
+                                .load(user.cover)
+                                .asBitmap()
+                                .override(UiUtils.dip2px(36), UiUtils.dip2px(36))
+                                .into(new SimpleTarget<Bitmap>() {
+                                    @Override
+                                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                                        binding.touxiang.setImageBitmap(resource);
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        e.printStackTrace();
+                    }
+                });
     }
 }

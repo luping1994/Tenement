@@ -136,10 +136,8 @@
                     <FrameLayout
                         android:id="@+id/channelContent"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/homepage_channel_fg_height"
-                        android:background="@color/white"
-                        android:paddingBottom="18dp"
-                        android:paddingTop="18dp">
+                        android:layout_height="wrap_content"
+                        android:background="@color/white">
 
                     </FrameLayout>
 

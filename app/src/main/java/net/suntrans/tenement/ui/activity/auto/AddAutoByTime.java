@@ -58,7 +58,7 @@ public class AddAutoByTime extends BasedActivity implements ChooseTimeFragment.O
     public void rightSubTitleClicked(View view) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragmentManager.getBackStackEntryCount() == 1) {
-            UiUtils.INSTANCE.showToast("您未添加任何动作");
+            UiUtils.showToast("您未添加任何动作");
         } else if (fragmentManager.getBackStackEntryCount() == 0) {
             navitiveToNextFragment();
             binding.title.setText("18:00");

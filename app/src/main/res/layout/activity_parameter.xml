@@ -213,7 +213,7 @@
                     android:paddingRight="@dimen/activity_horizontal_margin">
 
                     <TextView
-                        android:drawableLeft="@drawable/ic_ele"
+                        android:drawableLeft="@drawable/ic_ele_pay"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"

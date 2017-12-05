@@ -52,15 +52,15 @@ public class AddStuffActivity extends BasedActivity implements View.OnClickListe
 
     protected void addStuff(String username, String password, String name, String telephone) {
         if (TextUtils.isEmpty(username)) {
-            UiUtils.INSTANCE.showToast("用户名不能为空");
+            UiUtils.showToast("用户名不能为空");
             return;
         }
         if (TextUtils.isEmpty(password)) {
-            UiUtils.INSTANCE.showToast("密码不能为空");
+            UiUtils.showToast("密码不能为空");
             return;
         }
         if (TextUtils.isEmpty(name)) {
-            UiUtils.INSTANCE.showToast("名字不能为空");
+            UiUtils.showToast("名字不能为空");
             return;
         }
         if (username.length() < 6) {
@@ -83,7 +83,7 @@ public class AddStuffActivity extends BasedActivity implements View.OnClickListe
         addSubscription(api.addStuff(map), new BaseSubscriber<ResultBody>(this) {
             @Override
             public void onNext(ResultBody resultBody) {
-                UiUtils.INSTANCE.showToast(resultBody.msg);
+                UiUtils.showToast(resultBody.msg);
             }
         });
     }

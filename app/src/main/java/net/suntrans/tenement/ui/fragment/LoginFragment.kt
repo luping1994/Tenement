@@ -3,13 +3,11 @@ package net.suntrans.tenement.ui.fragment
 
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.databinding.Observable
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.tencent.bugly.proguard.t
 import net.suntrans.common.utils.UiUtils
 import net.suntrans.looney.widgets.LoadingDialog
 import net.suntrans.tenement.App
@@ -21,8 +19,6 @@ import net.suntrans.tenement.databinding.FragmentLoginBinding
 import net.suntrans.tenement.persistence.AppDatabase
 import net.suntrans.tenement.rx.BaseSubscriber
 import rx.android.schedulers.AndroidSchedulers
-import rx.functions.Action1
-import rx.functions.Func1
 import rx.schedulers.Schedulers
 
 

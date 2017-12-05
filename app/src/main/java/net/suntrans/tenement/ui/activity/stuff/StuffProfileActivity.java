@@ -14,7 +14,6 @@ import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.bean.Stuff;
-import net.suntrans.tenement.databinding.ActivityProfileBinding;
 import net.suntrans.tenement.databinding.ActivityStuffProfileBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.BasedActivity;
@@ -114,7 +113,7 @@ public class StuffProfileActivity extends BasedActivity implements View.OnClickL
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (TextUtils.isEmpty(s)) {
-                            UiUtils.INSTANCE.showToast(title);
+                            UiUtils.showToast(title);
                             if (title.equals("请输入姓名"))
                                 stuff.truename=s;
                             else if (title.equals("请输入电话"))
@@ -143,7 +142,7 @@ public class StuffProfileActivity extends BasedActivity implements View.OnClickL
                     @Override
                     public void onNext(ResultBody resultBody) {
                         super.onNext(resultBody);
-                        UiUtils.INSTANCE.showToast(resultBody.msg);
+                        UiUtils.showToast(resultBody.msg);
                     }
                 });
     }
@@ -170,7 +169,7 @@ public class StuffProfileActivity extends BasedActivity implements View.OnClickL
                 .subscribe(new BaseSubscriber<ResultBody>(this.getApplicationContext()) {
                     @Override
                     public void onNext(ResultBody body) {
-                      UiUtils.INSTANCE.showToast(body.msg);
+                      UiUtils.showToast(body.msg);
                     }
 
                     @Override

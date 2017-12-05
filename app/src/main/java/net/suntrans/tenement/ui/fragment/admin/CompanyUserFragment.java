@@ -1,6 +1,5 @@
 package net.suntrans.tenement.ui.fragment.admin;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,10 +13,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.adapter.DividerItemDecoration;
-import net.suntrans.tenement.bean.EnergyListItem;
 import net.suntrans.tenement.bean.Stuff;
 import net.suntrans.tenement.databinding.FragmentCompanyEnergyBinding;
-import net.suntrans.tenement.ui.activity.EnergyConsumeActivity;
 import net.suntrans.tenement.ui.fragment.BasedFragment;
 
 import java.util.ArrayList;
@@ -56,7 +53,7 @@ public class CompanyUserFragment extends BasedFragment {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                UiUtils.INSTANCE.showToast("您没有查看该用户资料的权限");
+                UiUtils.showToast("您没有查看该用户资料的权限");
             }
         });
     }

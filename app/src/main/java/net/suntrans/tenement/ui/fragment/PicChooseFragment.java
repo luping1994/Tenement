@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -150,7 +149,7 @@ public class PicChooseFragment extends DialogFragment {
         public SceneImageAdapter(int layoutResId, @Nullable List<Image> data, Context context) {
             super(layoutResId, data);
             this.context = context;
-            this.size = UiUtils.INSTANCE.dip2px(24);
+            this.size = UiUtils.dip2px(24);
         }
 
         @Override

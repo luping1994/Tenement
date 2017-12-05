@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -58,15 +57,15 @@ public class EnergyConsumeActivity extends BasedActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_energy_consume);
         lastDay = getCurrentMonthLastDay();
         id = getIntent().getStringExtra("id");
-        binding.todayUsedValue.setText(getIntent().getStringExtra("todyUsed")+"kW·h");
-        binding.yesterdayUsedValue.setText(getIntent().getStringExtra("yesterdayUsed")+"kW·h");
-        binding.monthUsed.setText(getIntent().getStringExtra("monthUsed")+"");
+//        binding.todayUsedValue.setText(getIntent().getStringExtra("todyUsed")+"kW·h");
+//        binding.yesterdayUsedValue.setText(getIntent().getStringExtra("yesterdayUsed")+"kW·h");
+//        binding.monthUsed.setText(getIntent().getStringExtra("monthUsed")+"");
 
         binding.textView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (TextUtils.isEmpty(sno)){
-                    UiUtils.INSTANCE.showToast("无法获取电表信息");
+                    UiUtils.showToast("无法获取电表信息");
                     return;
                 }
                 Intent intent = new Intent(EnergyConsumeActivity.this, AmmeterParameterActivity.class);

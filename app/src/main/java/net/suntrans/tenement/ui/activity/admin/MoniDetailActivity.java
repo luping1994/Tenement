@@ -171,7 +171,7 @@ public class MoniDetailActivity extends BasedActivity implements View.OnClickLis
 
     private void switchArea(String status) {
         if (TextUtils.isEmpty(room_id)){
-            UiUtils.INSTANCE.showToast("无法获取房间信息");
+            UiUtils.showToast("无法获取房间信息");
             return;
         }
         Map<String, String> map = new HashMap<>();
@@ -180,7 +180,7 @@ public class MoniDetailActivity extends BasedActivity implements View.OnClickLis
         addSubscription(api.switchSlcArea(map), new BaseSubscriber<ResultBody<Map<String, String>>>(this) {
             @Override
             public void onNext(ResultBody<Map<String, String>> mapResultBody) {
-                UiUtils.INSTANCE.showToast(mapResultBody.msg);
+                UiUtils.showToast(mapResultBody.msg);
             }
 
             @Override

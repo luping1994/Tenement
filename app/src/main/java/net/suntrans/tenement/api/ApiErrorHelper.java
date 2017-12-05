@@ -16,29 +16,27 @@ public class ApiErrorHelper {
             if (e != null) {
                 if (e.getMessage() != null) {
                     if (e.getMessage().equals("HTTP 401 Unauthorized")) {
-                        UiUtils.INSTANCE.showToast("账号或密码错误");
+                        UiUtils.showToast("用户信息认证失败,请重新登录");
                     }else {
-                        if (e.getMessage() != null)
-                            UiUtils.INSTANCE.showToast(e.getMessage());
+                            UiUtils.showToast(e.getMessage());
                     }
                 }
             }
         } else if (e instanceof ApiException) {
             int code = ((ApiException) e).code;
             if (code == ApiErrorCode.UNAUTHORIZED) {
-//                UiUtils.INSTANCE.showToast("您的身份已过期,请重新登录");
-//                Intent intent = new Intent(context, AlertActivity.class);
-//                RxBus.getInstance().post(intent);
+                UiUtils.showToast("用户信息认证失败,请重新登录");
+
             } else if (code == ApiErrorCode.ERROR_NO_INTERNET) {
-                UiUtils.INSTANCE.showToast("网络连接不可用");
+                UiUtils.showToast("网络连接不可用");
             } else if (code == ApiErrorCode.ERROR) {
-                UiUtils.INSTANCE.showToast(((ApiException) e).msg);
+                UiUtils.showToast(((ApiException) e).msg);
             } else {
-                UiUtils.INSTANCE.showToast(((ApiException) e).msg);
+                UiUtils.showToast(((ApiException) e).msg);
             }
         } else {
-//            if (e.getMessage() != null)
-//                UiUtils.INSTANCE.showToast(e.getMessage());
+            if (e.getMessage() != null)
+                UiUtils.showToast(e.getMessage());
         }
     }
 }

@@ -99,7 +99,7 @@ public class AddSceneActivity extends BasedActivity implements PicChooseFragment
     private void createScene() {
         String name = binding.sceneName.getText().toString();
         if (TextUtils.isEmpty(name)) {
-            UiUtils.INSTANCE.showToast("名称不能为空");
+            UiUtils.showToast("名称不能为空");
             return;
         }
         if (dialog == null) {
@@ -137,7 +137,7 @@ public class AddSceneActivity extends BasedActivity implements PicChooseFragment
             @Override
             public void onNext(ResultBody resultBody) {
                 super.onNext(resultBody);
-                UiUtils.INSTANCE.showToast(resultBody.msg);
+                UiUtils.showToast(resultBody.msg);
                 dialog.dismiss();
             }
 
@@ -153,7 +153,7 @@ public class AddSceneActivity extends BasedActivity implements PicChooseFragment
 
     @Override
     public void onPicChoose(String id, String path) {
-        UiUtils.INSTANCE.showToast(id);
+        UiUtils.showToast(id);
         if (fragment != null) {
             fragment.dismiss();
         }
@@ -161,7 +161,7 @@ public class AddSceneActivity extends BasedActivity implements PicChooseFragment
                 .load(path)
                 .dontTransform()
                 .crossFade()
-                .override(UiUtils.INSTANCE.dip2px(64), UiUtils.INSTANCE.dip2px(64))
+                .override(UiUtils.dip2px(64), UiUtils.dip2px(64))
                 .into(binding.sceneImg);
         imgId = id;
     }

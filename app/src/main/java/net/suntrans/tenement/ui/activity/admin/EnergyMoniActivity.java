@@ -72,7 +72,7 @@ public class EnergyMoniActivity extends BasedActivity {
 
     class MoniAdapter extends BaseQuickAdapter<Monitor, BaseViewHolder> {
 
-        int imgSize = UiUtils.INSTANCE.dip2px(36);
+        int imgSize = UiUtils.dip2px(36);
 
         public MoniAdapter(int layoutResId, @Nullable List<Monitor> data) {
             super(layoutResId, data);

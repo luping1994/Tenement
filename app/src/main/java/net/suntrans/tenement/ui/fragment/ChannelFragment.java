@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
-import net.suntrans.common.utils.StatusBarCompat;
 import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.api.Api;
@@ -106,7 +105,7 @@ public class ChannelFragment extends android.support.v4.app.DialogFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (position == -1) {
-                    UiUtils.INSTANCE.showToast(getActivity().getApplicationContext(), "请稍后...");
+                    UiUtils.showToast(getActivity().getApplicationContext(), "请稍后...");
                     return;
                 }
                 sendOrder(datas.get(position).id + "", datas.get(position).status == 1 ? "0" : "1");
@@ -184,7 +183,7 @@ public class ChannelFragment extends android.support.v4.app.DialogFragment {
 
     public void sendOrder(String id, String cmd) {
         if (sending) {
-            UiUtils.INSTANCE.showToast(getActivity().getApplicationContext(), "请稍后...");
+            UiUtils.showToast(getActivity().getApplicationContext(), "请稍后...");
             return;
         }
         sending = true;

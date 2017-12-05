@@ -6,16 +6,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -29,17 +28,16 @@ import net.suntrans.tenement.bean.SimpleData;
 import net.suntrans.tenement.databinding.FragmentAdminHomepageBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.DutyActivity;
-import net.suntrans.tenement.ui.activity.EnergyConsumeActivity;
 import net.suntrans.tenement.ui.activity.EnvDetailActivity;
 import net.suntrans.tenement.ui.activity.SceneActivity;
 import net.suntrans.tenement.ui.activity.admin.CompanyManagerActivity;
 import net.suntrans.tenement.ui.activity.admin.EnergyAllActivity;
 import net.suntrans.tenement.ui.activity.admin.EnergyMoniActivity;
+import net.suntrans.tenement.ui.activity.admin.PaymentActivity_wuye;
 import net.suntrans.tenement.ui.activity.admin.PublicControlActivity;
 import net.suntrans.tenement.ui.activity.admin.RepairActivity_admin;
 import net.suntrans.tenement.ui.activity.rent.MessageActivity;
 import net.suntrans.tenement.ui.activity.rent.PaymentActivity;
-import net.suntrans.tenement.ui.activity.rent.RepairActivity;
 import net.suntrans.tenement.ui.fragment.BasedFragment;
 
 import java.util.ArrayList;
@@ -53,14 +51,26 @@ import rx.schedulers.Schedulers;
  */
 public class AdminHomepageFragment extends BasedFragment {
 
+
+    private static final int ENERGYMONI_POS = 1;
+    private static final int PUBLICCON_POS = 0;
+    private static final int SCENE_POS = 4;
+    private static final int ENERGYALL_POS = 2;
+    private static final int REPAIR_POS = 7;
+    private static final int DUTY_POS = 8;
+    private static final int PAYMENT_POS = 3;
+    private static final int MESSAGE_POS = 6;
+    private static final int COMPANYMANAGER_POS = 5;
+
+
     private FragmentAdminHomepageBinding binding;
 
     private List<SimpleData> datas;
     private String[] funName;
     // 图片封装为一个数组
-    private int[] icon = {R.drawable.ic_nenghao, R.drawable.ic_deng,
-            R.drawable.ic_mode_large, R.drawable.ic_nenghaofenxi, R.drawable.ic_fuwu,
-            R.drawable.ic_zhibanbiao, R.drawable.ic_jiaofei, R.drawable.ic_gonggao, R.drawable.ic_company};
+    private int[] icon = {R.drawable.ic_deng, R.drawable.ic_jiankong, R.drawable.ic_nenghaofenxi,
+                    R.drawable.ic_jiaofei, R.drawable.ic_mode_large, R.drawable.ic_company,
+                    R.drawable.ic_gonggao, R.drawable.ic_fuwu, R.drawable.ic_zhibanbiao};
     private EnvInfo envInfo;
 
     public AdminHomepageFragment() {
@@ -75,6 +85,7 @@ public class AdminHomepageFragment extends BasedFragment {
         return binding.getRoot();
     }
 
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         IntentFilter filter = new IntentFilter();
@@ -88,40 +99,40 @@ public class AdminHomepageFragment extends BasedFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (position) {
-                    case 0:
+                    case ENERGYMONI_POS:
                         Intent intent = new Intent(getActivity(), EnergyMoniActivity.class);
                         startActivity(intent);
                         break;
-                    case 1:
+                    case PUBLICCON_POS:
                         Intent intent1 = new Intent(getActivity(), PublicControlActivity.class);
                         startActivity(intent1);
                         break;
 
-                    case 2:
+                    case SCENE_POS:
                         Intent intent2 = new Intent(getActivity(), SceneActivity.class);
                         startActivity(intent2);
                         break;
-                    case 3:
+                    case ENERGYALL_POS:
                         Intent intent3 = new Intent(getActivity(), EnergyAllActivity.class);
                         startActivity(intent3);
                         break;
-                    case 4:
+                    case REPAIR_POS:
                         Intent intent4 = new Intent(getActivity(), RepairActivity_admin.class);
                         startActivity(intent4);
                         break;
-                    case 5:
+                    case DUTY_POS:
                         Intent intent5 = new Intent(getActivity(), DutyActivity.class);
                         startActivity(intent5);
                         break;
-                    case 6:
-                        Intent intent6 = new Intent(getActivity(), PaymentActivity.class);
+                    case PAYMENT_POS:
+                        Intent intent6 = new Intent(getActivity(), PaymentActivity_wuye.class);
                         startActivity(intent6);
                         break;
-                    case 7:
+                    case MESSAGE_POS:
                         Intent intent7 = new Intent(getActivity(), MessageActivity.class);
                         startActivity(intent7);
                         break;
-                    case 8:
+                    case COMPANYMANAGER_POS:
                         Intent intent8 = new Intent(getActivity(), CompanyManagerActivity.class);
                         startActivity(intent8);
                         break;
@@ -131,13 +142,13 @@ public class AdminHomepageFragment extends BasedFragment {
         binding.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (envInfo!=null){
+                if (envInfo != null) {
                     Intent intent = new Intent(getActivity(), EnvDetailActivity.class);
-                    intent.putExtra("id",envInfo.id);
-                    intent.putExtra("name",envInfo.name);
+                    intent.putExtra("id", envInfo.id);
+                    intent.putExtra("name", envInfo.name);
                     startActivity(intent);
-                }else {
-                    UiUtils.INSTANCE.showToast("无法获取环境信息");
+                } else {
+                    UiUtils.showToast("无法获取环境信息");
                 }
 
             }
@@ -197,6 +208,18 @@ public class AdminHomepageFragment extends BasedFragment {
                         binding.wendu.setText(info.data.wendu.value);
                         binding.shidu.setText(" " + info.data.shidu.value + "%");
                         binding.pm25.setText(" " + info.data.pm25.value + "");
+
+
+                        binding.wenduEva.setText(info.data.wendu.text);
+                        binding.shiduEnv.setText("   " + info.data.shidu.text);
+                        binding.pm25Eva.setText(" " + info.data.pm25.text);
+
+//                        System.out.println(info.data.wendu.color);
+//                        System.out.println(info.data.shidu.color);
+//                        System.out.println(info.data.pm25.color);
+                        binding.wenduEva.setTextColor(Color.parseColor(info.data.wendu.color));
+                        binding.shiduEnv.setTextColor(Color.parseColor(info.data.shidu.color));
+                        binding.pm25Eva.setTextColor(Color.parseColor(info.data.pm25.color));
                     }
                 }));
     }
@@ -213,14 +236,14 @@ public class AdminHomepageFragment extends BasedFragment {
             ConnectivityManager manager = (ConnectivityManager) context
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo activeNetworkInfo = manager.getActiveNetworkInfo();
-            if (activeNetworkInfo==null){
+            if (activeNetworkInfo == null) {
                 binding.tips.setVisibility(View.VISIBLE);
-            }else {
-                if (!activeNetworkInfo.isAvailable()||activeNetworkInfo.isFailover()){
+            } else {
+                if (!activeNetworkInfo.isAvailable() || activeNetworkInfo.isFailover()) {
                     //network is not available
                     binding.tips.setVisibility(View.VISIBLE);
 
-                }else {
+                } else {
                     //network is available
                     binding.tips.setVisibility(View.GONE);
 

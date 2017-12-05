@@ -3,7 +3,6 @@ package net.suntrans.tenement.ui.fragment.rent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Binder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,13 +15,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
 import net.suntrans.common.utils.UiUtils;
 import net.suntrans.looney.utils.LogUtil;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.adapter.DividerItemDecoration;
-import net.suntrans.tenement.api.RetrofitHelper;
 import net.suntrans.tenement.bean.DeviceEntity;
 import net.suntrans.tenement.bean.DeviceInfo;
 import net.suntrans.tenement.bean.ResultBody;
@@ -96,7 +92,7 @@ public class DevicesManagerFragment extends BasedFragment {
     public static class DevicesAdapter extends RecyclerView.Adapter {
         List<DeviceInfo> datas;
         private Context context;
-        public int size = UiUtils.INSTANCE.dip2px(96);
+        public int size = UiUtils.dip2px(96);
         public DevicesAdapter(List<DeviceInfo> datas, Context context) {
             this.datas = datas;
             this.context = context;
@@ -198,7 +194,7 @@ public class DevicesManagerFragment extends BasedFragment {
                            }
                        }
                        if (datas.size() == 0) {
-                           UiUtils.INSTANCE.showToast("暂无数据");
+                           UiUtils.showToast("暂无数据");
                        }
                    }
                }));

@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import com.facebook.stetho.Stetho
+import com.github.mikephil.charting.utils.Utils
 import com.squareup.leakcanary.LeakCanary
 import com.tencent.bugly.crashreport.CrashReport
 import net.suntrans.tenement.BuildConfig.DEBUG
@@ -27,6 +28,8 @@ class App : Application() {
         if (!DEBUG) {
             CrashReport.initCrashReport(applicationContext, "62a6fed721", false)
         }
+
+        com.blankj.utilcode.util.Utils.init(this)
     }
 
     companion object {

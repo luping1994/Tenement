@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import net.suntrans.common.utils.LogUtil;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.databinding.FragmentChooseTimeBinding;
 import net.suntrans.tenement.ui.activity.BasedActivity;
@@ -96,12 +97,12 @@ public class ChooseTimeFragment extends BasedFragment implements View.OnClickLis
                                 int index = which + 1;
 
                                 if (isChecked) {
-                                    System.out.println("add:" + index);
+                                    LogUtil.INSTANCE.i("add:" + index);
 
                                     weeks.add(index + "");
                                 } else {
                                     weeks.remove(index + "");
-                                    System.out.println("remove:" + index);
+                                    LogUtil.INSTANCE.i("remove:" + index);
 
                                 }
                             }

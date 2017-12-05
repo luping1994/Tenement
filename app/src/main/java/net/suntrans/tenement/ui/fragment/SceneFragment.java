@@ -24,7 +24,6 @@ import net.suntrans.tenement.bean.SceneInfo;
 import net.suntrans.tenement.databinding.FragmentSceneBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.AddSceneActivity;
-import net.suntrans.tenement.ui.fragment.rent.AllChannelFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +47,7 @@ public class SceneFragment extends BasedFragment  {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        System.out.println("onCreatedView");
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_scene, container, false);
         return binding.getRoot();
     }
@@ -106,11 +105,11 @@ public class SceneFragment extends BasedFragment  {
         protected void convert(BaseViewHolder helper, SceneInfo item) {
             helper.setText(R.id.name, item.name);
             ImageView imageView = helper.getView(R.id.image);
-//            System.out.println(item.name+","+item.img_url);
+
             Glide.with(context)
                     .load(item.image)
                     .centerCrop()
-                    .override(UiUtils.INSTANCE.dip2px(36),UiUtils.INSTANCE.dip2px(36))
+                    .override(UiUtils.dip2px(36), UiUtils.dip2px(36))
                     .crossFade()
                     .placeholder(R.drawable.ic_nopic)
                     .into(imageView);
@@ -140,7 +139,7 @@ public class SceneFragment extends BasedFragment  {
 
     public void sendOrder(String id) {
         if (sending) {
-            UiUtils.INSTANCE.showToast(getActivity().getApplicationContext(), "请稍后...");
+            UiUtils.showToast(getActivity().getApplicationContext(), "请稍后...");
             return;
         }
         sending = true;
@@ -150,7 +149,7 @@ public class SceneFragment extends BasedFragment  {
                 .subscribe(new BaseSubscriber<ResultBody>(getActivity().getApplicationContext()) {
                     @Override
                     public void onNext(ResultBody cmdMsg) {
-                        UiUtils.INSTANCE.showToast(cmdMsg.msg);
+                        UiUtils.showToast(cmdMsg.msg);
                         adapter.notifyDataSetChanged();
                         sending = false;
                     }

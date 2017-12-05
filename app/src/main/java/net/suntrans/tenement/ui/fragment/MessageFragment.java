@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import net.suntrans.tenement.R;
+import net.suntrans.tenement.adapter.DividerItemDecoration;
 import net.suntrans.tenement.bean.NoticeEntity;
 import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.databinding.FragmentMessageBinding;
@@ -22,6 +24,10 @@ import net.suntrans.tenement.ui.activity.rent.MessageDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import static net.suntrans.tenement.MessageType.messageColor;
+import static net.suntrans.tenement.MessageType.messageTips;
 
 /**
  * Created by Looney on 2017/11/22.
@@ -61,6 +67,7 @@ public class MessageFragment extends BasedFragment {
         });
         binding.refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         binding.recyclerView.setAdapter(myadapter);
+        binding.recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
     }
 
@@ -79,6 +86,8 @@ public class MessageFragment extends BasedFragment {
             TextView status = helper.getView(R.id.status);
             helper.setText(R.id.time, item.created_at)
                     .setText(R.id.title, item.title);
+                status.setBackgroundColor(messageColor.get(item.vtype));
+                status.setText(messageTips.get(item.vtype));
 
         }
     }

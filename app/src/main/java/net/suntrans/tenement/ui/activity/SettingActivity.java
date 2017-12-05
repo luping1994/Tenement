@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.CacheUtils;
+
 import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.App;
 import net.suntrans.tenement.R;
@@ -41,6 +43,10 @@ public class SettingActivity extends BasedActivity {
                 finish();
             }
         });
+        long cacheSize = CacheUtils.getInstance().getCacheSize();
+
+        long l = cacheSize / 1024;
+        binding.profile.setText(l+"kb");
     }
 
     public void onClick(View view) {
@@ -59,6 +65,11 @@ public class SettingActivity extends BasedActivity {
                 break;
             case R.id.modifyPassword:
                 showModifyPasswordDialog();
+                break;
+
+            case R.id.profileRL:
+                CacheUtils.getInstance().clear();
+                UiUtils.showToast("清除成功!");
                 break;
         }
 
@@ -90,7 +101,7 @@ public class SettingActivity extends BasedActivity {
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
-                        UiUtils.INSTANCE.showToast(e.getMessage());
+                        UiUtils.showToast(e.getMessage());
                     }
 
                     @Override
@@ -116,7 +127,7 @@ public class SettingActivity extends BasedActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (TextUtils.isEmpty(s)) {
-                            UiUtils.INSTANCE.showToast("请输入旧密码");
+                            UiUtils.showToast("请输入旧密码");
                             return;
                         }
 

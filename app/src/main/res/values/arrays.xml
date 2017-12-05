@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="admin_page_item_title">
-        <item>@string/item_title_ele_jiankong</item>
         <item>@string/item_title_public_control</item>
-        <item>@string/item_title_mode</item>
+        <item>@string/item_title_ele_jiankong</item>
         <item>@string/item_ele_energy</item>
+        <item>@string/item_title_pay</item>
+        <item>@string/item_title_mode</item>
+        <item>@string/item_title_company</item>
+        <item>@string/item_title_publicmsg</item>
         <item>@string/item_title_fix</item>
         <item>@string/item_title_zhibanbiao</item>
-        <item>@string/item_title_pay</item>
-        <item>@string/item_title_publicmsg</item>
-        <item>@string/item_title_company</item>
     </string-array>
 <!--1照明 2插座 3空调 4冰箱 5饮水机 6微波炉 7打印机 -->
     <string-array name="channelType">

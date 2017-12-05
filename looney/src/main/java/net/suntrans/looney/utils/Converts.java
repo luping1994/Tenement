@@ -103,8 +103,8 @@ public abstract class Converts {
 	   return s;
 	}
 	public static void main(String[] args) {
-	   System.out.println(encode("中文"));
-	   System.out.println(decode(encode("中文")));
+//	   System.out.println(encode("中文"));
+//	   System.out.println(decode(encode("中文")));
 	}
 	/*
 	* 16进制数字字符集

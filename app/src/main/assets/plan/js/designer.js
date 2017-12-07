@@ -77,7 +77,7 @@ function initContainer() {
         }
     });
     // refreshAlarm();
-    console.log("初始化请求")
+//    console.log("初始化请求")
 
 //        $.ajax({
 //            url: 'http://tit.suntrans-cloud.com/api/v1/home/floor_plan',
@@ -212,7 +212,7 @@ function init(token, house_id) {
 
 function refreshContainerByToken(token, house_id) {
 
-    console.log("开始请求")
+//    console.log("开始请求")
 
     $.ajax({
         url: 'http://tit.suntrans-cloud.com/api/v1/home/floor_plan',

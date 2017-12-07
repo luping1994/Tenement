@@ -60,12 +60,13 @@
                     android:paddingRight="@dimen/activity_horizontal_margin">
 
                     <TextView
+                        android:drawablePadding="8dp"
                         android:drawableLeft="@drawable/ic_time"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="    更新时间"
+                        android:text="更新时间"
                         android:textColor="@color/textColor" />
 
                     <TextView
@@ -89,12 +90,13 @@
                     android:paddingRight="@dimen/activity_horizontal_margin">
 
                     <TextView
+                        android:drawablePadding="8dp"
                         android:drawableLeft="@drawable/ic_volatage"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="    电压"
+                        android:text="电压"
                         android:textColor="@color/textColor" />
 
                     <TextView
@@ -120,12 +122,13 @@
                     android:paddingRight="@dimen/activity_horizontal_margin">
 
                     <TextView
+                        android:drawablePadding="8dp"
                         android:drawableLeft="@drawable/ic_current"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="    电流"
+                        android:text="电流"
                         android:textColor="@color/textColor" />
 
                     <TextView
@@ -151,12 +154,14 @@
                     android:paddingRight="@dimen/activity_horizontal_margin">
 
                     <TextView
+                        android:drawablePadding="8dp"
+
                         android:drawableLeft="@drawable/ic_power"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="    功率"
+                        android:text="功率"
                         android:textColor="@color/textColor" />
 
                     <TextView
@@ -182,12 +187,13 @@
                     android:paddingRight="@dimen/activity_horizontal_margin">
 
                     <TextView
+                        android:drawablePadding="8dp"
                         android:drawableLeft="@drawable/ic_powerrate"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="    功率因数"
+                        android:text="功率因数"
                         android:textColor="@color/textColor" />
 
                     <TextView
@@ -213,12 +219,13 @@
                     android:paddingRight="@dimen/activity_horizontal_margin">
 
                     <TextView
-                        android:drawableLeft="@drawable/ic_ele_pay"
+                        android:drawablePadding="8dp"
+                        android:drawableLeft="@drawable/ic_ele"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="    电表读数"
+                        android:text="电表读数"
                         android:textColor="@color/textColor" />
 
                     <TextView

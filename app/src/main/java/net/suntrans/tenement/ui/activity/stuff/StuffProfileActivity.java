@@ -2,6 +2,7 @@ package net.suntrans.tenement.ui.activity.stuff;
 
 import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -10,7 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+
 import net.suntrans.common.utils.UiUtils;
+import net.suntrans.looney.utils.LogUtil;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.bean.Stuff;
@@ -49,7 +55,7 @@ public class StuffProfileActivity extends BasedActivity implements View.OnClickL
         binding.llName.setOnClickListener(this);
         binding.llTelephone.setOnClickListener(this);
         binding.deleteStuff.setOnClickListener(this);
-        id = getIntent().getIntExtra("id",0)+"";
+        id = getIntent().getIntExtra("id", 0) + "";
     }
 
     @Override
@@ -62,7 +68,7 @@ public class StuffProfileActivity extends BasedActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.llTouxiang:
-                showUploadBottomSheet();
+//                showUploadBottomSheet();
                 break;
             case R.id.llName:
                 showModifyNameDialog("请输入姓名");
@@ -79,7 +85,7 @@ public class StuffProfileActivity extends BasedActivity implements View.OnClickL
                             public void onClick(DialogInterface dialog, int which) {
                                 deleteStuff(id);
                             }
-                        }).setNegativeButton("取消",null)
+                        }).setNegativeButton("取消", null)
                         .create().show();
                 break;
         }
@@ -104,20 +110,21 @@ public class StuffProfileActivity extends BasedActivity implements View.OnClickL
 
     private void showModifyNameDialog(final String title) {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_change_name, null, false);
-        TextView text = view.findViewById(R.id.text);
-        final String s = text.getText().toString();
+        final TextView text = view.findViewById(R.id.text);
         new AlertDialog.Builder(this)
                 .setTitle(title)
                 .setView(view)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        String s = text.getText().toString();
+
                         if (TextUtils.isEmpty(s)) {
                             UiUtils.showToast(title);
                             if (title.equals("请输入姓名"))
-                                stuff.truename=s;
+                                stuff.truename = s;
                             else if (title.equals("请输入电话"))
-                                stuff.mobile=s;
+                                stuff.mobile = s;
                             return;
                         }
                         updateProfile();
@@ -135,7 +142,7 @@ public class StuffProfileActivity extends BasedActivity implements View.OnClickL
         map.put("truename", stuff.truename);
         map.put("mobile", stuff.mobile);
         map.put("status", "1");
-        api.updateStuffProfile(map)
+        mCompositeSubscription.add(api.updateStuffProfile(map)
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<ResultBody>(this) {
@@ -144,32 +151,45 @@ public class StuffProfileActivity extends BasedActivity implements View.OnClickL
                         super.onNext(resultBody);
                         UiUtils.showToast(resultBody.msg);
                     }
-                });
+                }));
     }
 
     private void getProfile(String id) {
 
-        api.getStuffProfile(id)
+        mCompositeSubscription.add(api.getStuffProfile(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new BaseSubscriber<ResultBody<Stuff>>(this) {
                     @Override
                     public void onNext(ResultBody<Stuff> stuffResultBody) {
                         stuff = stuffResultBody.data;
+//                        LogUtil.i(stuffResultBody.data.cover);
                         binding.name.setText(stuff.truename);
                         binding.telephone.setText(stuff.mobile);
+                        Glide.with(StuffProfileActivity.this)
+                                .load(stuff.cover)
+                                .asBitmap()
+                                .placeholder(R.drawable.ic_atouxiang)
+                                .override(UiUtils.dip2px(36), UiUtils.dip2px(36))
+                                .into(new SimpleTarget<Bitmap>() {
+                                    @Override
+                                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                                        binding.touxiang.setImageBitmap(resource);
+                                    }
+                                });
+
                     }
-                });
+                }));
     }
 
-    private void deleteStuff(String id){
+    private void deleteStuff(String id) {
         mCompositeSubscription.add(api.deleteStuff(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<ResultBody>(this.getApplicationContext()) {
                     @Override
                     public void onNext(ResultBody body) {
-                      UiUtils.showToast(body.msg);
+                        UiUtils.showToast(body.msg);
                     }
 
                     @Override

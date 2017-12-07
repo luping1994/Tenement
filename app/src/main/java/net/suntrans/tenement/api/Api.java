@@ -166,7 +166,6 @@ public interface Api {
             @Part MultipartBody.Part image);
 
 
-
     @POST("energy/index")
     Observable<ResultBody<List<EnergyListItem>>> energyList();
 
@@ -205,21 +204,25 @@ public interface Api {
     Observable<ResultBody<CompanyEntity>> loadCompany();
 
     @POST("energy/summary")
-    Observable<ResultBody<Map<String,String>>> loadEnergySummary();
+    Observable<ResultBody<Map<String, String>>> loadEnergySummary();
 
     @FormUrlEncoded
     @POST("switch/slc/area")
-    Observable<ResultBody<Map<String, String>>> switchSlcArea(@FieldMap Map<String,String> map);
+    Observable<ResultBody<Map<String, String>>> switchSlcArea(@FieldMap Map<String, String> map);
 
     @POST("notice/index")
     Observable<ResultBody<NoticeEntity>> loadNoticeList();
 
     @FormUrlEncoded
     @POST("notice/store")
-    Observable<ResultBody> storeNotice(@FieldMap Map<String,String> map);
+    Observable<ResultBody> storeNotice(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST("user/password")
+    Observable<ResultBody> modifyPassword(@FieldMap Map<String, String> map);
 
     @Multipart
     @POST("notice/upload")
-    Observable<ResultBody<Map<String,String>>> uploadNoticeFile(
+    Observable<ResultBody<Map<String, String>>> uploadNoticeFile(
             @Part MultipartBody.Part image);
 }

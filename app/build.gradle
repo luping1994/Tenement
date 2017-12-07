@@ -13,8 +13,8 @@ android {
         applicationId "net.suntrans.tenement"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 15
-        versionName "0.2.3"
+        versionCode 16
+        versionName "0.2.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     dataBinding {

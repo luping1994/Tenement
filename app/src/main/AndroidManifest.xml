@@ -171,6 +171,9 @@
             android:name=".ui.activity.admin.PaymentActivity_wuye"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.rent.EleChargeActivity" />
+        <activity android:name=".ui.activity.rent.WuyeChargeActivity" />
+        <activity android:name=".ui.activity.admin.EleChargeActivity_admin" />
+        <activity android:name=".ui.activity.admin.WuyeChargeActivity_admin" />
     </application>
 
 </manifest>

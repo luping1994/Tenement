@@ -117,12 +117,15 @@ public class AdminHomepageFragment extends BasedFragment {
                         startActivity(intent3);
                         break;
                     case REPAIR_POS:
-                        Intent intent4 = new Intent(getActivity(), RepairActivity_admin.class);
-                        startActivity(intent4);
+                        UiUtils.showToast("该功能如需开通请咨询管理员");
+
+//                        Intent intent4 = new Intent(getActivity(), RepairActivity_admin.class);
+//                        startActivity(intent4);
                         break;
                     case DUTY_POS:
-                        Intent intent5 = new Intent(getActivity(), DutyActivity.class);
-                        startActivity(intent5);
+                        UiUtils.showToast("该功能如需开通请咨询管理员");
+//                        Intent intent5 = new Intent(getActivity(), DutyActivity.class);
+//                        startActivity(intent5);
                         break;
                     case PAYMENT_POS:
                         Intent intent6 = new Intent(getActivity(), PaymentActivity_wuye.class);

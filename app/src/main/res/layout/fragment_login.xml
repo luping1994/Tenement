@@ -25,12 +25,13 @@
                 android:background="@drawable/ic_bg_editor"
                 android:hint="请输入账号"
                 android:inputType="text"
+                android:maxLength="18"
+                android:maxLines="1"
                 android:paddingLeft="16dp"
                 android:textSize="14sp" />
 
 
-            <EditText
-                android:id="@+id/password"
+            <net.suntrans.tenement.widgets.PasswordEditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
@@ -39,8 +40,23 @@
                 android:background="@drawable/ic_bg_editor"
                 android:hint="请输入密码"
                 android:inputType="textPassword"
+                android:maxLength="18"
+                android:maxLines="1"
                 android:paddingLeft="16dp"
-                android:textSize="14sp" />
+                android:textSize="14sp">
+
+                <net.suntrans.looney.widgets.EditView
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/ic_bg_editor"
+                    android:hint="请输入密码"
+                    android:inputType="textPassword"
+                    android:maxLength="18"
+                    android:maxLines="1"
+                    android:paddingLeft="16dp"
+                    android:textSize="14sp" />
+            </net.suntrans.tenement.widgets.PasswordEditText>
 
 
             <Button
@@ -57,9 +73,9 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="120dp">
+            android:layout_height="120dp"
+            android:layout_weight="1">
 
             <ImageView
                 android:layout_width="160dp"

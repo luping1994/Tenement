@@ -2,7 +2,6 @@
 <layout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
@@ -42,7 +41,7 @@
                     android:gravity="center"
                     android:maxLength="6"
                     android:maxLines="1"
-                    android:text="缴费"
+                    android:text="物业缴费"
                     android:textColor="@color/white"
                     android:textSize="@dimen/actionBarTitleSize" />
 
@@ -65,76 +64,55 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/sub"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center|bottom"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="上月"
+                android:textColor="@color/white" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/time"
+                    android:layout_width="100dp"
+                    android:layout_height="35dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/item_selector"
+                    android:clickable="false"
+                    android:text="2017-10-10" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/add"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center|bottom"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="下月"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="144dp"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                app:cardBackgroundColor="#f76e23"
-                app:cardCornerRadius="8dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_dianfei1" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp"
-                            android:layout_marginTop="4dp"
-                            android:text="150元"
-                            android:textColor="@color/white"
-                            android:textSize="25sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="2017年8月份"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="45dp"
-                        android:layout_alignParentBottom="true"
-                        android:gravity="center"
-                        android:paddingLeft="@dimen/activity_horizontal_margin"
-                        android:paddingRight="@dimen/activity_horizontal_margin"
-                        android:text="上一月"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_alignParentRight="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="45dp"
-                        android:layout_alignParentBottom="true"
-                        android:gravity="center"
-                        android:paddingLeft="@dimen/activity_horizontal_margin"
-                        android:paddingRight="@dimen/activity_horizontal_margin"
-                        android:text="下一月"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -149,24 +127,23 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
-                        android:background="@drawable/item_selector"
-                        android:drawableLeft="@drawable/ic_ele_pay"
+                        android:drawableLeft="@drawable/ic_shuifei"
                         android:drawablePadding="8dp"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
-                        android:text="本月用电量" />
+                        android:text="水费"
+                        android:textColor="@color/textColor" />
 
                     <TextView
 
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:layout_weight="1"
-                        android:background="@drawable/item_selector"
                         android:drawablePadding="8dp"
                         android:gravity="center_vertical|right"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
                         android:paddingRight="@dimen/activity_horizontal_margin"
-                        android:text="100 kW·h" />
+                        android:text="100 元" />
                 </LinearLayout>
 
 
@@ -184,24 +161,23 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
-                        android:background="@drawable/item_selector"
-                        android:drawableLeft="@drawable/ic_danjia"
+                        android:drawableLeft="@drawable/ic_shuifei"
                         android:drawablePadding="8dp"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
-                        android:text="单价" />
+                        android:text="公摊水费"
+                        android:textColor="@color/textColor" />
 
                     <TextView
 
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:layout_weight="1"
-                        android:background="@drawable/item_selector"
                         android:drawablePadding="8dp"
                         android:gravity="center_vertical|right"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
                         android:paddingRight="@dimen/activity_horizontal_margin"
-                        android:text="￥1.5/ kW·h" />
+                        android:text="100 元" />
                 </LinearLayout>
 
                 <View
@@ -218,24 +194,22 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
-                        android:background="@drawable/item_selector"
-                        android:drawableLeft="@drawable/ic_shangyue"
+                        android:drawableLeft="@drawable/ic_guanlifei"
                         android:drawablePadding="8dp"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
-                        android:text="上月启码" />
+                        android:text="管理费" />
 
                     <TextView
 
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:layout_weight="1"
-                        android:background="@drawable/item_selector"
                         android:drawablePadding="8dp"
                         android:gravity="center_vertical|right"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
                         android:paddingRight="@dimen/activity_horizontal_margin"
-                        android:text="2017 kW·h" />
+                        android:text="100 元" />
                 </LinearLayout>
 
                 <View
@@ -252,37 +226,111 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
-                        android:background="@drawable/item_selector"
-                        android:drawableLeft="@drawable/ic_benyue"
+                        android:drawableLeft="@drawable/ic_dianfei_gg"
                         android:drawablePadding="8dp"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
-                        android:text="本月抄码" />
+                        android:text="公摊电费" />
 
                     <TextView
 
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:layout_weight="1"
-                        android:background="@drawable/item_selector"
                         android:drawablePadding="8dp"
                         android:gravity="center_vertical|right"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
                         android:paddingRight="@dimen/activity_horizontal_margin"
-                        android:text="2100 kW·h" />
+                        android:text="100 元" />
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/pay"
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="1dp"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="@dimen/activity_horizontal_margin"
-                    android:background="@drawable/bg_bt_login"
-                    android:text="缴费"
-                    android:textColor="@color/white" />
+                    android:background="@color/bgColor" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:gravity="center|right"
+                    android:orientation="horizontal"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical|right"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:text="总计 400 元"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/payStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:gravity="center_vertical|right"
+                        android:text="提醒"
+                        android:textColor="@color/colorPrimary" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@color/bgColor"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:text="添加费用项目" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:gravity="center">
+
+                    <RelativeLayout
+                        android:layout_weight="1"
+                        android:layout_marginLeft="16dp"
+                        android:layout_width="90dp"
+                        android:layout_height="35dp"
+                        android:background="@color/bgColor">
+
+                        <Spinner
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/payItem">
+
+                        </Spinner>
+                    </RelativeLayout>
+
+                    <EditText
+                        android:textSize="14sp"
+                        android:paddingRight="16dp"
+                        android:paddingLeft="16dp"
+                        android:gravity="center"
+                        android:layout_width="90dp"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="16dp"
+                        android:background="@color/bgColor"
+                        android:hint="输入金额" />
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="16dp"
+                        android:gravity="center|right"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:text="提交" />
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/bgColor"
+                    android:gravity="center_vertical"
+                    />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

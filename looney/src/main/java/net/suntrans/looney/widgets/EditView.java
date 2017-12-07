@@ -96,6 +96,9 @@ public class EditView extends android.support.v7.widget.AppCompatEditText implem
         } else {
             setClearIconVisible(false);
         }
+        if (onFocusChangeListener!=null){
+            onFocusChangeListener.onFocusChanged(v,hasFocus);
+        }
     }
 
 
@@ -153,5 +156,13 @@ public class EditView extends android.support.v7.widget.AppCompatEditText implem
         return translateAnimation;
     }
 
+   private onMyFocusChangeListener onFocusChangeListener;
 
+    public void setOnMyFocusChangeListener(onMyFocusChangeListener onFocusChangeListener) {
+        this.onFocusChangeListener = onFocusChangeListener;
+    }
+
+    public interface onMyFocusChangeListener{
+        void onFocusChanged(View v,boolean hasFocus);
+    }
 }

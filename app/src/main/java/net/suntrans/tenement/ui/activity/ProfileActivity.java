@@ -144,7 +144,7 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
                             return;
                         }
                         user.nickname = s;
-                        updateProfile("nickname",s);
+                        updateProfile("nickname", s);
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
@@ -157,26 +157,30 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
     private void showModifyMobileDialog() {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_change_phone, null, false);
         final TextView text = view.findViewById(R.id.text);
-        new AlertDialog.Builder(this)
+        final AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("修改手机号")
                 .setView(view)
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String s = text.getText().toString();
-                        if (TextUtils.isEmpty(s)) {
-                            UiUtils.showToast("请输入手机号码");
-                            return;
-                        }
-                        user.mobile = s;
-                        updateProfile("mobile",s);
-                    }
-                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                .setPositiveButton("确定", null)
+                .setNegativeButton("取消", null).create();
+        alertDialog.show();
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
 
+                String s = text.getText().toString();
+                if (TextUtils.isEmpty(s)) {
+                    UiUtils.showToast("请输入手机号码");
+                    return;
+                }
+                if (!s.matches("^(((13[0-9]{1})|(15[0-35-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\\d{8})$")) {
+                    UiUtils.showToast(getString(R.string.tips_teltype_error));
+                    return;
+                }
+                user.mobile = s;
+                updateProfile("mobile", s);
+                alertDialog.dismiss();
             }
-        }).create().show();
+        });
     }
 
     UpLoadImageFragment fragment;
@@ -194,11 +198,11 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
 
     @Override
     public void uploadImageSuccess(String path) {
-        user.cover = "http://gzfhq.suntrans-cloud.com/"+path;
-        updateProfile("cover",path);
+        user.cover = "http://gzfhq.suntrans-cloud.com/" + path;
+        updateProfile("cover", path);
     }
 
-    private void updateProfile(String key,String value) {
+    private void updateProfile(String key, String value) {
         Map<String, String> map = new HashMap<>();
         map.put(key, value);
 

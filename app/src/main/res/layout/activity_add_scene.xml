@@ -112,6 +112,8 @@
                         android:background="@color/white">
 
                         <EditText
+                            android:maxLines="1"
+                            android:maxLength="6"
                             android:id="@+id/sceneName"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"

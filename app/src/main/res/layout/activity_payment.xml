@@ -47,6 +47,8 @@
                     android:textSize="@dimen/actionBarTitleSize" />
 
                 <TextView
+                    android:paddingRight="16dp"
+                    android:paddingLeft="16dp"
                     android:id="@+id/rightSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -54,10 +56,10 @@
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:gravity="center"
                     android:onClick="rightSubTitleClicked"
-                    android:text="管理"
+                    android:text="记录"
                     android:textColor="@color/textcolor"
                     android:textSize="@dimen/actionBarSubTitleSize"
-                    android:visibility="invisible" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
 
@@ -111,7 +113,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
                             android:layout_marginTop="8dp"
-                            android:text="我是商铺名称"
+                            android:text="商铺名称"
                             app:layout_constraintEnd_toEndOf="@+id/image"
                             app:layout_constraintStart_toStartOf="@+id/image"
                             app:layout_constraintTop_toBottomOf="@+id/image" />

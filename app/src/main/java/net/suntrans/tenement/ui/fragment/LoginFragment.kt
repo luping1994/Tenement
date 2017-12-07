@@ -17,6 +17,7 @@ import net.suntrans.tenement.bean.LoginInfo
 import net.suntrans.tenement.bean.ResultBody
 import net.suntrans.tenement.databinding.FragmentLoginBinding
 import net.suntrans.tenement.persistence.AppDatabase
+import net.suntrans.tenement.persistence.User
 import net.suntrans.tenement.rx.BaseSubscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -30,7 +31,6 @@ import rx.schedulers.Schedulers
  */
 class LoginFragment : BasedFragment() {
     var binding: FragmentLoginBinding? = null
-
     var dialog: LoadingDialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,11 +71,11 @@ class LoginFragment : BasedFragment() {
         val password = binding!!.password.text.toString()
 
         if (TextUtils.isEmpty(username)) {
-            UiUtils.showToast(activity.applicationContext, "请输入用户名")
+            UiUtils.showToast("请输入用户名")
             return
         }
         if (TextUtils.isEmpty(password)) {
-            UiUtils.showToast(activity.applicationContext, "请输入密码")
+            UiUtils.showToast( "请输入密码")
             return
         }
 
@@ -101,9 +101,19 @@ class LoginFragment : BasedFragment() {
                             .putInt("role_id", t.data.user.role_id)
                             .putLong("expires_time", expires_time)
                             .commit()
-                    AppDatabase.getInstance(context)
+                    var user =AppDatabase.getInstance(context)
                             .userDao()
-                            .insertAll(t!!.data.user)
+                            .getUserById(t!!.data.user.id)
+                    if (user==null){
+                        AppDatabase.getInstance(context)
+                                .userDao()
+                                .insertAll(t!!.data.user)
+                    }else{
+                        AppDatabase.getInstance(context)
+                                .userDao()
+                                .updateUser(t!!.data.user)
+                    }
+
                     rx.Observable.just(t)
                 }
                 .observeOn(AndroidSchedulers.mainThread())

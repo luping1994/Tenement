@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import net.suntrans.looney.widgets.CompatDatePickerDialog;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.databinding.ActivityElePayBinding;
 import net.suntrans.tenement.ui.activity.BasedActivity;
@@ -30,6 +31,11 @@ public class EleChargeActivity extends BasedActivity {
             }
         });
 
+        //以下临时用
+        String source = getIntent().getStringExtra("source");
+        if (source.equals("admin")){
+            binding.pay.setVisibility(View.GONE);
+        }
 
     }
 }

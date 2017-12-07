@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import net.suntrans.common.utils.UiUtils;
+import net.suntrans.looney.widgets.IosAlertDialog;
 import net.suntrans.looney.widgets.LoadingDialog;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.adapter.DividerItemDecoration;
@@ -139,6 +140,15 @@ public class AddSceneActivity extends BasedActivity implements PicChooseFragment
                 super.onNext(resultBody);
                 UiUtils.showToast(resultBody.msg);
                 dialog.dismiss();
+                new IosAlertDialog(AddSceneActivity.this)
+                        .builder()
+                        .setMsg("创建成功!")
+                        .setPositiveButton("确定", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                finish();
+                            }
+                        }).setCancelable(false).show();
             }
 
 

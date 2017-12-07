@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import net.suntrans.common.utils.UiUtils;
+import net.suntrans.looney.utils.LogUtil;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.adapter.DividerItemDecoration;
 import net.suntrans.tenement.bean.ResultBody;
@@ -68,6 +69,8 @@ public class MyStuffActivity extends BasedActivity {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                LogUtil.i(datas.get(position).cover);
+
                 Intent intent = new Intent();
                 intent.putExtra("id",datas.get(position).id);
                 intent.setClass(MyStuffActivity.this,StuffProfileActivity.class);
@@ -120,12 +123,13 @@ public class MyStuffActivity extends BasedActivity {
 
         @Override
         protected void convert(BaseViewHolder helper, Stuff item) {
-            helper.setText(R.id.name, item.truename);
-            helper.setText(R.id.mobile, item.mobile==null?"--":item.mobile);
+            helper.setText(R.id.name, item.nickname);
+            helper.setText(R.id.mobile, item.truename==null?"--":item.truename);
             final ImageView toxiang = helper.getView(R.id.touxiang);
             Glide.with(MyStuffActivity.this)
                     .load(item.cover)
                     .asBitmap()
+                    .placeholder(R.drawable.ic_atouxiang)
                     .override(imgSize, imgSize)
                     .into(new SimpleTarget<Bitmap>() {
                         @Override

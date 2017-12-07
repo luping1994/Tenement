@@ -55,6 +55,7 @@
                     android:background="@color/item_press_true" />
 
                 <LinearLayout
+                    android:onClick="onClick"
                     android:background="@drawable/item_selector"
                     android:id="@+id/profileRL"
                     android:layout_width="match_parent"
@@ -66,7 +67,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:onClick="onClick"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
                         android:text="清除缓存"
                         android:textColor="@color/black"
@@ -78,7 +78,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center|right"
-                        android:onClick="onClick"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
                         android:text="0kb"
                         android:textSize="15sp" />

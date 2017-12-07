@@ -92,6 +92,7 @@
                         android:textSize="@dimen/content_textSize" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/touxiang"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:layout_centerVertical="true"

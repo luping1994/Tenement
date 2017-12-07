@@ -31,4 +31,11 @@
         <item>每周六</item>
         <item>每周日</item>
     </string-array>
+    <string-array name="payItem">
+        <item>水费</item>
+        <item>电费</item>
+        <item>物业费</item>
+        <item>卫生费</item>
+
+    </string-array>
 </resources>

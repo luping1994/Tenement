@@ -67,7 +67,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="bottom|left"
-                        android:text="哎呀，别犯困"
+                        android:text="---"
                         android:textColor="@color/textColor"
                         android:textSize="18sp" />
 
@@ -166,12 +166,13 @@
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/content_textSize" />
 
-                <View
-                    android:layout_width="@dimen/activity_horizontal_margin"
-                    android:layout_height="1dp"
-                    android:background="@color/white" />
+                <!--<View-->
+                    <!--android:layout_width="@dimen/activity_horizontal_margin"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="@color/white" />-->
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/aotoControl"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/mine_item_hight"

@@ -1,5 +1,6 @@
 package net.suntrans.tenement.ui.activity.admin;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import net.suntrans.tenement.R;
 import net.suntrans.tenement.bean.SimpleData;
 import net.suntrans.tenement.databinding.ActivityPaymentBinding;
 import net.suntrans.tenement.ui.activity.BasedActivity;
+import net.suntrans.tenement.ui.activity.rent.PaymentActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,8 +78,14 @@ public class PaymentActivity_wuye extends BasedActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (position) {
                     case 0:
+                        Intent intent = new Intent(PaymentActivity_wuye.this, EleChargeActivity_admin.class);
+                        intent.putExtra("title","电费");
+                        startActivity(intent);
                         break;
                     case 1:
+                        Intent intent2 = new Intent(PaymentActivity_wuye.this, EleChargeActivity_admin.class);
+                        intent2.putExtra("title","物业费");
+                        startActivity(intent2);
                         break;
                     case 2:
                         break;
@@ -92,7 +100,7 @@ public class PaymentActivity_wuye extends BasedActivity {
         super.onDestroy();
     }
 
-    static class SimpleAdapter extends BaseQuickAdapter<SimpleData, BaseViewHolder> {
+     class SimpleAdapter extends BaseQuickAdapter<SimpleData, BaseViewHolder> {
 
         public SimpleAdapter(int layoutResId, @Nullable List<SimpleData> data) {
             super(layoutResId, data);

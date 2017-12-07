@@ -15,6 +15,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import net.suntrans.common.utils.UiUtils;
+import net.suntrans.looney.widgets.IosAlertDialog;
 import net.suntrans.looney.widgets.LoadingDialog;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.adapter.DividerItemDecoration;
@@ -68,9 +69,17 @@ public class SceneManagerFragment extends BasedFragment {
         adapter.setEmptyView(R.layout.recyclerview_empty_view);
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
                 if (view.getId() == R.id.deleteScene) {
-                    deleteScene(datas.get(position).id, position);
+                    new IosAlertDialog(getContext())
+                            .builder()
+                            .setMsg("是否删除?")
+                            .setPositiveButton("确定", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    deleteScene(datas.get(position).id, position);
+                                }
+                            }).setNegativeButton("取消",null).show();
                 }
             }
         });

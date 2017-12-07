@@ -15,7 +15,7 @@
             android:orientation="vertical">
 
 
-            <EditText
+            <net.suntrans.looney.widgets.EditView
                 android:id="@+id/account"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -31,32 +31,27 @@
                 android:textSize="14sp" />
 
 
-            <net.suntrans.tenement.widgets.PasswordEditText
+            <net.suntrans.looney.widgets.PasswordEditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/ic_bg_editor"
-                android:hint="请输入密码"
-                android:inputType="textPassword"
-                android:maxLength="18"
-                android:maxLines="1"
-                android:paddingLeft="16dp"
-                android:textSize="14sp">
+                android:paddingRight="16dp">
 
                 <net.suntrans.looney.widgets.EditView
                     android:id="@+id/password"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/ic_bg_editor"
+                    android:layout_height="match_parent"
+                    android:background="@null"
                     android:hint="请输入密码"
                     android:inputType="textPassword"
                     android:maxLength="18"
                     android:maxLines="1"
                     android:paddingLeft="16dp"
                     android:textSize="14sp" />
-            </net.suntrans.tenement.widgets.PasswordEditText>
+            </net.suntrans.looney.widgets.PasswordEditText>
 
 
             <Button

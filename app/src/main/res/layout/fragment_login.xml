@@ -1,4 +1,5 @@
 <layout>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/scrollView"
@@ -8,50 +9,82 @@
         android:orientation="vertical"
         tools:context="net.suntrans.tenement.ui.fragment.LoginFragment">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-            <net.suntrans.looney.widgets.EditView
-                android:id="@+id/account"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="35dp"
-                android:background="@drawable/ic_bg_editor"
-                android:hint="请输入账号"
-                android:inputType="text"
-                android:maxLength="18"
-                android:maxLines="1"
-                android:paddingLeft="16dp"
-                android:textSize="14sp" />
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
+                <LinearLayout
+                    android:id="@+id/header"
+                    android:layout_width="match_parent"
+                    android:layout_height="196dp"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-            <net.suntrans.looney.widgets.PasswordEditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/ic_bg_editor"
-                android:paddingRight="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/ic_login_logo"
+                        android:text="@string/app_name"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+                </LinearLayout>
 
                 <net.suntrans.looney.widgets.EditView
-                    android:id="@+id/password"
+                    android:paddingRight="16dp"
+                    android:id="@+id/account"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="请输入密码"
-                    android:inputType="textPassword"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/ic_bg_editor"
+                    android:hint="请输入账号"
+                    android:inputType="text"
                     android:maxLength="18"
                     android:maxLines="1"
                     android:paddingLeft="16dp"
                     android:textSize="14sp" />
-            </net.suntrans.looney.widgets.PasswordEditText>
 
+
+                <net.suntrans.looney.widgets.PasswordEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/ic_bg_editor"
+                    >
+
+                    <net.suntrans.looney.widgets.EditView
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="请输入密码"
+                        android:inputType="textPassword"
+                        android:maxLength="18"
+                        android:maxLines="1"
+                        android:paddingLeft="16dp"
+                        android:textSize="14sp" />
+                </net.suntrans.looney.widgets.PasswordEditText>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/login"
@@ -64,18 +97,9 @@
                 android:text="登录"
                 android:textColor="@color/white" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:gravity="center|bottom"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_weight="1">
-
             <ImageView
                 android:layout_width="160dp"
-                android:layout_height="80dp"
+                android:layout_height="45dp"
                 android:layout_above="@+id/guangwang"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="8dp"
@@ -86,22 +110,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/name1"
+                android:layout_alignParentBottom="true"
                 android:layout_marginBottom="4dp"
                 android:gravity="center"
                 android:text="@string/company_name_CH"
                 android:textColor="@color/textColor"
                 android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/name1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:gravity="center"
-                android:paddingBottom="8dp"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 

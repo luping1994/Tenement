@@ -132,7 +132,7 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_change_name, null, false);
         final TextView text = view.findViewById(R.id.text);
         new AlertDialog.Builder(this)
-                .setTitle("修改昵称")
+                .setTitle("修改姓名")
                 .setView(view)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override

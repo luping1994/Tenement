@@ -33,7 +33,7 @@ public class EleChargeActivity extends BasedActivity {
 
         //以下临时用
         String source = getIntent().getStringExtra("source");
-        if (source.equals("admin")){
+        if (("admin").equals(source)){
             binding.pay.setVisibility(View.GONE);
         }
 

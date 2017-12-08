@@ -23,7 +23,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
  */
 
 public class RetrofitHelper {
-    public static final String BASE_URL = "http://gzfhq.suntrans-cloud.com/api/v1/";
+    public static  String BASE_URL = "http://gzfhq.suntrans-cloud.com/api/v1/";
     private static OkHttpClient mOkHttpClient;
 
     static {

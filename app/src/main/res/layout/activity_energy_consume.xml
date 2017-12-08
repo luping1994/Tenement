@@ -104,7 +104,7 @@
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="8dp"
-                                android:text="1320.5"
+                                android:text="--"
                                 android:textColor="@color/enenry_value_textcolr"
                                 android:textSize="36sp"
                                 app:layout_constraintBottom_toBottomOf="parent"

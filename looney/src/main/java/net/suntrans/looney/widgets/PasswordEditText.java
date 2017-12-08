@@ -187,11 +187,12 @@ public class PasswordEditText extends ViewGroup implements View.OnClickListener 
     }
 
     private void init() {
+        eyePadding = dip2px(8,getContext());
         eye = new ImageView(this.getContext());
         eye.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));  //设置图片宽高
         eye.setImageResource(R.drawable.ic_eye_off); //图片资源
 //        eye.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-//        eye.setPadding(eyePadding,eyePadding,eyePadding,eyePadding);
+        eye.setPadding(eyePadding,eyePadding,eyePadding,eyePadding);
         addView(eye); //动态添加图片
         if (visible) {
             eye.setVisibility(VISIBLE);
@@ -242,5 +243,12 @@ public class PasswordEditText extends ViewGroup implements View.OnClickListener 
         }
 
     }
+
+    private int eyePadding =0;
+    public static int dip2px(float dip, Context context) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dip * scale + 0.5f);
+    }
+
 
 }

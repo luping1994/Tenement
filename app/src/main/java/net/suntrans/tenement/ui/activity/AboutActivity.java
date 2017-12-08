@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.TextView;
 import net.suntrans.tenement.BuildConfig;
@@ -25,7 +26,7 @@ public class AboutActivity extends BasedActivity {
                 finish();
             }
         });
-        TextView textView = (TextView) findViewById(R.id.version);
+        TextView textView =findViewById(R.id.version);
         textView.setText(getString(R.string.tx_version_code) + BuildConfig.VERSION_NAME);
         findViewById(R.id.share).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,6 +34,8 @@ public class AboutActivity extends BasedActivity {
                 share(getString(R.string.tx_share_app));
             }
         });
+
+//        ScaleGestureDetector scaleGestureDetector
     }
 
     @Override

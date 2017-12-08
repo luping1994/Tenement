@@ -16,12 +16,8 @@ class LoginActivity : BasedActivity() {
         binding = DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
 
         val loginFragmnet: LoginFragment = LoginFragment.newInstance()
-//        val registerFragment: RegisterFragment = RegisterFragment.newInstance()
-        val adapter = FragmentAdapter(supportFragmentManager)
-        adapter.addFragment(loginFragmnet, getString(R.string.title_login))
-//        adapter.addFragment(registerFragment, getString(R.string.title_register))
-        binding!!.mViewPager.adapter = adapter
-        binding!!.mTabLayout.setupWithViewPager(binding!!.mViewPager)
+
+        supportFragmentManager.beginTransaction()!!.replace(R.id.content,loginFragmnet).commit();
         if (!DEBUG)
             PgyUpdateManager.register(this, "net.suntrans.tenement.fileProvider")
     }

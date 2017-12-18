@@ -69,8 +69,7 @@ public class MyStuffActivity extends BasedActivity {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                LogUtil.i(datas.get(position).cover);
-
+//                LogUtil.i(datas.get(position).cover);
                 Intent intent = new Intent();
                 intent.putExtra("id",datas.get(position).id);
                 intent.setClass(MyStuffActivity.this,StuffProfileActivity.class);

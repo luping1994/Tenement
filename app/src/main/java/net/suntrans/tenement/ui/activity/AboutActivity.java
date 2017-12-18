@@ -44,7 +44,6 @@ public class AboutActivity extends BasedActivity {
     }
 
     public void share(String desc) {
-
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, "");
         shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.tx_share_app_des));

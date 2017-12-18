@@ -1,8 +1,5 @@
 package net.suntrans.tenement
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import com.pgyersdk.update.PgyUpdateManager
@@ -11,12 +8,6 @@ import net.suntrans.tenement.databinding.ActivityMainBinding
 import net.suntrans.tenement.ui.activity.BasedActivity
 import net.suntrans.tenement.ui.fragment.admin.AdminMainFragment
 import net.suntrans.tenement.ui.fragment.rent.RentMainFragment
-import android.net.NetworkInfo
-import android.net.ConnectivityManager
-import android.content.IntentFilter
-
-
-
 
 
 class MainActivity : BasedActivity() {

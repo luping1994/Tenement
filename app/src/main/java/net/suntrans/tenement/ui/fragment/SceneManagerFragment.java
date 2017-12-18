@@ -90,6 +90,7 @@ public class SceneManagerFragment extends BasedFragment {
                 intent.setClass(getActivity(), SceneDetailActivity.class);
                 intent.putExtra("sceneName", datas.get(position).name);
                 intent.putExtra("sceneID", datas.get(position).id);
+                intent.putExtra("img", datas.get(position).image);
                 startActivity(intent);
             }
         });

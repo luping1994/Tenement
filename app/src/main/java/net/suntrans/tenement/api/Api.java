@@ -23,6 +23,7 @@ import net.suntrans.tenement.bean.SceneItemlEntity;
 import net.suntrans.tenement.bean.SensusEntity;
 import net.suntrans.tenement.bean.Stuff;
 import net.suntrans.tenement.bean.StuffEntity;
+import net.suntrans.tenement.bean.Updater;
 import net.suntrans.tenement.bean.UploadInfo;
 
 import java.util.List;
@@ -37,6 +38,8 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Url;
+import rx.Completable;
 import rx.Observable;
 
 /**
@@ -225,4 +228,12 @@ public interface Api {
     @POST("notice/upload")
     Observable<ResultBody<Map<String, String>>> uploadNoticeFile(
             @Part MultipartBody.Part image);
+
+    @FormUrlEncoded
+    @POST("app/check")
+    Observable<Updater> checkUpdate(@FieldMap Map<String,String> map);
+
+    @FormUrlEncoded
+    @POST("user/feedback")
+    Observable<ResultBody> postSuggestion(@FieldMap Map<String,String> map);
 }

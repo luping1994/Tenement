@@ -71,10 +71,10 @@ public class StuffProfileActivity extends BasedActivity implements View.OnClickL
 //                showUploadBottomSheet();
                 break;
             case R.id.llName:
-                showModifyNameDialog("请输入姓名");
+//                showModifyNameDialog("请输入姓名");
                 break;
             case R.id.llTelephone:
-                showModifyNameDialog("请输入电话");
+//                showModifyNameDialog("请输入电话");
 
                 break;
             case R.id.deleteStuff:
@@ -190,6 +190,7 @@ public class StuffProfileActivity extends BasedActivity implements View.OnClickL
                     @Override
                     public void onNext(ResultBody body) {
                         UiUtils.showToast(body.msg);
+                        finish();
                     }
 
                     @Override

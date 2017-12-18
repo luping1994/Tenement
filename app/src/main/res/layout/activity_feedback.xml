@@ -76,7 +76,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:background="#888888" />
+                android:background="#aaaaaa" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -107,41 +107,42 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="162dp"
+                android:layout_height="160dp"
                 android:paddingBottom="16dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingTop="16dp">
 
-                <net.suntrans.looney.widgets.EditView
+                <EditText
                     android:id="@+id/jianyi"
                     android:layout_width="match_parent"
-                    android:layout_height="140dp"
+                    android:layout_height="128dp"
                     android:background="@color/white"
                     android:gravity="start"
                     android:hint="@string/please_enter_question"
-                    android:maxLength="70"
+                    android:maxLength="200"
                     android:padding="8dp"
                     android:paddingLeft="16dp"
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginBottom="16dp"
                     android:layout_marginRight="16dp"
-                    android:text="70" />
+                    android:text="0/200" />
 
             </RelativeLayout>
 
 
             <EditText
+                android:background="@null"
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:background="@color/white"
                 android:digits="@string/email"
                 android:hint="@string/tx_contacts_type"
                 android:inputType="textEmailAddress"
@@ -149,7 +150,12 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:textSize="15sp" />
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#aaaaaa" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20dp"

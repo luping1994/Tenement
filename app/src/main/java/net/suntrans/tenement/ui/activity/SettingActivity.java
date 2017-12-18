@@ -2,7 +2,9 @@ package net.suntrans.tenement.ui.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -10,14 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.CacheUtils;
-
 import net.suntrans.common.utils.GlideCatchUtil;
 import net.suntrans.common.utils.UiUtils;
 import net.suntrans.looney.widgets.IosAlertDialog;
 import net.suntrans.tenement.App;
+import net.suntrans.tenement.BuildConfig;
 import net.suntrans.tenement.R;
+import net.suntrans.tenement.api.RetrofitHelper;
 import net.suntrans.tenement.bean.ResultBody;
+import net.suntrans.tenement.bean.Updater;
 import net.suntrans.tenement.databinding.ActivitySettingBinding;
 import net.suntrans.tenement.persistence.AppDatabase;
 import net.suntrans.tenement.persistence.User;
@@ -31,10 +34,10 @@ import java.util.Map;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
+import android.content.Context;
 
 public class SettingActivity extends BasedActivity {
 
@@ -55,7 +58,10 @@ public class SettingActivity extends BasedActivity {
         });
 
         findCacheFileSize();
+
+        checkUpdate();
     }
+
 
     private void findCacheFileSize() {
         File cacheDir = App.Companion.getApplication().getCacheDir();
@@ -85,7 +91,6 @@ public class SettingActivity extends BasedActivity {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                         cacheSize += folderSize;
                         return cacheSize;
                     }
@@ -112,6 +117,59 @@ public class SettingActivity extends BasedActivity {
                 });
 
 
+    }
+
+    boolean update = false;
+    private Updater updater;
+    private void checkUpdate() {
+        binding.checkVersion.setClickable(false);
+
+        final String buildBuildVersion = getApplicationContext().getSharedPreferences("pgyersdk", Context.MODE_PRIVATE)
+                .getString("buildNo", "1");
+        Map<String, String> map = new HashMap<>();
+
+        map.put("_api_key", "c0973cd09a9f9e0d38cbd4e41635268a");
+        map.put("appKey", "92f7b1ecc03cf482fd05ad372d4c4187");
+        map.put("buildVersion", BuildConfig.VERSION_NAME + "");
+        map.put("buildBuildVersion", buildBuildVersion);
+
+        mCompositeSubscription.add(RetrofitHelper.getPgyApi()
+                .checkUpdate(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Updater>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onNext(Updater map) {
+                        int code = BuildConfig.VERSION_CODE ;
+                        binding.checkVersion.setClickable(true);
+                        String buildVersionNo = map.data.buildVersionNo;
+                        if (buildVersionNo!=null){
+                            updater =map;
+                            Integer bu1 = Integer.valueOf(buildVersionNo);
+                            if (code<bu1){
+                                update = true;
+
+                                binding.version.setText("发现新版本"+map.data.buildVersion);
+                            }else {
+                                binding.version.setText("已经是最新版");
+                            }
+                        }else {
+                            binding.version.setText("已经是最新版");
+
+                        }
+
+                    }
+                }));
     }
 
     private void deleteCacheFile() {
@@ -196,6 +254,28 @@ public class SettingActivity extends BasedActivity {
 
                             }
                         }).show();
+                break;
+            case R.id.checkVersion:
+                if (update){
+                    new IosAlertDialog(SettingActivity.this)
+                            .builder()
+                            .setTitle("是否前往下载最新版?")
+                            .setMsg(updater.data.buildVersion+":"+updater.data.buildUpdateDescription)
+                            .setPositiveButton("确定", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent();
+                                    intent.setAction(Intent.ACTION_VIEW);
+                                    Uri content_url = Uri.parse(updater.data.downloadURL);
+                                    intent.setData(content_url);
+                                    startActivity(Intent.createChooser(intent, "请选择浏览器"));
+
+                                }
+                            }).setNegativeButton("取消",null).show();
+                }else {
+                    UiUtils.showToast("当前软件已经是最新版");
+                }
+
                 break;
         }
 
@@ -295,7 +375,7 @@ public class SettingActivity extends BasedActivity {
             UiUtils.showToast("新密码必须为字母开头");
             return false;
         }
-        if (newPass.length()<6){
+        if (newPass.length() < 6) {
             UiUtils.showToast("新密码长度至少为6位");
             return false;
         }

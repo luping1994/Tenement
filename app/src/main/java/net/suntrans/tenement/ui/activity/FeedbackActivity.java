@@ -1,17 +1,33 @@
 package net.suntrans.tenement.ui.activity;
 
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.v7.app.AlertDialog;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioGroup;
 
 import net.suntrans.common.utils.UiUtils;
+import net.suntrans.looney.utils.LogUtil;
 import net.suntrans.looney.widgets.LoadingDialog;
 import net.suntrans.tenement.R;
+import net.suntrans.tenement.api.RetrofitHelper;
+import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.databinding.ActivityFeedbackBinding;
+import net.suntrans.tenement.rx.BaseSubscriber;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Looney on 2017/9/14.
@@ -45,6 +61,22 @@ public class FeedbackActivity extends BasedActivity implements View.OnClickListe
                 mCheckedTypeId = checkedId;
             }
         });
+        binding.jianyi.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                binding.count.setText(String.format(getString(R.string.count),s.length()));
+            }
+        });
 
     }
 
@@ -67,9 +99,9 @@ public class FeedbackActivity extends BasedActivity implements View.OnClickListe
     private void commitSuggestion() {
         String type = "";
         if (mCheckedTypeId == R.id.chanpinjianyi) {
-            type = getString(R.string.product_suggest);
+            type = "1";
         } else if (mCheckedTypeId == R.id.chengxucuowu) {
-            type = getString(R.string.progress_error);
+            type = "2";
         } else {
             UiUtils.showToast(getString(R.string.title_feedback_type));
             return;
@@ -88,56 +120,49 @@ public class FeedbackActivity extends BasedActivity implements View.OnClickListe
             UiUtils.showToast(getString(R.string.tips_contacts_is_error));
             return;
         }
-//        if (dialog == null) {
-//            dialog = new LoadingDialog(this);
-//            dialog.setWaitText(getString(R.string.tips_please_wait));
-//        }
-//        dialog.show();
-//
-//        JSONObject jsonObject = new JSONObject();
-//        try {
-//            jsonObject.put(getString(R.string.json_feedback_type), type);
-//            jsonObject.put(getString(R.string.json_feedback_content), qus);
-//            jsonObject.put(getString(R.string.json_feedback_contacts), email);
-//        } catch (Exception e) {
-//            UiUtils.showToast(getString(R.string.tips_progress_is_crash));
-//            e.printStackTrace();
-//        }
-//        LogUtil.i(jsonObject.toString());
-//        RetrofitHelper.getApi().postSuggestion(jsonObject.toString())
-//                .compose(this.<ResultBody>bindToLifecycle())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeOn(Schedulers.io())
-//                .subscribe(new BaseSubscriber<ResultBody>(this) {
-//                    @Override
-//                    public void onCompleted() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        super.onError(e);
-//                        e.printStackTrace();
-//                        dialog.dismiss();
-//
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(ResultBody resultBody) {
-//                        dialog.dismiss();
-//                        new AlertDialog.Builder(FeedbackActivity.this)
-//                                .setCancelable(false)
-//                                .setMessage(R.string.tips_feedbak_success)
-//                                .setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        finish();
-//                                    }
-//                                }).create().show();
-//
-//                    }
-//                });
+        if (dialog == null) {
+            dialog = new LoadingDialog(this);
+            dialog.setWaitText(getString(R.string.tips_please_wait));
+        }
+        dialog.show();
+
+        Map<String,String> map = new HashMap<>();
+        map.put("type",type);
+        map.put("contents",qus);
+        map.put("link",email);
+        RetrofitHelper.getApi().postSuggestion(map)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new BaseSubscriber<ResultBody>(this) {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        e.printStackTrace();
+                        dialog.dismiss();
+
+
+                    }
+
+                    @Override
+                    public void onNext(ResultBody resultBody) {
+                        dialog.dismiss();
+                        new AlertDialog.Builder(FeedbackActivity.this)
+                                .setCancelable(false)
+                                .setMessage(R.string.tips_feedbak_success)
+                                .setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                    }
+                                }).create().show();
+
+                    }
+                });
     }
 
     @Override

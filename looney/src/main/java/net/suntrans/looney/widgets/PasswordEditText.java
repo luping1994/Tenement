@@ -233,15 +233,14 @@ public class PasswordEditText extends ViewGroup implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        visible = !visible;
         if (visible) {
-            editView.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            editView.setTransformationMethod(PasswordTransformationMethod.getInstance());
             eye.setImageResource(R.drawable.ic_eye_off);
         } else {
-            editView.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            editView.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
             eye.setImageResource(R.drawable.ic_eye);
         }
-
+        visible = !visible;
     }
 
     private int eyePadding =0;

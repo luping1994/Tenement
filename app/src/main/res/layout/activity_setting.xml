@@ -55,11 +55,11 @@
                     android:background="@color/item_press_true" />
 
                 <LinearLayout
-                    android:onClick="onClick"
-                    android:background="@drawable/item_selector"
                     android:id="@+id/profileRL"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
+                    android:background="@drawable/item_selector"
+                    android:onClick="onClick"
                     android:orientation="horizontal"
                     android:visibility="visible">
 
@@ -73,12 +73,12 @@
                         android:textSize="15sp" />
 
                     <TextView
-                        android:paddingRight="16dp"
                         android:id="@+id/profile"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center|right"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="16dp"
                         android:text="0kb"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -108,49 +108,45 @@
                         android:textSize="15sp" />
                 </LinearLayout>
 
-                <FrameLayout
+
+                <RelativeLayout
+                    android:id="@+id/checkVersion"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:background="@color/white">
+                    android:background="@drawable/item_selector"
+                    android:onClick="onClick">
 
-                    <RelativeLayout
-                        android:id="@+id/checkVersion"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:background="@drawable/item_selector"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:text="@string/nav_tx_version_update"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
 
-                        android:onClick="onClick">
+                    <TextView
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/version"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:text="--"
+                        android:textSize="15sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="@dimen/activity_horizontal_margin"
-                            android:text="@string/nav_tx_version_update"
-                            android:textColor="@color/black"
-                            android:textSize="15sp" />
+                    <ImageView
 
-                        <TextView
-                            android:id="@+id/version"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_toLeftOf="@+id/arrow"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="@dimen/activity_horizontal_margin"
-                            android:text="--"
-                            android:textSize="15sp" />
-
-                        <ImageView
-                            android:id="@+id/arrow"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="8dp"
-                            android:src="@drawable/ic_arrow_right"
-                            android:visibility="invisible" />
-                    </RelativeLayout>
-                </FrameLayout>
+                        android:id="@+id/arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8dp"
+                        android:src="@drawable/ic_arrow_right"
+                        android:visibility="gone" />
+                </RelativeLayout>
 
                 <View
                     android:layout_width="match_parent"

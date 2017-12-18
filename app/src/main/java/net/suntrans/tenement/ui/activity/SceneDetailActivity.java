@@ -27,6 +27,10 @@ import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.fragment.PicChooseFragment;
 import net.suntrans.tenement.ui.fragment.rent.AllChannelFragment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,7 +59,9 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_scene_detail);
+
         String sceneName = getIntent().getStringExtra("sceneName");
         sceneID = getIntent().getStringExtra("sceneID");
         binding.title.setText(sceneName);
@@ -98,6 +104,10 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
                 showModifyDialog(position);
             }
         });
+        String img = getIntent().getStringExtra("img");
+        Glide.with(this)
+                .load(img)
+                .into(binding.sceneImg);
     }
 
     private void showModifyDialog(final int position) {
@@ -112,7 +122,7 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
                             updateSceneChannenl("0", sceneID, datas.get(position).channel_id + "");
 
                         } else if (which == 2) {
-                            deleteeSceneChannenl( sceneID, datas.get(position).channel_id + "");
+                            deleteeSceneChannenl(sceneID, datas.get(position).channel_id + "");
 
                         }
                     }
@@ -137,7 +147,7 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
         });
     }
 
-    private void deleteeSceneChannenl( String sceneID, String channelID) {
+    private void deleteeSceneChannenl(String sceneID, String channelID) {
         Map<String, String> map = new HashMap<>();
         map.put("channel_id", channelID);
         map.put("scene_id", sceneID);
@@ -185,20 +195,47 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
         });
     }
 
+    private List<SceneItem> newDatas = new ArrayList<>();
+
     @Override
     public void onChannelSelected(List<ChannelInfo> items) {
-
+        newDatas.clear();
+        for (int i = 0; i < items.size(); i++) {
+            SceneItem item = new SceneItem();
+            item.channel_id = items.get(i).id;
+            item.title = items.get(i).title;
+            newDatas.add(item);
+        }
+        addSceneChannel();
     }
 
     @Override
     public void onChannelSelected(String ids) {
-        addSceneChannel(ids);
+
     }
 
-    private void addSceneChannel(String ids) {
+    private void addSceneChannel() {
         Map<String, String> map = new HashMap<>();
-        map.put("ids", ids);
+//        map.put("ids", ids);
         map.put("scene_id", sceneID);
+        if (newDatas.size() != 0) {
+            try {
+                JSONArray array = new JSONArray();
+                for (SceneItem item :
+                        newDatas) {
+                    JSONObject jsonObject = new JSONObject();
+
+                    jsonObject.put("id", item.channel_id);
+                    jsonObject.put("status", item.status);
+                    array.put(jsonObject);
+
+                }
+                map.put("channels", array.toString());
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
         mCompositeSubscription.add(api.addSceneChannel(map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -227,8 +264,8 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
         protected void convert(BaseViewHolder helper, SceneItem item) {
             helper.setText(R.id.name, item.title)
                     .setText(R.id.status, item.status == 1 ? "打开" : "关闭")
-                    .setTextColor(R.id.status,item.status==1?
-                            Color.parseColor("#0989fe"):Color.parseColor("#fb5629"));
+                    .setTextColor(R.id.status, item.status == 1 ?
+                            Color.parseColor("#0989fe") : Color.parseColor("#fb5629"));
         }
     }
 
@@ -259,7 +296,6 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
 
     @Override
     public void onPicChoose(String id, String path) {
-        UiUtils.showToast(id);
         if (fragment != null) {
             fragment.dismiss();
         }

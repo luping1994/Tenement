@@ -65,6 +65,7 @@
                     android:background="@color/bgColor" />
 
                 <EditText
+                    android:textSize="16sp"
                     android:id="@+id/account"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -82,6 +83,7 @@
                     android:background="@color/bgColor" />
 
                 <EditText
+                    android:textSize="16sp"
                     android:hint="密码(至少6位)"
                     android:id="@+id/password"
                     android:layout_width="match_parent"
@@ -100,14 +102,14 @@
                     android:background="@color/bgColor" />
 
                 <EditText
+                    android:textSize="16sp"
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:background="@null"
-                    android:digits="@string/abc"
                     android:enabled="true"
                     android:hint="姓名"
-                    android:maxLength="16"
+                    android:maxLength="12"
                     android:maxLines="1"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
                     android:textColor="@color/black" />
@@ -118,6 +120,7 @@
                     android:background="@color/bgColor" />
 
                 <EditText
+                    android:textSize="16sp"
                     android:inputType="phone"
                     android:id="@+id/telephone"
                     android:layout_width="match_parent"
@@ -125,7 +128,7 @@
                     android:background="@null"
                     android:enabled="true"
                     android:hint="手机号码(可选)"
-                    android:maxLength="16"
+                    android:maxLength="11"
                     android:maxLines="1"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
                     android:textColor="@color/black" />

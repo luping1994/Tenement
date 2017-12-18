@@ -131,8 +131,9 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
     private void showModifyNameDialog() {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_change_name, null, false);
         final TextView text = view.findViewById(R.id.text);
+        text.setHint("请输入昵称");
         new AlertDialog.Builder(this)
-                .setTitle("修改姓名")
+                .setTitle("修改昵称")
                 .setView(view)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
@@ -140,7 +141,7 @@ public class ProfileActivity extends BasedActivity implements View.OnClickListen
                         String s = text.getText().toString();
 
                         if (TextUtils.isEmpty(s)) {
-                            UiUtils.showToast("请输入姓名");
+                            UiUtils.showToast("请输入昵称");
                             return;
                         }
                         user.nickname = s;

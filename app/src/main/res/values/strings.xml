@@ -14,13 +14,13 @@
     <string name="item_title_publicmsg">公告消息</string>
     <string name="item_title_company">企业入驻</string>
 
-    <string name="abc">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.~!</string>
+    <string name="abc">1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.~!</string>
     <string name="contacts_way">服务热线:020-8636-1851</string>
     <string name="company_name_CH">广州三川控制系统工程设备有限公司</string>
     <string name="company_reserved">Copyright © 2017 广州三川控制系统工程设备有限公司版权所有</string>
     <string name="tx_version_code">版本号:</string>
     <string name="tx_share_app">分享</string>
-    <string name="tx_share_app_des">下载地址:https://www.pgyer.com/GuoJJ</string>
+    <string name="tx_share_app_des">https://www.pgyer.com/t3yB</string>
     <!--反馈页面相关字符串-->
     <string name="title_feedback">意见反馈</string>
     <string name="tips_feedbak_success">已收到您的反馈,我们会认真查看,并尽快修复及完善,感谢您的支持!</string>
@@ -54,6 +54,8 @@
     <string name="queding">确定</string>
     <string name="qvxiao">取消</string>
     <string name="tips_teltype_error">手机号码格式不正确!</string>
+    <string name="tips_please_wait">请稍后...</string>
+    <string name="count" >%1$d/200</string>
 
 
 </resources>

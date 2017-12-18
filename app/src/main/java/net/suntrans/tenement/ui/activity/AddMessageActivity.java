@@ -103,7 +103,7 @@ public class AddMessageActivity extends BasedActivity {
                     return;
                 if (position == mSelected.size()) {
                     if (mSelected.size() >= maxImgSize) {
-                        UiUtils.showToast("最多只能上传3张图片");
+                        UiUtils.showToast("最多只能上传5张图片");
                         return;
                     }
                     Matisse.from(AddMessageActivity.this)

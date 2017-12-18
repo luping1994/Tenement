@@ -17,13 +17,14 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Looney on 2016/12/15.
  */
 
 public class RetrofitHelper {
-    public static  String BASE_URL = "http://gzfhq.suntrans-cloud.com/api/v1/";
+    public static String BASE_URL = "http://gzfhq.suntrans-cloud.com/api/v1/";
     private static OkHttpClient mOkHttpClient;
 
     static {
@@ -40,6 +41,15 @@ public class RetrofitHelper {
         return retrofit.create(Api.class);
     }
 
+    public static Api getPgyApi() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://www.pgyer.com/apiv2/")
+//                .client(mOkHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+        return retrofit.create(Api.class);
+    }
 
 
     private static void initOkHttpClient() {

@@ -5,14 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
-
 import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.databinding.ActivityAddStuffBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.BasedActivity;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,19 +69,24 @@ public class AddStuffActivity extends BasedActivity implements View.OnClickListe
         if (password.length() < 6) {
             binding.password.setError("长度不能小于6");
             return;
-
         }
+
         Map<String, String> map = new HashMap<>();
         map.put("username", username);
         map.put("password", password);
         map.put("truename", name);
-        if (TextUtils.isEmpty("telephone")) {
-            map.put("mobile", "telephone");
+        if (TextUtils.isEmpty(telephone)) {
+            if (!telephone.matches("^(((13[0-9]{1})|(15[0-35-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\\d{8})$")) {
+                UiUtils.showToast(getString(R.string.tips_teltype_error));
+                return;
+            }
+            map.put("mobile", telephone);
         }
         addSubscription(api.addStuff(map), new BaseSubscriber<ResultBody>(this) {
             @Override
             public void onNext(ResultBody resultBody) {
                 UiUtils.showToast(resultBody.msg);
+                finish();
             }
         });
     }

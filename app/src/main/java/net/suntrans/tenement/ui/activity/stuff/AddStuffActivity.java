@@ -75,13 +75,15 @@ public class AddStuffActivity extends BasedActivity implements View.OnClickListe
         map.put("username", username);
         map.put("password", password);
         map.put("truename", name);
-        if (TextUtils.isEmpty(telephone)) {
+
+        if (!TextUtils.isEmpty(telephone)) {
             if (!telephone.matches("^(((13[0-9]{1})|(15[0-35-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\\d{8})$")) {
                 UiUtils.showToast(getString(R.string.tips_teltype_error));
                 return;
             }
             map.put("mobile", telephone);
         }
+
         addSubscription(api.addStuff(map), new BaseSubscriber<ResultBody>(this) {
             @Override
             public void onNext(ResultBody resultBody) {

@@ -47,6 +47,7 @@
                     android:textSize="@dimen/actionBarTitleSize" />
 
                 <TextView
+
                     android:paddingRight="16dp"
                     android:paddingLeft="16dp"
                     android:id="@+id/rightSubTitle"
@@ -55,11 +56,10 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:gravity="center"
-                    android:onClick="rightSubTitleClicked"
                     android:text="记录"
                     android:textColor="@color/textcolor"
                     android:textSize="@dimen/actionBarSubTitleSize"
-                    android:visibility="visible" />
+                    android:visibility="invisible" />
 
             </RelativeLayout>
 

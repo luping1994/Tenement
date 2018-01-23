@@ -23,8 +23,9 @@ class App : Application() {
             return
         }
         LeakCanary.install(this)
-        application = this
         Stetho.initializeWithDefaults(this)
+
+        application = this
         if (!DEBUG) {
             CrashReport.initCrashReport(applicationContext, "62a6fed721", false)
         }

@@ -23,10 +23,12 @@ class MainActivity : BasedActivity() {
                 val rentMainFragment = RentMainFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.content, rentMainFragment).commit()
             }
+
             Role.ROLE_STUFF -> {
                 val rentMainFragment = RentMainFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.content, rentMainFragment).commit()
             }
+
             Role.ROLE_TENEMENT_ADMIN -> {
                 val adminMainFragment = AdminMainFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.content, adminMainFragment).commit()
@@ -41,7 +43,6 @@ class MainActivity : BasedActivity() {
 
 //        println(StatusBarCompat.getNavigationBarHeight(this))
 //        println(StatusBarCompat.getStatusBarHeight(this))
-//
 //        val metric = DisplayMetrics()
 //        val metric1 = DisplayMetrics()
 //        windowManager.defaultDisplay.getRealMetrics(metric)
@@ -66,8 +67,7 @@ class MainActivity : BasedActivity() {
 
     override fun onDestroy() {
         if (!DEBUG)
-            PgyUpdateManager.unregister()
-
+            PgyUpdateManager.unregister();
         super.onDestroy()
     }
 

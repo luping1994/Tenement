@@ -170,10 +170,18 @@
         <activity
             android:name=".ui.activity.admin.PaymentActivity_wuye"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.rent.EleChargeActivity" />
-        <activity android:name=".ui.activity.rent.WuyeChargeActivity" />
-        <activity android:name=".ui.activity.admin.EleChargeActivity_admin" />
-        <activity android:name=".ui.activity.admin.WuyeChargeActivity_admin" />
+        <activity
+            android:name=".ui.activity.rent.EleChargeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.rent.WuyeChargeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.admin.EleChargeActivity_admin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.admin.WuyeChargeActivity_admin"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -41,10 +41,7 @@ public class CompanyUserFragment extends BasedFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         datas = new ArrayList<>();
-        for (int i=0;i<8;i++){
-            Stuff stuff = new Stuff();
-            datas.add(stuff);
-        }
+
         adapter = new MyUserAdapter(R.layout.item_user, datas);
         adapter.bindToRecyclerView(binding.recyclerView);
         adapter.setEmptyView(R.layout.recyclerview_empty_view);

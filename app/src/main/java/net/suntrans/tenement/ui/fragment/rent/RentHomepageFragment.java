@@ -104,16 +104,20 @@ public class RentHomepageFragment extends BasedFragment {
                         startActivity(intent2);
                         break;
                     case 3:
-                        Intent intent3 = new Intent(getActivity(), PaymentActivity.class);
-                        startActivity(intent3);
+                        UiUtils.showToast("该功能暂未开通,请咨询管理员开通");
+//                        Intent intent3 = new Intent(getActivity(), PaymentActivity.class);
+//                        startActivity(intent3);
                         break;
                     case 4:
-                        Intent intent4 = new Intent(getActivity(), RepairActivity.class);
-                        startActivity(intent4);
+                        UiUtils.showToast("该功能暂未开通,请咨询管理员开通");
+
+//                        Intent intent4 = new Intent(getActivity(), RepairActivity.class);
+//                        startActivity(intent4);
                         break;
                     case 5:
-                        Intent intent5 = new Intent(getActivity(), DutyActivity.class);
-                        startActivity(intent5);
+                        UiUtils.showToast("该功能暂未开通,请咨询管理员开通");
+//                        Intent intent5 = new Intent(getActivity(), DutyActivity.class);
+//                        startActivity(intent5);
                         break;
                     case 8:
                         Intent intent8 = new Intent(getActivity(), CompanyManagerActivity.class);

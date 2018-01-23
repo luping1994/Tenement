@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.disklrucache.DiskLruCache;
 import com.chad.library.adapter.base.BaseItemDraggableAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -40,6 +42,7 @@ public class YichangActivity extends BasedActivity {
     }
 
     private void init() {
+//DiskLruCache
         datas = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerView);
         adapter = new MyAdapter(R.layout.item_yicahng, datas);

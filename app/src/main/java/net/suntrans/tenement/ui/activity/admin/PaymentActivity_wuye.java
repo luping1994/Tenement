@@ -78,14 +78,18 @@ public class PaymentActivity_wuye extends BasedActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (position) {
                     case 0:
-                        Intent intent = new Intent(PaymentActivity_wuye.this, EleChargeActivity_admin.class);
-                        intent.putExtra("title","电费");
-                        startActivity(intent);
+                        UiUtils.showToast("该功能如需开通请咨询管理员");
+
+//                        Intent intent = new Intent(PaymentActivity_wuye.this, EleChargeActivity_admin.class);
+//                        intent.putExtra("title","电费");
+//                        startActivity(intent);
                         break;
                     case 1:
-                        Intent intent2 = new Intent(PaymentActivity_wuye.this, EleChargeActivity_admin.class);
-                        intent2.putExtra("title","物业费");
-                        startActivity(intent2);
+                        UiUtils.showToast("该功能如需开通请咨询管理员");
+
+//                        Intent intent2 = new Intent(PaymentActivity_wuye.this, EleChargeActivity_admin.class);
+//                        intent2.putExtra("title","物业费");
+//                        startActivity(intent2);
                         break;
                     case 2:
                         break;

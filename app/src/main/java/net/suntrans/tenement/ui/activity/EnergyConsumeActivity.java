@@ -78,6 +78,7 @@ public class EnergyConsumeActivity extends BasedActivity {
         initYearChart();
         initMonthChart();
 
+
     }
 
     private void initView() {

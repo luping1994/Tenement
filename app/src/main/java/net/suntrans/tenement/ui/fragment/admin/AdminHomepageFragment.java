@@ -136,8 +136,10 @@ public class AdminHomepageFragment extends BasedFragment {
                         startActivity(intent7);
                         break;
                     case COMPANYMANAGER_POS:
-                        Intent intent8 = new Intent(getActivity(), CompanyManagerActivity.class);
-                        startActivity(intent8);
+                        UiUtils.showToast("该功能正在开发中...");
+
+//                        Intent intent8 = new Intent(getActivity(), CompanyManagerActivity.class);
+//                        startActivity(intent8);
                         break;
                 }
             }

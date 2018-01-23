@@ -125,9 +125,11 @@ public class MyStuffActivity extends BasedActivity {
             helper.setText(R.id.name, item.nickname);
             helper.setText(R.id.mobile, item.truename==null?"--":item.truename);
             final ImageView toxiang = helper.getView(R.id.touxiang);
+
             Glide.with(MyStuffActivity.this)
                     .load(item.cover)
                     .asBitmap()
+
                     .placeholder(R.drawable.ic_atouxiang)
                     .override(imgSize, imgSize)
                     .into(new SimpleTarget<Bitmap>() {

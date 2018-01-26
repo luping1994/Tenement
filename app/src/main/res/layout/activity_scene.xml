@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+        android:fitsSystemWindows="false"
         android:orientation="vertical">
 
+        <View
+            android:id="@+id/statusBarFix"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+        </View>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/action_bar_size"
@@ -38,11 +43,13 @@
                 android:textSize="@dimen/actionBarTitleSize" />
 
             <TextView
+                android:background="?attr/selectableItemBackground"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
                 android:id="@+id/rightSubTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:gravity="center"
                 android:onClick="rightSubTitleClicked"
                 android:text="管理"

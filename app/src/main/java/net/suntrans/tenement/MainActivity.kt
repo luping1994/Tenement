@@ -1,14 +1,15 @@
 package net.suntrans.tenement
-
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.Gravity
+import android.view.MenuItem
 import com.pgyersdk.update.PgyUpdateManager
 import net.suntrans.tenement.BuildConfig.DEBUG
 import net.suntrans.tenement.databinding.ActivityMainBinding
 import net.suntrans.tenement.ui.activity.BasedActivity
 import net.suntrans.tenement.ui.fragment.admin.AdminMainFragment
 import net.suntrans.tenement.ui.fragment.rent.RentMainFragment
-
+import net.suntrans.tenement.ui.fragment.rent.MineFragment
 
 class MainActivity : BasedActivity() {
 
@@ -41,30 +42,27 @@ class MainActivity : BasedActivity() {
 
         }
 
-//        println(StatusBarCompat.getNavigationBarHeight(this))
-//        println(StatusBarCompat.getStatusBarHeight(this))
-//        val metric = DisplayMetrics()
-//        val metric1 = DisplayMetrics()
-//        windowManager.defaultDisplay.getRealMetrics(metric)
-//        windowManager.defaultDisplay.getMetrics(metric1)
-//        val density = metric.density
-//        val widthPixels = metric.widthPixels
-//        val heightPixels = metric.heightPixels
-//        val densityDpi = metric.densityDpi
-//        System.out.println("density=" + density);
-//        System.out.println("xdensity=" + metric.xdpi);
-//        System.out.println("ydensity=" + metric.ydpi);
-//        System.out.println("设备真实宽度=" + widthPixels);
-//        System.out.println("设备宽度2=" + metric1.widthPixels);
-//        System.out.println("设备高度2=" + metric1.heightPixels);
-//        System.out.println("设备真实高度=" + heightPixels);
-//        System.out.println("设备密度dpi=" + densityDpi);
 
         if (!DEBUG)
             PgyUpdateManager.register(this, "net.suntrans.tenement.fileProvider")
 
+        setSupportActionBar(binding!!.toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar!!.setLogo(R.mipmap.ic_launcher_round)
+        supportActionBar!!.setDisplayShowTitleEnabled(true)
+        var company_name = App.getMySharedPreferences()!!.getString("company_name","")
+        supportActionBar!!.setTitle(company_name)
+        val mineFragment = MineFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.personal,mineFragment).commit()
+
     }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item!!.itemId==android.R.id.home){
+            openDrawerLayout()
+        }
+        return super.onOptionsItemSelected(item)
+    }
     override fun onDestroy() {
         if (!DEBUG)
             PgyUpdateManager.unregister();
@@ -72,5 +70,12 @@ class MainActivity : BasedActivity() {
     }
 
 
+    fun closeDrawerLayout(){
+        binding!!.drawerLayout.closeDrawer(Gravity.START)
+    }
+
+    fun openDrawerLayout(){
+        binding!!.drawerLayout.openDrawer(Gravity.LEFT)
+    }
 
 }

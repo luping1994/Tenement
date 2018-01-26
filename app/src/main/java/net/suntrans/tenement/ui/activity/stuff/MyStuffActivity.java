@@ -76,13 +76,14 @@ public class MyStuffActivity extends BasedActivity {
                 startActivity(intent);
             }
         });
+        getData();
+
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        getData();
     }
 
     private void getData() {
@@ -129,7 +130,6 @@ public class MyStuffActivity extends BasedActivity {
             Glide.with(MyStuffActivity.this)
                     .load(item.cover)
                     .asBitmap()
-
                     .placeholder(R.drawable.ic_atouxiang)
                     .override(imgSize, imgSize)
                     .into(new SimpleTarget<Bitmap>() {

@@ -4,8 +4,16 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+        android:fitsSystemWindows="false"
         android:orientation="vertical">
+
+        <View
+            android:id="@+id/statusBarFix"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary">
+
+        </View>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -13,10 +21,10 @@
             android:background="@color/colorPrimary">
 
             <RelativeLayout
-                android:background="@drawable/ripple"
                 android:id="@+id/back"
                 android:layout_width="60dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@drawable/ripple">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -95,24 +103,69 @@
                         android:id="@+id/touxiang"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
                         android:layout_weight="1"
                         android:src="@drawable/ic_atouxiang"
                         android:text="王大剑"
                         android:textSize="@dimen/profile_subtitle_textSize" />
 
                     <ImageView
-                        android:visibility="gone"
                         android:id="@+id/touxiangarrow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_arrow_right" />
+                        android:src="@drawable/ic_arrow_right"
+                        android:visibility="gone" />
 
 
                 </RelativeLayout>
+
+                <View
+                    android:layout_width="@dimen/activity_horizontal_margin"
+                    android:layout_height="1dp"
+                    android:background="@color/white" />
+
+                <LinearLayout
+                    android:id="@+id/llUserName"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/profile_item_hight"
+                    android:background="@drawable/item_selector"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/content_textSize">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/profile_item_hight"
+                        android:gravity="center_vertical"
+                        android:text="用户名"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/content_textSize" />
+
+                    <TextView
+                        android:id="@+id/userName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/profile_item_hight"
+                        android:layout_weight="1"
+                        android:gravity="center|right"
+                        android:text="--"
+                        android:textSize="@dimen/profile_subtitle_textSize" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_arrow_right"
+                        android:visibility="gone" />
+
+
+                </LinearLayout>
 
                 <View
                     android:layout_width="@dimen/activity_horizontal_margin"
@@ -145,17 +198,16 @@
                         android:layout_height="@dimen/profile_item_hight"
                         android:layout_weight="1"
                         android:gravity="center|right"
-                        android:text="王大剑"
+                        android:text="--"
                         android:textSize="@dimen/profile_subtitle_textSize" />
 
                     <ImageView
-                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_arrow_right" />
-
+                        android:src="@drawable/ic_arrow_right"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -194,12 +246,57 @@
                         android:textSize="@dimen/profile_subtitle_textSize" />
 
                     <ImageView
-                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_arrow_right" />
+                        android:src="@drawable/ic_arrow_right"
+                        android:visibility="gone" />
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/activity_horizontal_margin"
+                    android:layout_height="1dp"
+                    android:background="@color/white" />
+
+                <LinearLayout
+                    android:id="@+id/llState"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/profile_item_hight"
+                    android:background="@drawable/item_selector"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/content_textSize">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/profile_item_hight"
+                        android:gravity="center_vertical"
+                        android:text="状态"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/content_textSize" />
+
+                    <TextView
+                        android:id="@+id/state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/profile_item_hight"
+                        android:layout_weight="1"
+                        android:gravity="center|right"
+                        android:text="正常"
+                        android:textSize="@dimen/profile_subtitle_textSize" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_arrow_right"
+                        android:visibility="gone" />
 
 
                 </LinearLayout>
@@ -211,13 +308,13 @@
 
                 <TextView
                     android:id="@+id/deleteStuff"
-                    android:text="删除该员工"
-                    android:gravity="center"
-                    android:textColor="@color/enenry_value_textcolr"
-                    android:textSize="@dimen/content_textSize"
-                    android:background="@drawable/item_selector"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp" />
+                    android:layout_height="45dp"
+                    android:background="@drawable/item_selector"
+                    android:gravity="center"
+                    android:text="删除该员工"
+                    android:textColor="@color/enenry_value_textcolr"
+                    android:textSize="@dimen/content_textSize" />
 
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

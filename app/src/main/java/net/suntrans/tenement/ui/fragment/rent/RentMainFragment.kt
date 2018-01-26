@@ -33,12 +33,12 @@ class RentMainFragment : Fragment() {
 //        binding!!.toolbar.title.setText("三川物业")
 
         val homepageFragment = RentHomepageFragment()
-        val mineFragment = RentMineFragment()
+//        val mineFragment = RentMineFragment()
 
         val adapter = FragmentAdapter(childFragmentManager)
         adapter.addFragment(homepageFragment, "首页")
-        adapter.addFragment(mineFragment, "我的")
-        binding!!.start.setOnClickListener { println("开始营业") }
+//        adapter.addFragment(mineFragment, "我的")
+//        binding!!.start.setOnClickListener { println("开始营业") }
 
         binding!!.viewPager.adapter = adapter
         manager = childFragmentManager

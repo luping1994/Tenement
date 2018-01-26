@@ -13,8 +13,8 @@ android {
         applicationId "net.suntrans.tenement"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 23
-        versionName "V1.0.0"
+        versionCode 25
+        versionName "V1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     dataBinding {
@@ -64,22 +64,18 @@ dependencies {
     api 'me.weyye.hipermission:library:1.0.3'
     api 'com.github.yalantis:ucrop:2.2.1'
     compile 'com.blankj:utilcode:1.9.10'
-    //    // Retrofit
-    //    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    //    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    //    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
-    //
-    //    api 'com.squareup.okhttp3:okhttp:3.5.0'
-    //    api 'com.squareup.okhttp3:logging-interceptor:3.6.0'
-    //    // RxJava
-    //    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
-    //    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
+
+    compile 'com.github.woxingxiao:SlidingUpPanelLayout:1.1.0'
+
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     implementation 'io.reactivex:rxandroid:1.2.1'
     implementation 'io.reactivex:rxjava:1.1.6'
     implementation 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.alibaba:fastjson:1.1.56.android'
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    compile 'com.squareup.okhttp3:okhttp-urlconnection:3.2.0'
+
     // Espresso UI Testing
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$rootProject.espressoVersion"

@@ -3,6 +3,7 @@ package net.suntrans.tenement.ui.activity.stuff;
 import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -55,6 +56,8 @@ public class StuffProfileActivity extends BasedActivity implements View.OnClickL
         binding.llName.setOnClickListener(this);
         binding.llTelephone.setOnClickListener(this);
         binding.deleteStuff.setOnClickListener(this);
+        binding.llState.setOnClickListener(this);
+        binding.llUserName.setOnClickListener(this);
         id = getIntent().getIntExtra("id", 0) + "";
     }
 
@@ -165,7 +168,10 @@ public class StuffProfileActivity extends BasedActivity implements View.OnClickL
                         stuff = stuffResultBody.data;
 //                        LogUtil.i(stuffResultBody.data.cover);
                         binding.name.setText(stuff.truename);
-                        binding.telephone.setText(stuff.mobile);
+                        binding.userName.setText(stuff.username);
+                        binding.telephone.setText(TextUtils.isEmpty(stuff.mobile)?"--":stuff.mobile);
+                        binding.state.setText(stuff.status.equals("0")?"停用":"正常");
+                        binding.state.setTextColor(stuff.status.equals("0")? getResources().getColor(R.color.stop):getResources().getColor(R.color.colorPrimary));
                         Glide.with(StuffProfileActivity.this)
                                 .load(stuff.cover)
                                 .asBitmap()

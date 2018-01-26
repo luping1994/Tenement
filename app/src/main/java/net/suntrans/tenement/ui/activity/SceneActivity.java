@@ -1,12 +1,15 @@
 package net.suntrans.tenement.ui.activity;
 
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.view.ViewGroup;
 
+import net.suntrans.common.utils.StatusBarCompat;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.databinding.ActivitySceneBinding;
 import net.suntrans.tenement.ui.fragment.SceneFragment;
@@ -34,6 +37,7 @@ public class SceneActivity extends BasedActivity {
                 finish();
             }
         });
+
     }
 
 
@@ -76,9 +80,9 @@ public class SceneActivity extends BasedActivity {
         boolean isRoot = getSupportFragmentManager().getBackStackEntryCount() == 0;
         if (isRoot){
             fragment.getData();
-            binding.rightSubTitle.setText("管理");
+            binding.rightSubTitle.setText(R.string.subtitle_manager);
         }else {
-            binding.rightSubTitle.setText("完成");
+            binding.rightSubTitle.setText(R.string.subtitle_finish);
         }
     }
 

@@ -104,9 +104,9 @@ public class RentHomepageFragment extends BasedFragment {
                         startActivity(intent2);
                         break;
                     case 3:
-                        UiUtils.showToast("该功能暂未开通,请咨询管理员开通");
-//                        Intent intent3 = new Intent(getActivity(), PaymentActivity.class);
-//                        startActivity(intent3);
+//                        UiUtils.showToast("该功能暂未开通,请咨询管理员开通");
+                        Intent intent3 = new Intent(getActivity(), PaymentActivity.class);
+                        startActivity(intent3);
                         break;
                     case 4:
                         UiUtils.showToast("该功能暂未开通,请咨询管理员开通");

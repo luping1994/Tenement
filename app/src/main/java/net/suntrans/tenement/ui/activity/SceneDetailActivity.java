@@ -55,6 +55,7 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
     private PicChooseFragment fragment;
     private String imgId = "1";
     private AllChannelFragment allChannelFragment;
+    private String sceneName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_scene_detail);
 
-        String sceneName = getIntent().getStringExtra("sceneName");
+        sceneName = getIntent().getStringExtra("sceneName");
         sceneID = getIntent().getStringExtra("sceneID");
         binding.title.setText(sceneName);
         binding.sceneName.setText(sceneName);
@@ -75,8 +76,21 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                BottomNavigationView ds;
+                if (!sceneName.equals(binding.sceneName.getText().toString())){
+                    new AlertDialog.Builder(SceneDetailActivity.this)
+                            .setNegativeButton(R.string.cancel,null)
+                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                }
+                            })
+                            .setMessage(R.string.warning_not_save)
+                            .create().show();
+                }else {
+                    finish();
+                }
+
             }
         });
 
@@ -111,7 +125,7 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
     }
 
     private void showModifyDialog(final int position) {
-        String[] items = {"打开", "关闭", "删除"};
+        String[] items = {getString(R.string.open), getString(R.string.close), getString(R.string.delete)};
         new AlertDialog.Builder(this)
                 .setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -182,6 +196,7 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
             public void onNext(ResultBody resultBody) {
                 super.onNext(resultBody);
                 UiUtils.showToast(resultBody.msg);
+                sceneName = binding.sceneName.getText().toString();
                 dialog.dismiss();
             }
 

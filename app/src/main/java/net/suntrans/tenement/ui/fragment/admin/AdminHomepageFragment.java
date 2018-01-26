@@ -21,6 +21,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import net.suntrans.common.utils.UiUtils;
+import net.suntrans.tenement.MainActivity;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.bean.EnvInfo;
 import net.suntrans.tenement.bean.ResultBody;
@@ -92,6 +93,7 @@ public class AdminHomepageFragment extends BasedFragment {
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         this.getActivity().registerReceiver(receiver, filter);//注册网络监听广播
 
+
         funName = getResources().getStringArray(R.array.admin_page_item_title);
         SimpleAdapter adapter = new SimpleAdapter(R.layout.item_home_page_fun_admin, getData());
         binding.recyclerView.setAdapter(adapter);
@@ -118,7 +120,6 @@ public class AdminHomepageFragment extends BasedFragment {
                         break;
                     case REPAIR_POS:
                         UiUtils.showToast("该功能如需开通请咨询管理员");
-
 //                        Intent intent4 = new Intent(getActivity(), RepairActivity_admin.class);
 //                        startActivity(intent4);
                         break;
@@ -136,10 +137,9 @@ public class AdminHomepageFragment extends BasedFragment {
                         startActivity(intent7);
                         break;
                     case COMPANYMANAGER_POS:
-                        UiUtils.showToast("该功能正在开发中...");
-
-//                        Intent intent8 = new Intent(getActivity(), CompanyManagerActivity.class);
-//                        startActivity(intent8);
+//                        UiUtils.showToast("该功能如需开通请咨询管理员");
+                        Intent intent8 = new Intent(getActivity(), CompanyManagerActivity.class);
+                        startActivity(intent8);
                         break;
                 }
             }
@@ -165,6 +165,13 @@ public class AdminHomepageFragment extends BasedFragment {
                 startActivity(new Intent(Settings.ACTION_SETTINGS));
             }
         });
+
+//        binding.toolbar.LOGO.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ((MainActivity)getActivity()).openDrawerLayout();
+//            }
+//        });
 
     }
 

@@ -96,6 +96,8 @@ class LoginFragment : BasedFragment() {
                     App.getMySharedPreferences()!!.edit()
                             .putString("token", t.data.token.access_token)
                             .putString("username", username)
+                            .putString("company_name", t.data.user.company_name)
+//                            .putString("company_name", t.data.)
 //                            .putString("password", password)
                             .putInt("id", t.data.user.id)
                             .putInt("role_id", t.data.user.role_id)

@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fitsSystemWindows="true"
+    android:fitsSystemWindows="false"
     android:orientation="vertical"
-    android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <View
+        android:id="@+id/statusBarFix"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimary">
 
+    </View>
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
     <!--<android.support.design.widget.AppBarLayout-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content">-->
@@ -25,4 +36,4 @@
         <!--</android.support.v7.widget.Toolbar>-->
     <!--</android.support.design.widget.AppBarLayout>-->
 
-</FrameLayout>
+</LinearLayout>

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout >
+<layout>
+
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:background="@color/bgColor"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/bgColor">
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline2"
@@ -29,6 +30,7 @@
             android:layout_alignParentBottom="true"
             android:background="#fff"
             android:elevation="1dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".5" />
+            app:layout_constraintGuide_percent="0.5" />
 
         <net.suntrans.tenement.widgets.IViewPager
             android:id="@+id/viewPager"
@@ -50,7 +52,7 @@
             android:layout_height="0dp"
             android:layout_below="@+id/toolbar"
             android:elevation="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/bottomNavView"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -58,15 +60,16 @@
         </net.suntrans.tenement.widgets.IViewPager>
 
         <net.suntrans.tenement.widgets.PressImageView
-            android:layout_marginBottom="8dp"
             android:id="@+id/start"
             android:layout_width="120dp"
             android:layout_height="72dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:elevation="10dp"
             android:scaleType="centerInside"
             android:src="@drawable/selector_start_bussi"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/bottomNavView"
             app:layout_constraintEnd_toEndOf="@+id/bottomNavView"
             app:layout_constraintStart_toStartOf="@+id/bottomNavView" />

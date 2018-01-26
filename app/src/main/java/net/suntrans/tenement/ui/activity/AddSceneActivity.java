@@ -100,12 +100,12 @@ public class AddSceneActivity extends BasedActivity implements PicChooseFragment
     private void createScene() {
         String name = binding.sceneName.getText().toString();
         if (TextUtils.isEmpty(name)) {
-            UiUtils.showToast("名称不能为空");
+            UiUtils.showToast(getString(R.string.warning_empty_name));
             return;
         }
         if (dialog == null) {
             dialog = new LoadingDialog(this);
-            dialog.setWaitText("保存中...");
+            dialog.setWaitText(getString(R.string.info_saving));
             dialog.setCancelable(false);
         }
         dialog.show();
@@ -142,8 +142,8 @@ public class AddSceneActivity extends BasedActivity implements PicChooseFragment
                 dialog.dismiss();
                 new IosAlertDialog(AddSceneActivity.this)
                         .builder()
-                        .setMsg("创建成功!")
-                        .setPositiveButton("确定", new View.OnClickListener() {
+                        .setMsg(getString(R.string.created_success))
+                        .setPositiveButton(getString(R.string.ok), new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 finish();
@@ -163,7 +163,6 @@ public class AddSceneActivity extends BasedActivity implements PicChooseFragment
 
     @Override
     public void onPicChoose(String id, String path) {
-        UiUtils.showToast(id);
         if (fragment != null) {
             fragment.dismiss();
         }
@@ -195,7 +194,7 @@ public class AddSceneActivity extends BasedActivity implements PicChooseFragment
     }
 
     private void showModifyDialog(final int position) {
-        String[] items = {"打开", "关闭", "删除"};
+        String[] items = {getString(R.string.open), getString(R.string.close), getString(R.string.delete)};
         new AlertDialog.Builder(this)
                 .setItems(items, new DialogInterface.OnClickListener() {
                     @Override

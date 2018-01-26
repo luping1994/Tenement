@@ -12,7 +12,6 @@ import net.suntrans.tenement.ui.fragment.rent.DevicesManagerFragment;
 
 public class DeviceManagerActivity extends BasedActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

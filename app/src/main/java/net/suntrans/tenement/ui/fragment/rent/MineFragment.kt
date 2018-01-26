@@ -34,7 +34,7 @@ import rx.schedulers.Schedulers
  * Des:
  */
 
-class RentMineFragment : BasedFragment(), View.OnClickListener {
+class MineFragment : BasedFragment(), View.OnClickListener {
 
     private var binding: FragmentMineBinding? = null
 
@@ -62,7 +62,6 @@ class RentMineFragment : BasedFragment(), View.OnClickListener {
         binding!!.aotoControl.setOnClickListener(this)
 
         val id = App.Companion.getMySharedPreferences()!!.getInt("id", 0)
-        println("用户id=" + id)
 
 
         getUserInfoByLocal(id)

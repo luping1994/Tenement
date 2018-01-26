@@ -4,8 +4,16 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+        android:fitsSystemWindows="false"
         android:orientation="vertical">
+
+        <View
+            android:id="@+id/statusBarFix"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary">
+
+        </View>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -13,10 +21,10 @@
             android:background="@color/colorPrimary">
 
             <RelativeLayout
-                android:background="@drawable/ripple"
                 android:id="@+id/back"
                 android:layout_width="60dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@drawable/ripple">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -61,16 +69,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <View
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:background="@color/bgColor" />
+                    android:background="@color/bgColor"
+                    android:visibility="gone" />
+
                 <RelativeLayout
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:background="@color/white">
+                    android:background="@color/white"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/time"

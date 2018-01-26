@@ -6,6 +6,7 @@ import net.suntrans.tenement.bean.ChannelControlMessage;
 import net.suntrans.tenement.bean.ChannelEntity;
 import net.suntrans.tenement.bean.CompanyEntity;
 import net.suntrans.tenement.bean.DeviceEntity;
+import net.suntrans.tenement.bean.ElePayInfo;
 import net.suntrans.tenement.bean.EnergyHis;
 import net.suntrans.tenement.bean.EnergyListInfo;
 import net.suntrans.tenement.bean.EnergyListItem;
@@ -14,6 +15,7 @@ import net.suntrans.tenement.bean.LoginInfo;
 import net.suntrans.tenement.bean.Monitor;
 import net.suntrans.tenement.bean.MonitorEntity;
 import net.suntrans.tenement.bean.NoticeEntity;
+import net.suntrans.tenement.bean.PayOrder;
 import net.suntrans.tenement.bean.ProfileWraper;
 import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.bean.RoomChannel;
@@ -231,9 +233,35 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("app/check")
-    Observable<Updater> checkUpdate(@FieldMap Map<String,String> map);
+    Observable<Updater> checkUpdate(@FieldMap Map<String, String> map);
 
     @FormUrlEncoded
     @POST("user/feedback")
-    Observable<ResultBody> postSuggestion(@FieldMap Map<String,String> map);
+    Observable<ResultBody> postSuggestion(@FieldMap Map<String, String> map);
+
+    /**
+     * 物业缴费房间号电费详情
+     *
+     * @param area_id
+     * @param created_at
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("pay/getOrder")
+    Observable<ResultBody<ElePayInfo>> getOrder(@Field("area_id") String area_id, @Field("created_at") String created_at);
+
+    /**
+     * 获取租户的所有房间
+     *
+     * @return
+     */
+    @POST("pay/rooms")
+    Observable<ResultBody<List<Map<String, String>>>> getPayRoom();
+
+    @FormUrlEncoded
+    @POST("pay/weixinPay")
+    Observable<ResultBody<PayOrder>> getWXOrder(@Field("pay_sn") String pay_sn,
+                                               @Field("total_money") String total_money,
+                                               @Field("mobiletype") String mobiletype,
+                                               @Field("type") String type);
 }

@@ -12,7 +12,6 @@ import net.suntrans.tenement.R
 import net.suntrans.tenement.adapter.FragmentAdapter
 import net.suntrans.tenement.databinding.FragmentMainBinding
 import net.suntrans.tenement.ui.activity.AddMessageActivity
-import net.suntrans.tenement.ui.fragment.rent.RentMineFragment
 
 /**
  * Created by Looney 2017/11/08.
@@ -34,11 +33,11 @@ class AdminMainFragment : Fragment() {
 //        binding!!.toolbar.title.setText("三川物业")
 
         val homepageFragment = AdminHomepageFragment()
-        val mineFragment = RentMineFragment()
+//        val mineFragment = RentMineFragment()
 
         val adapter = FragmentAdapter(childFragmentManager)
         adapter.addFragment(homepageFragment, "首页")
-        adapter.addFragment(mineFragment, "我的")
+//        adapter.addFragment(mineFragment, "我的")
         binding!!.start.setOnClickListener {
             val intent = Intent(activity, AddMessageActivity::class.java)
             startActivity(intent)
@@ -47,14 +46,14 @@ class AdminMainFragment : Fragment() {
         binding!!.start.setImageResource(R.drawable.icon_fabu)
         binding!!.viewPager.adapter = adapter
         manager = childFragmentManager
-
-        binding!!.bottomNavView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.item_homepage -> binding!!.viewPager.setCurrentItem(0, false)
-                R.id.item_mime -> binding!!.viewPager.setCurrentItem(1, false)
-            }
-            true
-        }
+//
+//        binding!!.bottomNavView.setOnNavigationItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.item_homepage -> binding!!.viewPager.setCurrentItem(0, false)
+//                R.id.item_mime -> binding!!.viewPager.setCurrentItem(1, false)
+//            }
+//            true
+//        }
     }
 
 

@@ -7,9 +7,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/custom_toolbar" />
+        <!--<include-->
+            <!--android:id="@+id/toolbar"-->
+            <!--layout="@layout/custom_toolbar" />-->
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/refreshLayout"
@@ -134,6 +134,7 @@
                     </RelativeLayout>
 
                     <FrameLayout
+                        android:minHeight="120dp"
                         android:id="@+id/channelContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

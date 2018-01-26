@@ -24,7 +24,6 @@
     <!--反馈页面相关字符串-->
     <string name="title_feedback">意见反馈</string>
     <string name="tips_feedbak_success">已收到您的反馈,我们会认真查看,并尽快修复及完善,感谢您的支持!</string>
-    <string name="close">关闭</string>
     <string name="product_suggest">产品建议</string>
     <string name="progress_error">程序错误</string>
     <string name="title_feedback_type">请选择反馈类型</string>
@@ -56,6 +55,20 @@
     <string name="tips_teltype_error">手机号码格式不正确!</string>
     <string name="tips_please_wait">请稍后...</string>
     <string name="count" >%1$d/200</string>
+
+    <!--dsdas-->
+    <string name="created_success">创建成功!</string>
+    <string name="ok">确定</string>
+    <string name="open">打开</string>
+    <string name="close">关闭</string>
+    <string name="delete">删除</string>
+    <string name="warning_empty_name">名称不能为空</string>
+    <string name="info_saving">保存中...</string>
+    <string name="warning_not_save">修改的内容未保存是否退出?</string>
+    <string name="info_delete_scene">正在删除场景</string>
+    <string name="subtitle_manager">管理</string>
+    <string name="subtitle_finish">完成</string>
+    <string name="warning_is_control">是否执行该场景</string>
 
 
 </resources>

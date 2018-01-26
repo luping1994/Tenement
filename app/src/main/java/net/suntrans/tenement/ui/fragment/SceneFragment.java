@@ -1,11 +1,13 @@
 package net.suntrans.tenement.ui.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ import net.suntrans.tenement.bean.SceneInfo;
 import net.suntrans.tenement.databinding.FragmentSceneBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.AddSceneActivity;
+import net.suntrans.tenement.ui.activity.SceneDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,10 +39,10 @@ import rx.schedulers.Schedulers;
  * Des:
  */
 
-public class SceneFragment extends BasedFragment  {
+public class SceneFragment extends BasedFragment {
 
 
-    private List<SceneInfo> datas;
+    public static List<SceneInfo> datas = new ArrayList<>();
     private FragmentSceneBinding binding;
     private SceneAdapter adapter;
     private static Handler handler = new Handler();
@@ -54,20 +57,27 @@ public class SceneFragment extends BasedFragment  {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        datas = new ArrayList<>();
-        adapter = new SceneAdapter(R.layout.item_scene, datas,getContext());
+        adapter = new SceneAdapter(R.layout.item_scene, datas, getContext());
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL));
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
-                sendOrder(datas.get(position).id);
+            public void onItemClick(BaseQuickAdapter adapter, View view, final int position) {
+                new AlertDialog.Builder(getActivity())
+                        .setNegativeButton(R.string.cancel, null)
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                sendOrder(datas.get(position).id);
+                            }
+                        })
+                        .setMessage(R.string.warning_is_control)
+                        .create().show();
             }
         });
-        View headerView = LayoutInflater.from(getContext()).inflate(R.layout.scene_header_view,null,false);
-        View footerView = LayoutInflater.from(getContext()).inflate(R.layout.item_add_scene,null,false);
+        View headerView = LayoutInflater.from(getContext()).inflate(R.layout.scene_header_view, null, false);
+        View footerView = LayoutInflater.from(getContext()).inflate(R.layout.item_add_scene, null, false);
         adapter.setFooterView(footerView);
         adapter.setHeaderView(headerView);
         footerView.findViewById(R.id.addScene)
@@ -96,7 +106,8 @@ public class SceneFragment extends BasedFragment  {
     static class SceneAdapter extends BaseQuickAdapter<SceneInfo, BaseViewHolder> {
 
         private Context context;
-        public SceneAdapter(int layoutResId, @Nullable List<SceneInfo> data,Context context) {
+
+        public SceneAdapter(int layoutResId, @Nullable List<SceneInfo> data, Context context) {
             super(layoutResId, data);
             this.context = context;
         }

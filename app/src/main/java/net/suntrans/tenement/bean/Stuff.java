@@ -13,5 +13,5 @@ public class Stuff {
     public String nickname;
     public String mobile;
     public String cover;
-    public String  used;
+    public String  status;
 }

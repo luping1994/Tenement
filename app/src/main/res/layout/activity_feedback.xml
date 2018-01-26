@@ -6,9 +6,15 @@
         android:id="@+id/headerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+        android:fitsSystemWindows="false"
         android:orientation="vertical">
+        <View
+            android:id="@+id/statusBarFix"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary">
 
+        </View>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/action_bar_size"
@@ -34,7 +40,7 @@
                 android:gravity="center"
                 android:maxLength="6"
                 android:maxLines="1"
-                android:text="反馈与建议"
+                android:text="意见反馈"
                 android:textColor="@color/white"
                 android:textSize="@dimen/actionBarTitleSize" />
 

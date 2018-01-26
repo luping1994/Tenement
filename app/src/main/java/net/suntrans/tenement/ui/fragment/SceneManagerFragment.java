@@ -40,7 +40,6 @@ import rx.schedulers.Schedulers;
 public class SceneManagerFragment extends BasedFragment {
 
 
-    private List<SceneInfo> datas;
     private FragmentSceneBinding binding;
     private SceneAdapter adapter;
     private LoadingDialog dialog;
@@ -54,8 +53,7 @@ public class SceneManagerFragment extends BasedFragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        datas = new ArrayList<>();
-        adapter = new SceneAdapter(R.layout.item_scene_manager, datas, getContext());
+        adapter = new SceneAdapter(R.layout.item_scene_manager, SceneFragment.datas, getContext());
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL));
@@ -74,12 +72,12 @@ public class SceneManagerFragment extends BasedFragment {
                     new IosAlertDialog(getContext())
                             .builder()
                             .setMsg("是否删除?")
-                            .setPositiveButton("确定", new View.OnClickListener() {
+                            .setPositiveButton(getString(R.string.ok), new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    deleteScene(datas.get(position).id, position);
+                                    deleteScene(SceneFragment.datas.get(position).id, position);
                                 }
-                            }).setNegativeButton("取消",null).show();
+                            }).setNegativeButton(getString(R.string.cancel),null).show();
                 }
             }
         });
@@ -88,9 +86,9 @@ public class SceneManagerFragment extends BasedFragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), SceneDetailActivity.class);
-                intent.putExtra("sceneName", datas.get(position).name);
-                intent.putExtra("sceneID", datas.get(position).id);
-                intent.putExtra("img", datas.get(position).image);
+                intent.putExtra("sceneName", SceneFragment.datas.get(position).name);
+                intent.putExtra("sceneID", SceneFragment.datas.get(position).id);
+                intent.putExtra("img", SceneFragment.datas.get(position).image);
                 startActivity(intent);
             }
         });
@@ -101,8 +99,6 @@ public class SceneManagerFragment extends BasedFragment {
 
     @Override
     public void onResume() {
-        getData();
-
         super.onResume();
     }
 
@@ -137,8 +133,8 @@ public class SceneManagerFragment extends BasedFragment {
                 .subscribe(new BaseSubscriber<ResultBody<SceneEntity>>(getActivity().getApplicationContext()) {
                     @Override
                     public void onNext(ResultBody<SceneEntity> channelEntityResultBody) {
-                        datas.clear();
-                        datas.addAll(channelEntityResultBody.data.lists);
+                        SceneFragment.datas.clear();
+                        SceneFragment.datas.addAll(channelEntityResultBody.data.lists);
                         adapter.notifyDataSetChanged();
                     }
 
@@ -153,7 +149,7 @@ public class SceneManagerFragment extends BasedFragment {
         if (dialog == null) {
 
             dialog = new LoadingDialog(getActivity());
-            dialog.setWaitText("正在删除场景");
+            dialog.setWaitText(getString(R.string.info_delete_scene));
             dialog.setCancelable(false);
         }
 

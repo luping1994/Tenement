@@ -7,10 +7,13 @@ import net.suntrans.tenement.App;
 import net.suntrans.tenement.converter.MyGsonConverterFactory;
 
 import java.io.IOException;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.FormBody;
 import okhttp3.Interceptor;
+import okhttp3.JavaNetCookieJar;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -26,6 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitHelper {
     public static String BASE_URL = "http://gzfhq.suntrans-cloud.com/api/v1/";
     private static OkHttpClient mOkHttpClient;
+    private static OkHttpClient mOkHttpClient2;
 
     static {
         initOkHttpClient();
@@ -86,6 +90,20 @@ public class RetrofitHelper {
                             .addInterceptor(netInterceptor)
                             .addNetworkInterceptor(new StethoInterceptor())
                             .connectTimeout(8, TimeUnit.SECONDS)
+                            .build();
+                }
+            }
+        }
+
+        if (mOkHttpClient2 == null) {
+            CookieManager cookieManager = new CookieManager();
+            cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+            synchronized (RetrofitHelper.class) {
+                if (mOkHttpClient2 == null) {
+                    mOkHttpClient2 = new OkHttpClient.Builder()
+                            .addInterceptor(netInterceptor)
+                            .cookieJar(new JavaNetCookieJar(cookieManager))
+                            .connectTimeout(10, TimeUnit.SECONDS)
                             .build();
                 }
             }

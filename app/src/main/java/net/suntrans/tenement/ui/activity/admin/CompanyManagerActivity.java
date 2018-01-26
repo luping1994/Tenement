@@ -62,9 +62,9 @@ public class CompanyManagerActivity extends BasedActivity {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent();
-                intent.setClass(CompanyManagerActivity.this, CompanyDetailActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent();
+//                intent.setClass(CompanyManagerActivity.this, CompanyDetailActivity.class);
+//                startActivity(intent);
             }
         });
     }

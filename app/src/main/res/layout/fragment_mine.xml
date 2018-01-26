@@ -9,12 +9,13 @@
         android:orientation="vertical">
 
         <TextView
+            android:visibility="visible"
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/action_bar_size"
             android:background="@color/colorPrimary"
             android:gravity="center"
-            android:text="我的"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="@dimen/tileTextSize"
             app:layout_constraintEnd_toEndOf="parent"
@@ -199,7 +200,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
                     android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:text="反馈与建议"
+                    android:text="意见反馈"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/content_textSize" />
 

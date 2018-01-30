@@ -38,6 +38,7 @@ public class AddStuffActivity extends BasedActivity implements View.OnClickListe
     }
 
 
+
     @Override
     public void onClick(View view) {
 

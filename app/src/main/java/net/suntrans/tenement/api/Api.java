@@ -4,8 +4,11 @@ import net.suntrans.tenement.bean.Ameter;
 import net.suntrans.tenement.bean.ChannelAreaEntity;
 import net.suntrans.tenement.bean.ChannelControlMessage;
 import net.suntrans.tenement.bean.ChannelEntity;
+import net.suntrans.tenement.bean.ComPayFee;
 import net.suntrans.tenement.bean.CompanyEntity;
+import net.suntrans.tenement.bean.CompanyInfo;
 import net.suntrans.tenement.bean.DeviceEntity;
+import net.suntrans.tenement.bean.E;
 import net.suntrans.tenement.bean.ElePayInfo;
 import net.suntrans.tenement.bean.EnergyHis;
 import net.suntrans.tenement.bean.EnergyListInfo;
@@ -18,7 +21,6 @@ import net.suntrans.tenement.bean.NoticeEntity;
 import net.suntrans.tenement.bean.PayOrder;
 import net.suntrans.tenement.bean.ProfileWraper;
 import net.suntrans.tenement.bean.ResultBody;
-import net.suntrans.tenement.bean.RoomChannel;
 import net.suntrans.tenement.bean.SceneEntity;
 import net.suntrans.tenement.bean.SceneImage;
 import net.suntrans.tenement.bean.SceneItemlEntity;
@@ -27,21 +29,20 @@ import net.suntrans.tenement.bean.Stuff;
 import net.suntrans.tenement.bean.StuffEntity;
 import net.suntrans.tenement.bean.Updater;
 import net.suntrans.tenement.bean.UploadInfo;
+import net.suntrans.tenement.bean.WeatherModel;
+import net.suntrans.tenement.bean.WuyeChargeRoom;
+import net.suntrans.tenement.bean.WuyePayInfo;
 
 import java.util.List;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.Url;
-import rx.Completable;
 import rx.Observable;
 
 /**
@@ -62,7 +63,7 @@ public interface Api {
                                             @Field("password") String password);
 
     @POST("sensus/home")
-    Observable<ResultBody<EnvInfo>> getHomeEnv();
+    Observable<ResultBody<List<EnvInfo>>> getHomeEnv();
 
     @POST("company/area")
     Observable<ResultBody<ChannelAreaEntity>> getHomeChannel();
@@ -142,6 +143,15 @@ public interface Api {
     @POST("company/user")
     Observable<ResultBody<StuffEntity>> getMyStuff();
 
+    /**
+     * 通过公司id查找公司员工
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("company/user")
+    Observable<ResultBody<StuffEntity>> getMyStuff(@Field("company_id") String id);
+
 
     @FormUrlEncoded
     @POST("company/user/edit")
@@ -171,8 +181,22 @@ public interface Api {
             @Part MultipartBody.Part image);
 
 
+    /**
+     * 通过token查询公司电表
+     *
+     * @return
+     */
     @POST("energy/index")
     Observable<ResultBody<List<EnergyListItem>>> energyList();
+
+    /**
+     * 通过公司id查询公司电表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("energy/index")
+    Observable<ResultBody<E>> energyList(@Field("company_id") String id);
 
 
     /**
@@ -256,12 +280,65 @@ public interface Api {
      * @return
      */
     @POST("pay/rooms")
-    Observable<ResultBody<List<Map<String, String>>>> getPayRoom();
+    Observable<ResultBody<List<WeatherModel>>> getPayRoom();
+
+    /**
+     * 获取租户的所有房间
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("pay/rooms")
+    Observable<ResultBody<List<WeatherModel>>> getPayRoom(@Field("company_id") String company_id);
+
+    /**
+     * 获取租户的所有房间
+     *
+     * @return
+     */
+    @POST("pay/companysFee")
+    Observable<ResultBody<List<ComPayFee>>> getPayCompanysFee();
+
+
+    /**
+     * 获取公司信息
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("company/getInfo")
+    Observable<ResultBody<CompanyInfo>> getComInfo(@Field("company_id") String company_id);
+
 
     @FormUrlEncoded
     @POST("pay/weixinPay")
     Observable<ResultBody<PayOrder>> getWXOrder(@Field("pay_sn") String pay_sn,
-                                               @Field("total_money") String total_money,
-                                               @Field("mobiletype") String mobiletype,
-                                               @Field("type") String type);
+                                                @Field("total_money") String total_money,
+                                                @Field("mobiletype") String mobiletype,
+                                                @Field("type") String type);
+
+    /**
+     * 获取物业缴费房间列表
+     *
+     * @return
+     */
+    @POST("pay/propertyGetRooms")
+    Observable<ResultBody<List<WuyeChargeRoom>>> getWuyechargeRoom();
+
+    /**
+     * 获取电费缴费房间列表
+     *
+     * @return
+     */
+    @POST("pay/electricityGetRooms")
+    Observable<ResultBody<List<WuyeChargeRoom>>> getElechargeRoom();
+
+    /**
+     * 获取房间物业缴费详情
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("pay/getOrder2")
+    Observable<ResultBody<WuyePayInfo>> getWuyeOrder(@Field("area_id") String area_id, @Field("created_at") String created_at);
 }

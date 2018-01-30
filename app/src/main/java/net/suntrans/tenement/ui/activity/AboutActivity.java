@@ -1,6 +1,7 @@
 package net.suntrans.tenement.ui.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -33,7 +34,30 @@ public class AboutActivity extends BasedActivity {
             }
         });
 
-//        ScaleGestureDetector scaleGestureDetector
+        findViewById(R.id.guangwang).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //从其他浏览器打开
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                Uri content_url = Uri.parse("http://www.suntrans.net");
+
+                intent.setData(content_url);
+                startActivity(Intent.createChooser(intent, "请选择浏览器"));
+
+            }
+        });
+
+        findViewById(R.id.rexian).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+"020-86361851"));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

@@ -124,7 +124,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:drawableLeft="@drawable/ic_time"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:text="月份"
+                        android:textColor="@color/textColor" />
+
+                    <TextView
+                        android:id="@+id/shijian"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:layout_weight="1"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical|right"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:text="-- " />
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:background="@color/bgColor" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -141,7 +173,7 @@
                         android:textColor="@color/textColor" />
 
                     <TextView
-
+                        android:id="@+id/waterFee"
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:layout_weight="1"
@@ -149,7 +181,7 @@
                         android:gravity="center_vertical|right"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
                         android:paddingRight="@dimen/activity_horizontal_margin"
-                        android:text="100 元" />
+                        android:text="-- 元" />
                 </LinearLayout>
 
 
@@ -175,7 +207,7 @@
                         android:textColor="@color/textColor" />
 
                     <TextView
-
+                        android:id="@+id/publicWaterFee"
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:layout_weight="1"
@@ -183,7 +215,7 @@
                         android:gravity="center_vertical|right"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
                         android:paddingRight="@dimen/activity_horizontal_margin"
-                        android:text="100 元" />
+                        android:text="-- 元" />
                 </LinearLayout>
 
                 <View
@@ -207,7 +239,7 @@
                         android:text="管理费" />
 
                     <TextView
-
+                        android:id="@+id/manageFee"
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:layout_weight="1"
@@ -215,7 +247,7 @@
                         android:gravity="center_vertical|right"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
                         android:paddingRight="@dimen/activity_horizontal_margin"
-                        android:text="100 元" />
+                        android:text="-- 元" />
                 </LinearLayout>
 
                 <View
@@ -239,7 +271,7 @@
                         android:text="公摊电费" />
 
                     <TextView
-
+                        android:id="@+id/publicEleFee"
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:layout_weight="1"
@@ -247,7 +279,7 @@
                         android:gravity="center_vertical|right"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
                         android:paddingRight="@dimen/activity_horizontal_margin"
-                        android:text="100 元" />
+                        android:text="-- 元" />
                 </LinearLayout>
 
                 <View
@@ -264,13 +296,14 @@
                     android:paddingRight="16dp">
 
                     <TextView
+                        android:id="@+id/totalMoney"
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:drawablePadding="8dp"
                         android:gravity="center_vertical|right"
                         android:paddingLeft="@dimen/activity_horizontal_margin"
                         android:paddingRight="@dimen/activity_horizontal_margin"
-                        android:text="总计 400 元"
+                        android:text="总计 -- 元"
                         android:textSize="18sp" />
 
                     <TextView
@@ -283,6 +316,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:visibility="invisible"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:background="@color/bgColor"
@@ -291,6 +325,7 @@
                     android:text="添加费用项目" />
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:gravity="center">

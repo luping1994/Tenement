@@ -14,21 +14,26 @@
             android:paddingLeft="@dimen/activity_horizontal_margin">
 
             <TextView
+                android:drawablePadding="8dp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_com_name"
                 android:gravity="center_vertical"
-                android:text="  企业名称"
+                android:text="企业名称"
                 android:textColor="@color/textColor" />
 
             <TextView
+                android:ellipsize="end"
+                android:maxLength="16"
+                android:maxLines="1"
+                android:id="@+id/name"
                 android:gravity="center_vertical"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2.5"
                 android:background="@null"
-                android:text="廣州三川控制系統工程設備有限公司"
+                android:text="--"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -46,21 +51,23 @@
             android:paddingLeft="@dimen/activity_horizontal_margin">
 
             <TextView
+                android:drawablePadding="8dp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_com_number"
                 android:gravity="center_vertical"
-                android:text="  房间号"
+                android:text="房间号"
                 android:textColor="@color/textColor" />
 
             <TextView
+                android:id="@+id/address"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2.5"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:text="201"
+                android:text="--"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -78,21 +85,24 @@
             android:paddingLeft="@dimen/activity_horizontal_margin">
 
             <TextView
+                android:drawablePadding="8dp"
+
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_com_dianbiao"
                 android:gravity="center_vertical"
-                android:text="  电表起码"
+                android:text="电表起码"
                 android:textColor="@color/textColor" />
 
             <TextView
+                android:id="@+id/startEle"
                 android:gravity="center_vertical"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2.5"
                 android:background="@null"
-                android:text="2600kW·h"
+                android:text="--"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -110,21 +120,24 @@
             android:paddingLeft="@dimen/activity_horizontal_margin">
 
             <TextView
+                android:drawablePadding="8dp"
+
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_com_phone"
                 android:gravity="center_vertical"
-                android:text="  联系电话"
+                android:text="联系电话"
                 android:textColor="@color/textColor" />
 
             <TextView
+                android:id="@+id/telephone"
                 android:gravity="center_vertical"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2.5"
                 android:background="@null"
-                android:text="15899694150"
+                android:text="--"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -142,21 +155,23 @@
             android:paddingLeft="@dimen/activity_horizontal_margin">
 
             <TextView
+                android:drawablePadding="8dp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_com_qixian"
                 android:gravity="center_vertical"
-                android:text="  合约期限"
+                android:text="合约期限"
                 android:textColor="@color/textColor" />
 
             <TextView
+                android:id="@+id/time"
                 android:gravity="center_vertical"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2.5"
                 android:background="@null"
-                android:text="2016.6.6~2017.2.2"
+                android:text="--"
                 android:textSize="14sp" />
         </LinearLayout>
 

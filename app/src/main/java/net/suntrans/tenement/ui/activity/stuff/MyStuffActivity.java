@@ -76,7 +76,6 @@ public class MyStuffActivity extends BasedActivity {
                 startActivity(intent);
             }
         });
-        getData();
 
     }
 
@@ -84,6 +83,7 @@ public class MyStuffActivity extends BasedActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        getData();
     }
 
     private void getData() {
@@ -123,8 +123,10 @@ public class MyStuffActivity extends BasedActivity {
 
         @Override
         protected void convert(BaseViewHolder helper, Stuff item) {
-            helper.setText(R.id.name, item.nickname);
-            helper.setText(R.id.mobile, item.truename==null?"--":item.truename);
+
+            helper.setText(R.id.name,  item.truename==null?"--":item.truename);
+            helper.setText(R.id.mobile, item.username==null?"--":item.username);
+
             final ImageView toxiang = helper.getView(R.id.touxiang);
 
             Glide.with(MyStuffActivity.this)

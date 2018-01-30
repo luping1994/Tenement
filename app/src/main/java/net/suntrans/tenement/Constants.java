@@ -6,5 +6,5 @@ package net.suntrans.tenement;
  */
 
 public class Constants {
-    public static final java.lang.String APP_ID = "wx9b41c2c9808d5c94";
+    public static final String APP_ID = "wx9b41c2c9808d5c94";
 }

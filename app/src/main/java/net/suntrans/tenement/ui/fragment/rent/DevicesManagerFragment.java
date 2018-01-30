@@ -44,6 +44,7 @@ public class DevicesManagerFragment extends BasedFragment {
 
 
     public static DevicesManagerFragment newInstance() {
+
         return new DevicesManagerFragment();
     }
 

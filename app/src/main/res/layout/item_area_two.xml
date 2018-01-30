@@ -6,12 +6,14 @@
     android:orientation="vertical">
 
     <TextView
+        android:background="@drawable/ic_bg_menpai"
+        android:layout_centerInParent="true"
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_bg_menpai"
         android:gravity="center"
         android:text="通道1"
-        android:textColor="@color/textColor"
-        android:textSize="16sp" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"/>
+
 </RelativeLayout>

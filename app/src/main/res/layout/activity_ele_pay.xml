@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="false"
         android:orientation="vertical">
 
+        <View
+            android:id="@+id/statusBarFix"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary"></View>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -25,7 +33,6 @@
                     android:background="@drawable/ripple">
 
                     <ImageView
-                        android:tint="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -43,32 +50,22 @@
                     android:maxLength="6"
                     android:maxLines="1"
                     android:text="缴费"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/actionBarTitleSize" />
-
-                <TextView
-                    android:id="@+id/rightSubTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:gravity="center"
-                    android:onClick="rightSubTitleClicked"
-                    android:text="管理"
-                    android:textColor="@color/textcolor"
-                    android:textSize="@dimen/actionBarSubTitleSize"
-                    android:visibility="invisible" />
-
             </RelativeLayout>
 
         </RelativeLayout>
-        <com.xw.repo.supl.SlidingUpPanelLayout
-            android:id="@+id/sliding_up_panel_layout"
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-        </com.xw.repo.supl.SlidingUpPanelLayout>
-    </RelativeLayout>
-
-
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                app:layoutManager="@string/LinearLayoutManager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </android.support.v7.widget.RecyclerView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
 </layout>

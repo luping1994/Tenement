@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-     <!--Base application theme. -->
+    <!--Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -11,18 +11,19 @@
     </style>
 
     <!--<style name="AppTheme" parent="QMUI.Compat.NoActionBar">-->
-        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
-        <!--<item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark-->
-        <!--</item>-->
-        <!--&lt;!&ndash;<item name="android:navigationBarColor" tools:targetApi="lollipop">@color/black</item>&ndash;&gt;-->
+    <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+    <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+    <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--<item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark-->
+    <!--</item>-->
+    <!--&lt;!&ndash;<item name="android:navigationBarColor" tools:targetApi="lollipop">@color/black</item>&ndash;&gt;-->
     <!--</style>-->
     <style name="BottomSheet" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowAnimationStyle">@null</item><!-- 为了避免在有 NavigationBar 的手机上 Dialog 从 NavigationBar 底部上来。去掉 Dialog 的动画，使用 View 的动画。-->
+        <item name="android:windowAnimationStyle">@null
+        </item><!-- 为了避免在有 NavigationBar 的手机上 Dialog 从 NavigationBar 底部上来。去掉 Dialog 的动画，使用 View 的动画。-->
         <item name="android:layout_width">match_parent</item>
     </style>
 
@@ -35,8 +36,16 @@
         <item name="android:backgroundDimEnabled">false</item><!--模糊-->
     </style>
 
+    <style name="transparentDialog2" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:backgroundDimEnabled">false</item><!--模糊-->
+    </style>
+
     <!--//dialog的动画-->
-    <style name="dialogWindowAnim" parent="android:Animation" mce_bogus="1">
+    <style name="dialogWindowAnim" mce_bogus="1" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/window_in</item>
         <item name="android:windowExitAnimation">@anim/windows_out</item>
     </style>

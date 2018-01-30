@@ -26,14 +26,12 @@ import net.suntrans.tenement.bean.EnvInfo;
 import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.databinding.FragmentRentHomepageBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
-import net.suntrans.tenement.ui.activity.DutyActivity;
 import net.suntrans.tenement.ui.activity.EnergyListActivity;
 import net.suntrans.tenement.ui.activity.EnvDetailActivity;
 import net.suntrans.tenement.ui.activity.SceneActivity;
 import net.suntrans.tenement.ui.activity.admin.CompanyManagerActivity;
 import net.suntrans.tenement.ui.activity.rent.MessageActivity;
-import net.suntrans.tenement.ui.activity.rent.PaymentActivity;
-import net.suntrans.tenement.ui.activity.rent.RepairActivity;
+import net.suntrans.tenement.ui.activity.rent.PaymentActivity_rent;
 import net.suntrans.tenement.ui.fragment.BasedFragment;
 import net.suntrans.tenement.ui.fragment.AreaOrChannelFragment;
 
@@ -52,19 +50,22 @@ public class RentHomepageFragment extends BasedFragment {
 
     private FragmentRentHomepageBinding binding;
 
-    private String[] funName = {"模式", "能耗", "公告", "物业缴费", "报修投诉", "值班表"};
+    private String[] funName = {"模式", "能耗", "公告", "缴费", "报修投诉", "值班表"};
     // 图片封装为一个数组
     private int[] icon = {R.drawable.ic_mod, R.drawable.ic_energy,
             R.drawable.ic_msg, R.drawable.ic_pay, R.drawable.ic_repair,
             R.drawable.ic_duty};
+
     private List<Map<String, Object>> datas = new ArrayList<>();
+
     private AreaOrChannelFragment fragment;
+
     private EnvInfo envData;
 
     public RentHomepageFragment() {
 
-    }
 
+    }
 
 
     @Override
@@ -105,7 +106,7 @@ public class RentHomepageFragment extends BasedFragment {
                         break;
                     case 3:
 //                        UiUtils.showToast("该功能暂未开通,请咨询管理员开通");
-                        Intent intent3 = new Intent(getActivity(), PaymentActivity.class);
+                        Intent intent3 = new Intent(getActivity(), PaymentActivity_rent.class);
                         startActivity(intent3);
                         break;
                     case 4:
@@ -194,21 +195,21 @@ public class RentHomepageFragment extends BasedFragment {
         mCompositeSubscription.add(api.getHomeEnv()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new BaseSubscriber<ResultBody<EnvInfo>>(getContext()) {
+                .subscribe(new BaseSubscriber<ResultBody<List<EnvInfo>>>(getContext()) {
                     @Override
-                    public void onNext(ResultBody<EnvInfo> info) {
-                        envData = info.data;
-                        binding.wendu.setText(info.data.wendu.value+"℃");
-                        binding.shidu.setText(" " + info.data.shidu.value + "%");
-                        binding.pm25.setText(" " + info.data.pm25.value + "");
+                    public void onNext(ResultBody<List<EnvInfo>> info) {
+                        envData = info.data.get(0);
+                        binding.wendu.setText(envData.wendu.value+"℃");
+                        binding.shidu.setText(" " + envData.shidu.value + "%");
+                        binding.pm25.setText(" " + envData.pm25.value + "");
 
-                        binding.wenduEva.setText(info.data.wendu.text);
-                        binding.shiduEnv.setText("   "+info.data.shidu.text);
-                        binding.pm25Eva.setText(" "+info.data.pm25.text);
+                        binding.wenduEva.setText(envData.wendu.text);
+                        binding.shiduEnv.setText("   "+envData.shidu.text);
+                        binding.pm25Eva.setText(" "+envData.pm25.text);
 
-                        binding.wenduEva.setTextColor(Color.parseColor(info.data.wendu.color));
-                        binding.shiduEnv.setTextColor(Color.parseColor(info.data.shidu.color));
-                        binding.pm25Eva.setTextColor(Color.parseColor(info.data.pm25.color));
+                        binding.wenduEva.setTextColor(Color.parseColor(envData.wendu.color));
+                        binding.shiduEnv.setTextColor(Color.parseColor(envData.shidu.color));
+                        binding.pm25Eva.setTextColor(Color.parseColor(envData.pm25.color));
                     }
                 }));
     }

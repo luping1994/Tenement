@@ -74,7 +74,6 @@
                             android:textSize="14sp" />
 
                         <TextView
-
                             android:id="@+id/pm25Eva"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -99,14 +98,13 @@
                             android:textSize="@dimen/home_page_shidu_textSize" />
 
                         <LinearLayout
+                            android:layout_centerVertical="true"
                             android:layout_width="106.6dp"
                             android:layout_height="96dp"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="16dp"
                             android:background="@drawable/bg_wendu"
                             android:gravity="center_horizontal"
                             android:orientation="vertical">
-
 
                             <TextView
                                 android:id="@+id/wendu"
@@ -139,7 +137,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white">
-
                     </FrameLayout>
 
 
@@ -147,13 +144,17 @@
                         android:id="@+id/gridLayout"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/homepage_fun_height"
-                        android:layout_marginBottom="24dp"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="16dp"
                         android:background="@color/white"
                         android:numColumns="3"
                         android:stretchMode="columnWidth">
 
                     </GridView>
+                    <TextView
+                        android:gravity="center"
+                        android:text="没有更多了"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp" />
 
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>

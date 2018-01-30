@@ -13,12 +13,10 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
-import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.bean.SimpleData;
 import net.suntrans.tenement.databinding.ActivityPaymentBinding;
 import net.suntrans.tenement.ui.activity.BasedActivity;
-import net.suntrans.tenement.ui.activity.rent.PaymentActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +25,7 @@ import java.util.List;
  * Created by Looney on 2017/11/15.
  * Des:
  */
-public class PaymentActivity_wuye extends BasedActivity {
+public class PaymentActivity_admin extends BasedActivity {
 
     private ActivityPaymentBinding binding;
 
@@ -80,14 +78,13 @@ public class PaymentActivity_wuye extends BasedActivity {
                     case 0:
 //                        UiUtils.showToast("该功能如需开通请咨询管理员");
 
-                        Intent intent = new Intent(PaymentActivity_wuye.this, EleChargeActivity_admin.class);
+                        Intent intent = new Intent(PaymentActivity_admin.this, EleChargeActivity_admin.class);
                         intent.putExtra("title","电费");
                         startActivity(intent);
                         break;
                     case 1:
-//                        UiUtils.showToast("该功能如需开通请咨询管理员");
-
-                        Intent intent2 = new Intent(PaymentActivity_wuye.this, EleChargeActivity_admin.class);
+//                      UiUtils.showToast("该功能如需开通请咨询管理员");
+                        Intent intent2 = new Intent(PaymentActivity_admin.this, WuyeCRoomActivity_admin.class);
                         intent2.putExtra("title","物业费");
                         startActivity(intent2);
                         break;

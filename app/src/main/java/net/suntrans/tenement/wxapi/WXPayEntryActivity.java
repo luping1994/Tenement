@@ -13,6 +13,8 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import net.suntrans.tenement.Constant;
+import net.suntrans.tenement.Constants;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.rx.RxBus;
 import net.suntrans.tenement.ui.activity.BasedActivity;
@@ -30,7 +32,7 @@ public class WXPayEntryActivity extends BasedActivity implements IWXAPIEventHand
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pay_result);
         tips = (TextView) findViewById(R.id.tips);
-        api = WXAPIFactory.createWXAPI(this,"wx9b41c2c9808d5c94");
+        api = WXAPIFactory.createWXAPI(this, Constants.APP_ID);
         api.handleIntent(getIntent(), this);
     }
 
@@ -50,8 +52,9 @@ public class WXPayEntryActivity extends BasedActivity implements IWXAPIEventHand
 
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
 
-
-
+            Intent intent = new Intent();
+            intent.setAction("net.suntrans.tenement.pay_success");
+            sendBroadcast(intent);
 //            finish();
         }
 

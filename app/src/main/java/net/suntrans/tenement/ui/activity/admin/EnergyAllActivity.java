@@ -51,7 +51,7 @@ public class EnergyAllActivity extends BasedActivity {
         binding.refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getData();
+                getData(false);
             }
         });
         adapter = new EnergyAllAdapter(R.layout.item_common, datas);
@@ -66,12 +66,13 @@ public class EnergyAllActivity extends BasedActivity {
                 intent.setClass(EnergyAllActivity.this, EnergyConsumeActivity.class);
                 intent.putExtra("title", datas.get(position).name);
                 intent.putExtra("id", datas.get(position).id);
-                intent.putExtra("monthUsed",datas.get(position).electricity);
-                intent.putExtra("todyUsed",datas.get(position).today);
-                intent.putExtra("yesterdayUsed",datas.get(position).yesterday);
+                intent.putExtra("monthUsed", datas.get(position).electricity);
+                intent.putExtra("todyUsed", datas.get(position).today);
+                intent.putExtra("yesterdayUsed", datas.get(position).yesterday);
                 startActivity(intent);
             }
         });
+        getData(true);
     }
 
     class EnergyAllAdapter extends BaseQuickAdapter<EnergyListInfo, BaseViewHolder> {
@@ -93,10 +94,14 @@ public class EnergyAllActivity extends BasedActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getData();
     }
 
-    private void getData() {
+    private void getData(boolean isFrist) {
+        if (isFrist) {
+            binding.loadingProgress.setVisibility(View.VISIBLE);
+            binding.recyclerView.setVisibility(View.INVISIBLE);
+
+        }
         addSubscription(api.loadEnergyArea(), new BaseSubscriber<ResultBody<List<EnergyListInfo>>>(this) {
             @Override
             public void onNext(ResultBody<List<EnergyListInfo>> listResultBody) {
@@ -104,21 +109,28 @@ public class EnergyAllActivity extends BasedActivity {
                 datas.addAll(listResultBody.data);
                 adapter.notifyDataSetChanged();
                 binding.refreshLayout.setRefreshing(false);
+                binding.loadingProgress.setVisibility(View.GONE);
+                binding.recyclerView.setVisibility(View.VISIBLE);
+
             }
 
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
+                e.printStackTrace();
+                binding.loadingProgress.setVisibility(View.GONE);
                 binding.refreshLayout.setRefreshing(false);
+                binding.recyclerView.setVisibility(View.INVISIBLE);
+
             }
         });
-        addSubscription(api.loadEnergySummary(), new BaseSubscriber<ResultBody<Map<String,String>>>(this) {
+        addSubscription(api.loadEnergySummary(), new BaseSubscriber<ResultBody<Map<String, String>>>(this) {
             @Override
-            public void onNext(ResultBody<Map<String,String>> body) {
+            public void onNext(ResultBody<Map<String, String>> body) {
                 Map<String, String> data = body.data;
                 binding.monthUsed.setText(data.get("month"));
-                binding.todayUsedValue.setText(data.get("today")+"kW·h");
-                binding.yesterdayUsedValue.setText(data.get("yesterday")+"kW·h");
+                binding.todayUsedValue.setText(data.get("today") + "kW·h");
+                binding.yesterdayUsedValue.setText(data.get("yesterday") + "kW·h");
             }
 
             @Override

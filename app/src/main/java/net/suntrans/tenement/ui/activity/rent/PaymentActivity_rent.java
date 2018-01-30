@@ -29,8 +29,6 @@ import net.suntrans.tenement.persistence.User;
 import net.suntrans.tenement.persistence.UserDao;
 import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.BasedActivity;
-import net.suntrans.tenement.ui.activity.ProfileActivity;
-import net.suntrans.tenement.ui.activity.admin.EleChargeActivity_admin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +44,7 @@ import rx.schedulers.Schedulers;
  * Created by Looney on 2017/11/15.
  * Des:
  */
-public class PaymentActivity extends BasedActivity {
+public class PaymentActivity_rent extends BasedActivity {
     private ActivityPaymentBinding binding;
 
     private List<SimpleData> datas;
@@ -56,6 +54,7 @@ public class PaymentActivity extends BasedActivity {
     private int[] icon = {R.drawable.ic_dianfei,
             R.drawable.ic_wuyefei, R.drawable.ic_zujin};
     private User user;
+    private int role_id;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +73,7 @@ public class PaymentActivity extends BasedActivity {
         } else {
             getDataFromLocal();
         }
+        role_id = App.Companion.getMySharedPreferences().getInt("role_id", -1);
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,10 +102,18 @@ public class PaymentActivity extends BasedActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (position) {
                     case 0:
-                        startActivity(new Intent(PaymentActivity.this,EleChargeActivity.class));
+                        Intent intent = new Intent(PaymentActivity_rent.this,EleChargeActivity_rent.class);
+                        intent.putExtra("source",role_id);
+                        intent.putExtra("type","dianfei");
+                        intent.putExtra("name",datas.get(position).name);
+                        startActivity(intent);
                         break;
                     case 1:
-                        startActivity(new Intent(PaymentActivity.this,WuyeChargeActivity.class));
+                        Intent intent2 = new Intent(PaymentActivity_rent.this,EleChargeActivity_rent.class);
+                        intent2.putExtra("source",role_id);
+                        intent2.putExtra("type","wuyefei");
+                        intent2.putExtra("name",datas.get(position).name);
+                        startActivity(intent2);
                         break;
                     case 2:
                         UiUtils.showToast("该功能如需开通请咨询管理员");
@@ -154,7 +162,7 @@ public class PaymentActivity extends BasedActivity {
                     public void onNext(User info) {
                         user = info;
                         binding.name.setText(user.company_name);
-                        Glide.with(PaymentActivity.this)
+                        Glide.with(PaymentActivity_rent.this)
                                 .load(user.cover)
                                 .asBitmap()
                                 .override(UiUtils.dip2px(36), UiUtils.dip2px(36))
@@ -176,7 +184,7 @@ public class PaymentActivity extends BasedActivity {
                 .doOnNext(new Action1<ResultBody<ProfileWraper>>() {
                     @Override
                     public void call(ResultBody<ProfileWraper> profileWraperResultBody) {
-                        AppDatabase.getInstance(PaymentActivity.this)
+                        AppDatabase.getInstance(PaymentActivity_rent.this)
                                 .userDao().updateUser(profileWraperResultBody.data.user);
                     }
                 })
@@ -189,7 +197,7 @@ public class PaymentActivity extends BasedActivity {
                         user = result.data.user;
                         binding.name.setText(user.company_name);
 
-                        Glide.with(PaymentActivity.this)
+                        Glide.with(PaymentActivity_rent.this)
                                 .load(user.cover)
                                 .asBitmap()
                                 .override(UiUtils.dip2px(36), UiUtils.dip2px(36))

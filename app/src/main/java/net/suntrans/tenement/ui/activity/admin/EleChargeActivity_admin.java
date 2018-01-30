@@ -1,27 +1,24 @@
 package net.suntrans.tenement.ui.activity.admin;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
-import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.R;
+import net.suntrans.tenement.Role;
 import net.suntrans.tenement.adapter.DividerItemDecoration;
-import net.suntrans.tenement.bean.Monitor;
 import net.suntrans.tenement.bean.ResultBody;
+import net.suntrans.tenement.bean.WuyeChargeRoom;
 import net.suntrans.tenement.databinding.ActivityEleChargeAdminBinding;
-import net.suntrans.tenement.databinding.ActivityEnergyMoniBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.BasedActivity;
-import net.suntrans.tenement.ui.activity.rent.EleChargeActivity;
+import net.suntrans.tenement.ui.fragment.EleChargeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +29,7 @@ import java.util.List;
  */
 
 public class EleChargeActivity_admin extends BasedActivity {
-    private List<Monitor> datas;
+    private List<WuyeChargeRoom> datas;
     private ActivityEleChargeAdminBinding binding;
     private MoniAdapter adapter;
     private String title;
@@ -58,7 +55,7 @@ public class EleChargeActivity_admin extends BasedActivity {
         binding.refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-               getData();
+                getData();
             }
         });
         adapter = new MoniAdapter(R.layout.item_ele_charge_list, datas);
@@ -70,46 +67,32 @@ public class EleChargeActivity_admin extends BasedActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
-                if (title.equals("电费")){
-                    Intent intent = new Intent();
-                    intent.setClass(EleChargeActivity_admin.this, EleChargeActivity.class);
-                    intent.putExtra("title", datas.get(position).name);
-                    intent.putExtra("id",datas.get(position).id);
-                    intent.putExtra("source","admin");
-                    startActivity(intent);
-                }else {
-                    Intent intent = new Intent();
-                    intent.setClass(EleChargeActivity_admin.this, WuyeChargeActivity_admin.class);
-
-                    intent.putExtra("payStatus",datas.get(position).name);
-                    startActivity(intent);
-                }
+                EleChargeFragment eleChargeFragment = EleChargeFragment.newInstance(datas.get(position).area_id, datas.get(position).name, Role.ROLE_TENEMENT_ADMIN);
+                eleChargeFragment.show(getSupportFragmentManager(), "EleChargeFragment");
 
             }
         });
     }
 
-    class MoniAdapter extends BaseQuickAdapter<Monitor, BaseViewHolder> {
+    class MoniAdapter extends BaseQuickAdapter<WuyeChargeRoom, BaseViewHolder> {
 
-        int imgSize = UiUtils.dip2px(36);
 
-        public MoniAdapter(int layoutResId, @Nullable List<Monitor> data) {
+        public MoniAdapter(int layoutResId, @Nullable List<WuyeChargeRoom> data) {
             super(layoutResId, data);
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, Monitor item) {
-
-            if (title.equals("电费")){
-                helper.setText(R.id.subName,"上月应缴电费200元");
-            }else {
-                helper.setText(R.id.subName,"上月应缴物业费200元")
-                        .setText(R.id.payStatus,item.name);
-                TextView payStatus = helper.getView(R.id.payStatus);
-               helper.setTextColor(R.id.payStatus,item.name.equals("已缴纳")?Color.parseColor("#0989fe"):Color.parseColor("#888888"));
+        protected void convert(BaseViewHolder helper, WuyeChargeRoom item) {
+            helper.setText(R.id.name,item.name)
+                    .setText(R.id.subName,"在租方:"+item.company_name)
+                    .setText(R.id.payStatus,item.pay_type==null?"未知":item.pay_type.equals("0")?"未缴纳":"已缴纳")
+                    .setText(R.id.totalMoney,String.format(getString(R.string.wuyefei),item.total_money));
+            helper.setTextColor(R.id.payStatus,item.pay_type==null?Color.parseColor("#afafaf")
+                    :item.pay_type.equals("0")?Color.parseColor("#afafaf")
+                    :getResources().getColor(R.color.colorPrimary));
             }
         }
-    }
+
 
     @Override
     protected void onResume() {
@@ -118,16 +101,39 @@ public class EleChargeActivity_admin extends BasedActivity {
     }
 
     private void getData() {
-       for (int i=0;i<8;i++){
-           Monitor monitor  = new Monitor();
-           if (i%2==0){
-               monitor.name="已缴纳";
-           }else {
-               monitor.name="未缴纳";
 
-           }
-           datas.add(monitor);
-           adapter.notifyDataSetChanged();
-       }
+
+        addSubscription(api.getWuyechargeRoom(), new BaseSubscriber<ResultBody<List<WuyeChargeRoom>>>() {
+            @Override
+            public void onNext(ResultBody<List<WuyeChargeRoom>> listResultBody) {
+                super.onNext(listResultBody);
+                datas.clear();
+                datas.addAll(listResultBody.data);
+                adapter.notifyDataSetChanged();
+                binding.refreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                binding.refreshLayout.setRefreshing(false);
+            }
+        });
+//        addSubscription(RetrofitHelper.getApi().getPayCompanysFee(), new BaseSubscriber<ResultBody<List<ComPayFee>>>(){
+//            @Override
+//            public void onNext(ResultBody<List<ComPayFee>> listResultBody) {
+//               datas.clear();
+//               datas.addAll(listResultBody.data);
+//               adapter.notifyDataSetChanged();
+//               binding.refreshLayout.setRefreshing(false);
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                super.onError(e);
+//                binding.refreshLayout.setRefreshing(false);
+//
+//            }
+//        });
     }
 }

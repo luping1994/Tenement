@@ -21,24 +21,20 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import net.suntrans.common.utils.UiUtils;
-import net.suntrans.tenement.MainActivity;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.bean.EnvInfo;
 import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.bean.SimpleData;
 import net.suntrans.tenement.databinding.FragmentAdminHomepageBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
-import net.suntrans.tenement.ui.activity.DutyActivity;
 import net.suntrans.tenement.ui.activity.EnvDetailActivity;
 import net.suntrans.tenement.ui.activity.SceneActivity;
 import net.suntrans.tenement.ui.activity.admin.CompanyManagerActivity;
 import net.suntrans.tenement.ui.activity.admin.EnergyAllActivity;
 import net.suntrans.tenement.ui.activity.admin.EnergyMoniActivity;
-import net.suntrans.tenement.ui.activity.admin.PaymentActivity_wuye;
+import net.suntrans.tenement.ui.activity.admin.PaymentActivity_admin;
 import net.suntrans.tenement.ui.activity.admin.PublicControlActivity;
-import net.suntrans.tenement.ui.activity.admin.RepairActivity_admin;
 import net.suntrans.tenement.ui.activity.rent.MessageActivity;
-import net.suntrans.tenement.ui.activity.rent.PaymentActivity;
 import net.suntrans.tenement.ui.fragment.BasedFragment;
 
 import java.util.ArrayList;
@@ -129,7 +125,7 @@ public class AdminHomepageFragment extends BasedFragment {
 //                        startActivity(intent5);
                         break;
                     case PAYMENT_POS:
-                        Intent intent6 = new Intent(getActivity(), PaymentActivity_wuye.class);
+                        Intent intent6 = new Intent(getActivity(), PaymentActivity_admin.class);
                         startActivity(intent6);
                         break;
                     case MESSAGE_POS:
@@ -213,25 +209,24 @@ public class AdminHomepageFragment extends BasedFragment {
         mCompositeSubscription.add(api.getHomeEnv()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new BaseSubscriber<ResultBody<EnvInfo>>(getContext()) {
+                .subscribe(new BaseSubscriber<ResultBody<List<EnvInfo>>>(getContext()) {
                     @Override
-                    public void onNext(ResultBody<EnvInfo> info) {
-                        envInfo = info.data;
-                        binding.wendu.setText(info.data.wendu.value);
-                        binding.shidu.setText(" " + info.data.shidu.value + "%");
-                        binding.pm25.setText(" " + info.data.pm25.value + "");
+                    public void onNext(ResultBody<List<EnvInfo>> infos) {
+                        envInfo = infos.data.get(0);
+                        binding.wendu.setText(envInfo.wendu.value);
+                        binding.shidu.setText(" " + envInfo.shidu.value + "%");
+                        binding.pm25.setText(" " + envInfo.pm25.value + "");
 
+                        binding.wenduEva.setText(envInfo.wendu.text);
+                        binding.shiduEnv.setText("   " + envInfo.shidu.text);
+                        binding.pm25Eva.setText(" " + envInfo.pm25.text);
 
-                        binding.wenduEva.setText(info.data.wendu.text);
-                        binding.shiduEnv.setText("   " + info.data.shidu.text);
-                        binding.pm25Eva.setText(" " + info.data.pm25.text);
-
-//                        System.out.println(info.data.wendu.color);
-//                        System.out.println(info.data.shidu.color);
-//                        System.out.println(info.data.pm25.color);
-                        binding.wenduEva.setTextColor(Color.parseColor(info.data.wendu.color));
-                        binding.shiduEnv.setTextColor(Color.parseColor(info.data.shidu.color));
-                        binding.pm25Eva.setTextColor(Color.parseColor(info.data.pm25.color));
+//                      System.out.println(envInfo.wendu.color);
+//                      System.out.println(envInfo.shidu.color);
+//                      System.out.println(envInfo.pm25.color);
+                        binding.wenduEva.setTextColor(Color.parseColor(envInfo.wendu.color));
+                        binding.shiduEnv.setTextColor(Color.parseColor(envInfo.shidu.color));
+                        binding.pm25Eva.setTextColor(Color.parseColor(envInfo.pm25.color));
                     }
                 }));
     }

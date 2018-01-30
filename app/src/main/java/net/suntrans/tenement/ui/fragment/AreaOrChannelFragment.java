@@ -90,6 +90,7 @@ public class AreaOrChannelFragment extends BasedFragment {
     @Override
     public void onResume() {
         super.onResume();
+        getChannelInfo();
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -106,13 +107,13 @@ public class AreaOrChannelFragment extends BasedFragment {
     }
 
     public void getChannelInfo() {
+
         mCompositeSubscription.add(api.getHomeChannel()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<ResultBody<ChannelAreaEntity>>(getActivity().getApplicationContext()) {
                     @Override
                     public void onNext(ResultBody<ChannelAreaEntity> channelEntityResultBody) {
-
                         if (channelEntityResultBody.data.total == 1) {
                             if (adapter == null) {
                                 datas = new ArrayList<>();
@@ -121,7 +122,7 @@ public class AreaOrChannelFragment extends BasedFragment {
                                 binding.recyclerView.setLayoutManager(layoutManager);
                                 binding.recyclerView.setAdapter(adapter);
                                 adapter.bindToRecyclerView(binding.recyclerView);
-                                adapter.setEmptyView(R.layout.recyclerview_empty_view);
+//                                adapter.setEmptyView(R.layout.recyclerview_empty_view);
                                 adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -200,12 +201,15 @@ public class AreaOrChannelFragment extends BasedFragment {
                                 areaAdapter.notifyDataSetChanged();
                             }
                         }
+                        binding.loadingProgress.setVisibility(View.INVISIBLE);
 
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
+                        binding.loadingProgress.setVisibility(View.INVISIBLE);
+
                     }
                 }));
     }

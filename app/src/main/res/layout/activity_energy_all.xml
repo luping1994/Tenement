@@ -227,6 +227,10 @@
                     </RelativeLayout>
 
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
                     <android.support.v7.widget.RecyclerView
                         app:layoutManager="LinearLayoutManager"
                         android:id="@+id/recyclerView"
@@ -234,6 +238,12 @@
                         android:layout_height="match_parent">
 
                     </android.support.v7.widget.RecyclerView>
+                    <ProgressBar
+                        android:layout_centerInParent="true"
+                        android:id="@+id/loading_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
 
                     <View
                         android:layout_width="match_parent"

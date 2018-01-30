@@ -2,12 +2,12 @@
 <resources>
     <dimen name="action_bar_size">48dp</dimen>
     <dimen name="toolBar_title_size">18sp</dimen>
-    <dimen name="homepage_header_height">150dp</dimen>
+    <dimen name="homepage_header_height">180dp</dimen>
     <dimen name="homepage_shidu_margin_bottom">40dp</dimen>
     <dimen name="homw_page_shidu_m_rl">16dp</dimen>
     <dimen name="home_page_shidu_textSize">14sp</dimen>
     <dimen name="homepage_channel_fg_height">196dp</dimen>
-    <dimen name="homepage_fun_height">160dp</dimen>
+    <dimen name="homepage_fun_height">144dp</dimen>
     <dimen name="tileTextSize">18sp</dimen>
     <dimen name="mine_item_hight">45dp</dimen>
     <dimen name="content_textSize">16sp</dimen>
@@ -19,7 +19,7 @@
     <dimen name="profile_item_hight">56dp</dimen>
     <dimen name="profile_subtitle_textSize">14sp</dimen>
     <dimen name="homepage_fun_size">72dp</dimen>
-    <dimen name="homepage_channelitem_size">72dp</dimen>
+    <dimen name="homepage_channelitem_size">96dp</dimen>
     <dimen name="textNormalSize">14sp</dimen>
 
     <dimen name="grid_expected_size">120dp</dimen>

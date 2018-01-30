@@ -55,6 +55,15 @@ public class RetrofitHelper {
         return retrofit.create(Api.class);
     }
 
+    public static Api getCookieApi() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(mOkHttpClient2)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+        return retrofit.create(Api.class);
+    }
 
     private static void initOkHttpClient() {
         Interceptor netInterceptor =

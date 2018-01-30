@@ -33,7 +33,7 @@ import rx.schedulers.Schedulers;
 
 public class CompanyManagerActivity extends BasedActivity {
     private List<CompanyInfo> datas;
-    CompanyAdapter adapter;
+    private CompanyAdapter adapter;
     private ActivityMycompanyBinding binding;
 
     @Override
@@ -62,9 +62,10 @@ public class CompanyManagerActivity extends BasedActivity {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                Intent intent = new Intent();
-//                intent.setClass(CompanyManagerActivity.this, CompanyDetailActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent();
+                intent.putExtra("id", datas.get(position).id);
+                intent.setClass(CompanyManagerActivity.this, CompanyDetailActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -114,10 +115,10 @@ public class CompanyManagerActivity extends BasedActivity {
         @Override
         protected void convert(BaseViewHolder helper, CompanyInfo item) {
             helper.setText(R.id.name, item.name)
-                    .setText(R.id.roomName,item.address);
+                    .setText(R.id.roomName, item.address);
             TextView status = helper.getView(R.id.status);
-            status.setText( item.status.equals("1")?"在租":"退租");
-            status.setBackgroundResource(item.status.equals("1")?R.drawable.bg_device_on:R.drawable.ic_bg_off);
+            status.setText(item.status.equals("1") ? "在租" : "退租");
+            status.setBackgroundResource(item.status.equals("1") ? R.drawable.bg_device_on : R.drawable.ic_bg_off);
             helper.setText(R.id.startTime, item.date_start == null ? "--" : item.date_start + "~" + item.date_end);
 
 

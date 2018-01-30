@@ -139,7 +139,7 @@
             android:name=".ui.activity.admin.MoniDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.rent.PaymentActivity"
+            android:name=".ui.activity.rent.PaymentActivity_rent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.rent.MessageActivity"
@@ -173,13 +173,10 @@
             android:name=".ui.activity.admin.CompanyDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.admin.PaymentActivity_wuye"
+            android:name=".ui.activity.admin.PaymentActivity_admin"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.rent.EleChargeActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.rent.WuyeChargeActivity"
+            android:name=".ui.activity.rent.EleChargeActivity_rent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.admin.EleChargeActivity_admin"
@@ -187,6 +184,11 @@
         <activity
             android:name=".ui.activity.admin.WuyeChargeActivity_admin"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.admin.WuyeCRoomActivity_admin" />
+        <activity android:name=".ui.activity.rent.WuyeChargeActivity_rent" />
     </application>
 
 </manifest>

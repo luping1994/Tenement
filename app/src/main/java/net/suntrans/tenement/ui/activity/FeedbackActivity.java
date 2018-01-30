@@ -35,6 +35,7 @@ import rx.schedulers.Schedulers;
 
 public class FeedbackActivity extends BasedActivity implements View.OnClickListener {
 
+
     private int currentSelected;
     private ActivityFeedbackBinding binding;
     private int mCheckedTypeId = -1;
@@ -44,8 +45,6 @@ public class FeedbackActivity extends BasedActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_feedback);
-
-
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +83,7 @@ public class FeedbackActivity extends BasedActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.commit) {
+
             return true;
         }
         return super.onOptionsItemSelected(item);

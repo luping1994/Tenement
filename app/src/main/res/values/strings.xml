@@ -54,7 +54,7 @@
     <string name="qvxiao">取消</string>
     <string name="tips_teltype_error">手机号码格式不正确!</string>
     <string name="tips_please_wait">请稍后...</string>
-    <string name="count" >%1$d/200</string>
+    <string name="count" >%1$d/70</string>
 
     <!--dsdas-->
     <string name="created_success">创建成功!</string>
@@ -69,6 +69,11 @@
     <string name="subtitle_manager">管理</string>
     <string name="subtitle_finish">完成</string>
     <string name="warning_is_control">是否执行该场景</string>
+    <string name="LinearLayoutManager">LinearLayoutManager</string>
+    <string name="wuyefei">上月应缴物业费%1$s元</string>
+    <string name="tips_nodata">当月暂无数据</string>
+    <string name="tips_wx_isnotinstall">当前手机未安装微信客户端</string>
+    <string name="tips_getorder_failed">获取订单失败</string>
 
 
 </resources>

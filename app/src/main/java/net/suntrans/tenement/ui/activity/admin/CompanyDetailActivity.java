@@ -36,13 +36,14 @@ public class CompanyDetailActivity extends BasedActivity {
         });
 
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
-        CompanyInfoFragment fragment = new CompanyInfoFragment();
-        CompanyEnergyFragment fragment1 = new CompanyEnergyFragment();
-        CompanyUserFragment fragment2 = new CompanyUserFragment();
+        CompanyInfoFragment fragment =  CompanyInfoFragment.newInstance(getIntent().getStringExtra("id"));
+        CompanyEnergyFragment fragment1 =  CompanyEnergyFragment.newInstance(getIntent().getStringExtra("id"));
+        CompanyUserFragment fragment2 =  CompanyUserFragment.newInstance(getIntent().getStringExtra("id"));
         adapter.addFragment(fragment, "one");
         adapter.addFragment(fragment1, "two");
         adapter.addFragment(fragment2, "three");
         binding.viewPager.setAdapter(adapter);
+        binding.viewPager.setOffscreenPageLimit(3);
         binding.segmentedGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

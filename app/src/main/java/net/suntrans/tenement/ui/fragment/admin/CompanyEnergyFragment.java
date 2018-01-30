@@ -12,8 +12,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import net.suntrans.tenement.R;
+import net.suntrans.tenement.bean.E;
 import net.suntrans.tenement.bean.EnergyListItem;
+import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.databinding.FragmentCompanyEnergyBinding;
+import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.EnergyConsumeActivity;
 import net.suntrans.tenement.ui.fragment.BasedFragment;
 
@@ -30,11 +33,20 @@ public class CompanyEnergyFragment extends BasedFragment {
     private FragmentCompanyEnergyBinding binding;
     private List<EnergyListItem> datas;
     private EnergyListAdapter adapter;
+    private String id;
+
+    public static CompanyEnergyFragment newInstance(String id) {
+        CompanyEnergyFragment fragment = new CompanyEnergyFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("id", id);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_energy,container,false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_energy, container, false);
         return binding.getRoot();
     }
 
@@ -49,16 +61,17 @@ public class CompanyEnergyFragment extends BasedFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
-
-                intent.setClass(getActivity(),EnergyConsumeActivity.class);
-                intent.putExtra("title",datas.get(position).name);
-                intent.putExtra("id",datas.get(position).id);
-                intent.putExtra("monthUsed",datas.get(position).electricity);
-                intent.putExtra("todyUsed",datas.get(position).today);
-                intent.putExtra("yesterdayUsed",datas.get(position).yesterday);
+                intent.setClass(getActivity(), EnergyConsumeActivity.class);
+                intent.putExtra("title", datas.get(position).name);
+                intent.putExtra("id", datas.get(position).id);
+                intent.putExtra("monthUsed", datas.get(position).electricity);
+                intent.putExtra("todyUsed", datas.get(position).today);
+                intent.putExtra("yesterdayUsed", datas.get(position).yesterday);
                 startActivity(intent);
             }
         });
+
+        id = getArguments().getString("id");
     }
 
     private class EnergyListAdapter extends BaseQuickAdapter<EnergyListItem, BaseViewHolder> {
@@ -69,10 +82,28 @@ public class CompanyEnergyFragment extends BasedFragment {
 
         @Override
         protected void convert(BaseViewHolder helper, EnergyListItem item) {
-            helper.setText(R.id.today,item.today+"kWh");
-            helper.setText(R.id.yesterday,item.yesterday+"kWh");
-            helper.setText(R.id.allPower,item.electricity+"kWh");
-            helper.setText(R.id.name,item.name);
+            helper.setText(R.id.today, item.today + "kW·h");
+            helper.setText(R.id.yesterday, item.yesterday + "kW·h");
+            helper.setText(R.id.allPower, item.electricity + "kW·h");
+            helper.setText(R.id.name, item.name);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData(id);
+    }
+
+    private void getData(String id) {
+        addSubscription(api.energyList(id), new BaseSubscriber<ResultBody<E>>() {
+            @Override
+            public void onNext(ResultBody<E> listResultBody) {
+                super.onNext(listResultBody);
+                datas.clear();
+                datas.addAll(listResultBody.data.data);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 }

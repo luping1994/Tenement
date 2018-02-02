@@ -16,8 +16,12 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.callback.ItemDragAndSwipeCallback;
 import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 
+import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.R;
+import net.suntrans.tenement.api.RetrofitHelper;
+import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.bean.YichangEntity;
+import net.suntrans.tenement.rx.BaseSubscriber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +32,7 @@ import java.util.List;
 
 public class YichangActivity extends BasedActivity {
 
-    private List<YichangEntity.DataBeanX.ListsBean.DataBean> datas;
+    private List<YichangEntity.ListBean> datas;
     private MyAdapter adapter;
     private RecyclerView recyclerView;
 
@@ -51,28 +55,28 @@ public class YichangActivity extends BasedActivity {
         ItemDragAndSwipeCallback itemDragAndSwipeCallback = new ItemDragAndSwipeCallback(adapter);
         final ItemTouchHelper touchHelper = new ItemTouchHelper(itemDragAndSwipeCallback);
         touchHelper.attachToRecyclerView(recyclerView);
-        adapter.enableSwipeItem();
-        adapter.setOnItemSwipeListener(new OnItemSwipeListener() {
-            @Override
-            public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
-
-            }
-
-            @Override
-            public void clearView(RecyclerView.ViewHolder viewHolder, int pos) {
-
-            }
-
-            @Override
-            public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
-                delete(datas.get(pos).log_id);
-            }
-
-            @Override
-            public void onItemSwipeMoving(Canvas canvas, RecyclerView.ViewHolder viewHolder, float dX, float dY, boolean isCurrentlyActive) {
-
-            }
-        });
+//        adapter.enableSwipeItem();
+//        adapter.setOnItemSwipeListener(new OnItemSwipeListener() {
+//            @Override
+//            public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
+//
+//            }
+//
+//            @Override
+//            public void clearView(RecyclerView.ViewHolder viewHolder, int pos) {
+//
+//            }
+//
+//            @Override
+//            public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
+////                delete(datas.get(pos).log_id);
+//            }
+//
+//            @Override
+//            public void onItemSwipeMoving(Canvas canvas, RecyclerView.ViewHolder viewHolder, float dX, float dY, boolean isCurrentlyActive) {
+//
+//            }
+//        });
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -100,15 +104,15 @@ public class YichangActivity extends BasedActivity {
         });
     }
 
-    class MyAdapter extends BaseItemDraggableAdapter<YichangEntity.DataBeanX.ListsBean.DataBean, BaseViewHolder> {
+    class MyAdapter extends BaseItemDraggableAdapter<YichangEntity.ListBean, BaseViewHolder> {
 
-        public MyAdapter(@LayoutRes int layoutResId, @Nullable List<YichangEntity.DataBeanX.ListsBean.DataBean> data) {
+        public MyAdapter(@LayoutRes int layoutResId, @Nullable List<YichangEntity.ListBean> data) {
             super(layoutResId, data);
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, YichangEntity.DataBeanX.ListsBean.DataBean item) {
-            helper.setText(R.id.msg, "" + item.name + ",异常类型:" + item.message)
+        protected void convert(BaseViewHolder helper, YichangEntity.ListBean item) {
+            helper.setText(R.id.msg, "" + item.name + ",异常类型:" + item.msg)
                     .setText(R.id.time, item.updated_at);
         }
     }
@@ -127,58 +131,54 @@ public class YichangActivity extends BasedActivity {
 
     private void getdata(final int loadtype) {
 
-//        addSubscription(RetrofitHelper.getApi().getYichang(currentPage + ""), new BaseSubscriber<YichangEntity>(this) {
-//            @Override
-//            public void onCompleted() {
-//
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                e.printStackTrace();
-//                super.onError(e);
-//
-//
-//                if (loadtype == loadMore)
-//                    adapter.loadMoreFail();
-//                else{
-//                    recyclerView.setVisibility(View.INVISIBLE);
-//                    stateView.showRetry();
-//                }
-//            }
-//
-//            @Override
-//            public void onNext(YichangEntity o) {
-//                if (o.code == 200) {
-//                    List<YichangEntity.DataBeanX.ListsBean.DataBean> lists = o.data.lists.data;
-//                    if (lists == null || lists.size() == 0) {
-//                        if (loadtype==fristLoad){
-//                            stateView.showEmpty();
-//                            recyclerView.setVisibility(View.INVISIBLE);
-//                        }else {
-//                            adapter.loadMoreFail();
-//
-//                        }
-//
-//                    } else {
-//                        if (loadtype == loadMore) {
-//                            adapter.loadMoreComplete();
-//                        } else {
-//
-//                        }
-//                        totalPage  =o.data.lists.total/o.data.lists.per_page+1;
-//                        currentPage++;
-//                        stateView.showContent();
-//                        recyclerView.setVisibility(View.VISIBLE);
-//                        datas.addAll(lists);
-//                        adapter.notifyDataSetChanged();
-//                    }
-//
-//                } else {
-//                    UiUtils.showToast("获取数据失败");
-//                }
-//            }
-//        });
+        addSubscription(RetrofitHelper.getApi().getYichang(currentPage + ""), new BaseSubscriber<ResultBody<YichangEntity>>(this) {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                super.onError(e);
+
+                if (loadtype == loadMore)
+                    adapter.loadMoreFail();
+                else{
+                    recyclerView.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onNext(ResultBody<YichangEntity> o) {
+                if (o.code == 200) {
+                    List<YichangEntity.ListBean> lists = o.data.list;
+                    if (lists == null || lists.size() == 0) {
+                        if (loadtype==fristLoad){
+                            recyclerView.setVisibility(View.INVISIBLE);
+                        }else {
+                            adapter.loadMoreFail();
+
+                        }
+
+                    } else {
+                        if (loadtype == loadMore) {
+                            adapter.loadMoreComplete();
+                        } else {
+
+                        }
+                        totalPage  =o.data.total_page;
+                        currentPage++;
+                        recyclerView.setVisibility(View.VISIBLE);
+                        datas.addAll(lists);
+                        adapter.notifyDataSetChanged();
+                    }
+
+                } else {
+                    UiUtils.showToast("获取数据失败");
+                }
+            }
+        });
     }
 
     @Override

@@ -200,4 +200,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             outRect.set(0, 0, offset, 0);
         }
     }
+
+
+
 }

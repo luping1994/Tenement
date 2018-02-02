@@ -32,6 +32,7 @@ import net.suntrans.tenement.bean.UploadInfo;
 import net.suntrans.tenement.bean.WeatherModel;
 import net.suntrans.tenement.bean.WuyeChargeRoom;
 import net.suntrans.tenement.bean.WuyePayInfo;
+import net.suntrans.tenement.bean.YichangEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -341,4 +342,8 @@ public interface Api {
     @FormUrlEncoded
     @POST("pay/getOrder2")
     Observable<ResultBody<WuyePayInfo>> getWuyeOrder(@Field("area_id") String area_id, @Field("created_at") String created_at);
+
+    @FormUrlEncoded
+    @POST("device/yichang")
+    Observable<ResultBody<YichangEntity>> getYichang(@Field("page") String page);
 }

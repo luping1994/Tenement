@@ -9,7 +9,6 @@ import java.util.Map;
  * Created by Looney on 2017/12/5.
  * Des:
  */
-
 public class MessageType {
     public static final int NORMAL =1;
     public static final int IMPORTANT =2;

@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -205,6 +206,10 @@ public class AdminHomepageFragment extends BasedFragment {
         super.onResume();
     }
 
+
+    private List<EnvInfo> envInfos = new ArrayList<>();
+    private List<View> envViews = new ArrayList<>();
+
     private void getEnv() {
         mCompositeSubscription.add(api.getHomeEnv()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -213,20 +218,10 @@ public class AdminHomepageFragment extends BasedFragment {
                     @Override
                     public void onNext(ResultBody<List<EnvInfo>> infos) {
                         envInfo = infos.data.get(0);
-                        binding.wendu.setText(envInfo.wendu.value);
-                        binding.shidu.setText(" " + envInfo.shidu.value + "%");
-                        binding.pm25.setText(" " + envInfo.pm25.value + "");
+                        envInfos.clear();
+                        envInfos = infos.data;
 
-                        binding.wenduEva.setText(envInfo.wendu.text);
-                        binding.shiduEnv.setText("   " + envInfo.shidu.text);
-                        binding.pm25Eva.setText(" " + envInfo.pm25.text);
-
-//                      System.out.println(envInfo.wendu.color);
-//                      System.out.println(envInfo.shidu.color);
-//                      System.out.println(envInfo.pm25.color);
-                        binding.wenduEva.setTextColor(Color.parseColor(envInfo.wendu.color));
-                        binding.shiduEnv.setTextColor(Color.parseColor(envInfo.shidu.color));
-                        binding.pm25Eva.setTextColor(Color.parseColor(envInfo.pm25.color));
+                        setUpEnvBanner(infos);
                     }
                 }));
     }
@@ -237,6 +232,83 @@ public class AdminHomepageFragment extends BasedFragment {
         super.onDestroy();
     }
 
+    private void setUpEnvBanner(ResultBody<List<EnvInfo>> info) {
+        if (envViews.size() == 0) {
+            for (int i = 0; i < info.data.size(); i++) {
+                View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_home_env, null, false);
+                TextView name = view.findViewById(R.id.name);
+                TextView wendu = view.findViewById(R.id.wendu);
+                TextView shidu = view.findViewById(R.id.shidu);
+                TextView pm25 = view.findViewById(R.id.pm25);
+                TextView wenduEva = view.findViewById(R.id.wenduEva);
+                TextView shiduEnv = view.findViewById(R.id.shiduEnv);
+                TextView pm25Eva = view.findViewById(R.id.pm25Eva);
+
+                EnvInfo e = info.data.get(i);
+                name.setText(e.name);
+                wendu.setText(e.wendu.value + "℃");
+                shidu.setText(" " + e.shidu.value + "%");
+                pm25.setText(" " + e.pm25.value + "");
+
+
+                wenduEva.setText(e.wendu.text);
+                shiduEnv.setText("   " + e.shidu.text);
+                pm25Eva.setText(" " + e.pm25.text);
+
+                wenduEva.setTextColor(Color.parseColor(e.wendu.color));
+                shiduEnv.setTextColor(Color.parseColor(e.shidu.color));
+                pm25Eva.setTextColor(Color.parseColor(e.pm25.color));
+
+                view.setTag(i);
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int tag = (int) v.getTag();
+                        if (envInfos.get(tag) != null) {
+                            Intent intent = new Intent(getActivity(), EnvDetailActivity.class);
+                            intent.putExtra("id", envInfos.get(tag).id);
+                            intent.putExtra("name", envInfos.get(tag).name);
+                            startActivity(intent);
+                        } else {
+                            UiUtils.showToast("无法获取环境信息");
+                        }
+                    }
+                });
+
+                envViews.add(view);
+            }
+            binding.bannerView.setViewList(envViews);
+            binding.bannerView.startLoop(false);
+        } else {
+            for (int i = 0; i < info.data.size(); i++) {
+                View view = envViews.get(i);
+                TextView name = view.findViewById(R.id.name);
+                TextView wendu = view.findViewById(R.id.wendu);
+                TextView shidu = view.findViewById(R.id.shidu);
+                TextView pm25 = view.findViewById(R.id.pm25);
+                TextView wenduEva = view.findViewById(R.id.wenduEva);
+                TextView shiduEnv = view.findViewById(R.id.shiduEnv);
+                TextView pm25Eva = view.findViewById(R.id.pm25Eva);
+
+                EnvInfo e = info.data.get(i);
+
+                name.setText(e.name);
+                wendu.setText(e.wendu.value + "℃");
+                shidu.setText(" " + e.shidu.value + "%");
+                pm25.setText(" " + e.pm25.value + "");
+
+
+                wenduEva.setText(e.wendu.text);
+                shiduEnv.setText("   " + e.shidu.text);
+                pm25Eva.setText(" " + e.pm25.text);
+
+                wenduEva.setTextColor(Color.parseColor(e.wendu.color));
+                shiduEnv.setTextColor(Color.parseColor(e.shidu.color));
+                pm25Eva.setTextColor(Color.parseColor(e.pm25.color));
+            }
+
+        }
+    }
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

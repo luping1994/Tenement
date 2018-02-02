@@ -13,15 +13,18 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import net.suntrans.common.utils.UiUtils;
 import net.suntrans.tenement.R;
+import net.suntrans.tenement.adapter.FragmentAdapter;
 import net.suntrans.tenement.bean.EnvInfo;
 import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.databinding.FragmentRentHomepageBinding;
@@ -145,12 +148,12 @@ public class RentHomepageFragment extends BasedFragment {
         binding.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (envData!=null){
+                if (envData != null) {
                     Intent intent = new Intent(getActivity(), EnvDetailActivity.class);
-                    intent.putExtra("id",envData.id);
-                    intent.putExtra("name",envData.name);
+                    intent.putExtra("id", envData.id);
+                    intent.putExtra("name", envData.name);
                     startActivity(intent);
-                }else {
+                } else {
                     UiUtils.showToast("无法获取环境信息");
                 }
 
@@ -191,6 +194,10 @@ public class RentHomepageFragment extends BasedFragment {
         super.onResume();
     }
 
+
+    private List<EnvInfo> envInfos = new ArrayList<>();
+    private List<View> envViews = new ArrayList<>();
+
     private void getEnv() {
         mCompositeSubscription.add(api.getHomeEnv()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -199,19 +206,108 @@ public class RentHomepageFragment extends BasedFragment {
                     @Override
                     public void onNext(ResultBody<List<EnvInfo>> info) {
                         envData = info.data.get(0);
-                        binding.wendu.setText(envData.wendu.value+"℃");
-                        binding.shidu.setText(" " + envData.shidu.value + "%");
-                        binding.pm25.setText(" " + envData.pm25.value + "");
 
-                        binding.wenduEva.setText(envData.wendu.text);
-                        binding.shiduEnv.setText("   "+envData.shidu.text);
-                        binding.pm25Eva.setText(" "+envData.pm25.text);
+                        envInfos.clear();
+                        envInfos = info.data;
 
-                        binding.wenduEva.setTextColor(Color.parseColor(envData.wendu.color));
-                        binding.shiduEnv.setTextColor(Color.parseColor(envData.shidu.color));
-                        binding.pm25Eva.setTextColor(Color.parseColor(envData.pm25.color));
+//                        binding.name.setText(envData.name);
+//
+//                        binding.wendu.setText(envData.wendu.value + "℃");
+//                        binding.shidu.setText(" " + envData.shidu.value + "%");
+//                        binding.pm25.setText(" " + envData.pm25.value + "");
+//
+//
+//                        binding.wenduEva.setText(envData.wendu.text);
+//                        binding.shiduEnv.setText("   " + envData.shidu.text);
+//                        binding.pm25Eva.setText(" " + envData.pm25.text);
+//
+//                        binding.wenduEva.setTextColor(Color.parseColor(envData.wendu.color));
+//                        binding.shiduEnv.setTextColor(Color.parseColor(envData.shidu.color));
+//                        binding.pm25Eva.setTextColor(Color.parseColor(envData.pm25.color));
+
+                        setUpEnvBanner(info);
+
+
                     }
                 }));
+    }
+
+    private void setUpEnvBanner(ResultBody<List<EnvInfo>> info) {
+        if (envViews.size() == 0) {
+            for (int i = 0; i < info.data.size(); i++) {
+                View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_home_env, null, false);
+                TextView name = view.findViewById(R.id.name);
+                TextView wendu = view.findViewById(R.id.wendu);
+                TextView shidu = view.findViewById(R.id.shidu);
+                TextView pm25 = view.findViewById(R.id.pm25);
+                TextView wenduEva = view.findViewById(R.id.wenduEva);
+                TextView shiduEnv = view.findViewById(R.id.shiduEnv);
+                TextView pm25Eva = view.findViewById(R.id.pm25Eva);
+
+                EnvInfo e = info.data.get(i);
+                name.setText(e.name);
+                wendu.setText(e.wendu.value + "℃");
+                shidu.setText(" " + e.shidu.value + "%");
+                pm25.setText(" " + e.pm25.value + "");
+
+
+                wenduEva.setText(e.wendu.text);
+                shiduEnv.setText("   " + e.shidu.text);
+                pm25Eva.setText(" " + e.pm25.text);
+
+                wenduEva.setTextColor(Color.parseColor(e.wendu.color));
+                shiduEnv.setTextColor(Color.parseColor(e.shidu.color));
+                pm25Eva.setTextColor(Color.parseColor(e.pm25.color));
+
+                view.setTag(i);
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int tag = (int) v.getTag();
+                        if (envInfos.get(tag) != null) {
+                            Intent intent = new Intent(getActivity(), EnvDetailActivity.class);
+                            intent.putExtra("id", envInfos.get(tag).id);
+                            intent.putExtra("name", envInfos.get(tag).name);
+                            startActivity(intent);
+                        } else {
+                            UiUtils.showToast("无法获取环境信息");
+                        }
+                    }
+                });
+
+                envViews.add(view);
+            }
+            binding.bannerView.setViewList(envViews);
+            binding.bannerView.startLoop(false);
+        } else {
+            for (int i = 0; i < info.data.size(); i++) {
+                View view = envViews.get(i);
+                TextView name = view.findViewById(R.id.name);
+                TextView wendu = view.findViewById(R.id.wendu);
+                TextView shidu = view.findViewById(R.id.shidu);
+                TextView pm25 = view.findViewById(R.id.pm25);
+                TextView wenduEva = view.findViewById(R.id.wenduEva);
+                TextView shiduEnv = view.findViewById(R.id.shiduEnv);
+                TextView pm25Eva = view.findViewById(R.id.pm25Eva);
+
+                EnvInfo e = info.data.get(i);
+
+                name.setText(e.name);
+                wendu.setText(e.wendu.value + "℃");
+                shidu.setText(" " + e.shidu.value + "%");
+                pm25.setText(" " + e.pm25.value + "");
+
+
+                wenduEva.setText(e.wendu.text);
+                shiduEnv.setText("   " + e.shidu.text);
+                pm25Eva.setText(" " + e.pm25.text);
+
+                wenduEva.setTextColor(Color.parseColor(envData.wendu.color));
+                shiduEnv.setTextColor(Color.parseColor(envData.shidu.color));
+                pm25Eva.setTextColor(Color.parseColor(envData.pm25.color));
+            }
+
+        }
     }
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -220,14 +316,14 @@ public class RentHomepageFragment extends BasedFragment {
             ConnectivityManager manager = (ConnectivityManager) context
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo activeNetworkInfo = manager.getActiveNetworkInfo();
-            if (activeNetworkInfo==null){
-               binding.tips.setVisibility(View.VISIBLE);
-            }else {
-                if (!activeNetworkInfo.isAvailable()||activeNetworkInfo.isFailover()){
+            if (activeNetworkInfo == null) {
+                binding.tips.setVisibility(View.VISIBLE);
+            } else {
+                if (!activeNetworkInfo.isAvailable() || activeNetworkInfo.isFailover()) {
                     //network is not available
                     binding.tips.setVisibility(View.VISIBLE);
 
-                }else {
+                } else {
                     //network is available
                     binding.tips.setVisibility(View.GONE);
 
@@ -235,7 +331,6 @@ public class RentHomepageFragment extends BasedFragment {
             }
         }
     };
-
 
 
 }

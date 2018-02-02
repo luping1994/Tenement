@@ -1,8 +1,11 @@
 package net.suntrans.tenement
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.Gravity
+import android.view.KeyEvent
 import android.view.MenuItem
+import android.widget.Toast
 import com.pgyersdk.update.PgyUpdateManager
 import net.suntrans.tenement.BuildConfig.DEBUG
 import net.suntrans.tenement.databinding.ActivityMainBinding
@@ -76,6 +79,23 @@ class MainActivity : BasedActivity() {
 
     fun openDrawerLayout(){
         binding!!.drawerLayout.openDrawer(Gravity.LEFT)
+    }
+
+    private val mHits = LongArray(2)
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            System.arraycopy(mHits, 1, mHits, 0, mHits.size - 1)
+            mHits[mHits.size - 1] = SystemClock.uptimeMillis()
+            if (mHits[0] >= SystemClock.uptimeMillis() - 2000) {
+                //                finish();
+                android.os.Process.killProcess(android.os.Process.myPid())
+            } else {
+                Toast.makeText(this.applicationContext, "再按一次返回键退出", Toast.LENGTH_SHORT).show()
+            }
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
 }

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/homepage_header_height"
+    android:layout_centerInParent="true"
+    android:background="@drawable/ic_homepage_header">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/homw_page_shidu_m_rl"
+        android:layout_marginTop="16dp"
+        android:text=" "
+        android:textColor="@color/textColor"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/shidu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/homepage_shidu_margin_bottom"
+        android:layout_marginLeft="@dimen/homw_page_shidu_m_rl"
+        android:drawableLeft="@drawable/icon_shidu"
+        android:drawablePadding="8dp"
+        android:text="--%"
+        android:textColor="@color/textColor"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/shiduEnv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/homepage_shidu_margin_bottom"
+        android:layout_toRightOf="@id/shidu"
+        android:text=" "
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/pm25Eva"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/homepage_shidu_margin_bottom"
+        android:layout_marginRight="@dimen/homw_page_shidu_m_rl"
+        android:text=" "
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/home_page_shidu_textSize" />
+
+    <TextView
+        android:id="@+id/pm25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/homepage_shidu_margin_bottom"
+        android:layout_toLeftOf="@id/pm25Eva"
+        android:drawableLeft="@drawable/icon_pm"
+        android:drawablePadding="8dp"
+        android:text="--%"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/home_page_shidu_textSize" />
+
+    <LinearLayout
+        android:layout_width="106.6dp"
+        android:layout_height="96dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/bg_wendu"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/wendu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:text="25℃"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/wenduEva"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:text=""
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
+    </LinearLayout>
+</RelativeLayout>

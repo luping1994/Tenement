@@ -73,7 +73,7 @@ public class CompanyUserFragment extends BasedFragment {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                UiUtils.showToast("您没有查看该用户资料的权限");
+//                UiUtils.showToast("您没有查看该用户资料的权限");
             }
         });
 

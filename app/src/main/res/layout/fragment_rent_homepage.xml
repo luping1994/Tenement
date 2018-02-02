@@ -8,8 +8,8 @@
         android:orientation="vertical">
 
         <!--<include-->
-            <!--android:id="@+id/toolbar"-->
-            <!--layout="@layout/custom_toolbar" />-->
+        <!--android:id="@+id/toolbar"-->
+        <!--layout="@layout/custom_toolbar" />-->
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/refreshLayout"
@@ -43,12 +43,30 @@
                         android:textSize="12sp"
                         android:visibility="gone" />
 
+                    <net.suntrans.tenement.widgets.BannerView
+                        android:id="@+id/bannerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/homepage_header_height">
+
+                    </net.suntrans.tenement.widgets.BannerView>
+
                     <RelativeLayout
+                        android:visibility="gone"
                         android:id="@+id/relativeLayout"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/homepage_header_height"
                         android:layout_centerInParent="true"
                         android:background="@drawable/ic_homepage_header">
+
+                        <TextView
+                            android:id="@+id/name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/homw_page_shidu_m_rl"
+                            android:layout_marginTop="16dp"
+                            android:text=" "
+                            android:textColor="@color/textColor"
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/shidu"
@@ -58,7 +76,8 @@
                             android:layout_marginBottom="@dimen/homepage_shidu_margin_bottom"
                             android:layout_marginLeft="@dimen/homw_page_shidu_m_rl"
                             android:drawableLeft="@drawable/icon_shidu"
-                            android:text=" 59.2%"
+                            android:drawablePadding="8dp"
+                            android:text="--%"
                             android:textColor="@color/textColor"
                             android:textSize="14sp" />
 
@@ -93,15 +112,16 @@
                             android:layout_marginBottom="@dimen/homepage_shidu_margin_bottom"
                             android:layout_toLeftOf="@id/pm25Eva"
                             android:drawableLeft="@drawable/icon_pm"
-                            android:text=" 59.2%"
+                            android:drawablePadding="8dp"
+                            android:text="--%"
                             android:textColor="@color/textColor"
                             android:textSize="@dimen/home_page_shidu_textSize" />
 
                         <LinearLayout
-                            android:layout_centerVertical="true"
                             android:layout_width="106.6dp"
                             android:layout_height="96dp"
                             android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
                             android:background="@drawable/bg_wendu"
                             android:gravity="center_horizontal"
                             android:orientation="vertical">
@@ -132,12 +152,11 @@
                     </RelativeLayout>
 
                     <FrameLayout
-                        android:minHeight="120dp"
                         android:id="@+id/channelContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/white">
-                    </FrameLayout>
+                        android:background="@color/white"
+                        android:minHeight="120dp"></FrameLayout>
 
 
                     <GridView
@@ -150,11 +169,12 @@
                         android:stretchMode="columnWidth">
 
                     </GridView>
+
                     <TextView
-                        android:gravity="center"
-                        android:text="没有更多了"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp" />
+                        android:layout_height="45dp"
+                        android:gravity="center"
+                        android:text="没有更多了" />
 
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>

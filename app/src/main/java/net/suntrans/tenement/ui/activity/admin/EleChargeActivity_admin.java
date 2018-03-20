@@ -86,7 +86,9 @@ public class EleChargeActivity_admin extends BasedActivity {
             helper.setText(R.id.name,item.name)
                     .setText(R.id.subName,"在租方:"+item.company_name)
                     .setText(R.id.payStatus,item.pay_type==null?"未知":item.pay_type.equals("0")?"未缴纳":"已缴纳")
-                    .setText(R.id.totalMoney,String.format(getString(R.string.wuyefei),item.total_money));
+                    .setText(R.id.totalMoney,String.format(getString(R.string.dianfei),item.total_money));
+
+
             helper.setTextColor(R.id.payStatus,item.pay_type==null?Color.parseColor("#afafaf")
                     :item.pay_type.equals("0")?Color.parseColor("#afafaf")
                     :getResources().getColor(R.color.colorPrimary));
@@ -103,7 +105,7 @@ public class EleChargeActivity_admin extends BasedActivity {
     private void getData() {
 
 
-        addSubscription(api.getWuyechargeRoom(), new BaseSubscriber<ResultBody<List<WuyeChargeRoom>>>() {
+        addSubscription(api.getElechargeRoom(), new BaseSubscriber<ResultBody<List<WuyeChargeRoom>>>() {
             @Override
             public void onNext(ResultBody<List<WuyeChargeRoom>> listResultBody) {
                 super.onNext(listResultBody);

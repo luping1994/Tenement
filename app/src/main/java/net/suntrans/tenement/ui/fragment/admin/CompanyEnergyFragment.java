@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +72,13 @@ public class CompanyEnergyFragment extends BasedFragment {
             }
         });
 
+        binding.refreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getData(id);
+
+            }
+        });
         id = getArguments().getString("id");
     }
 
@@ -100,9 +108,16 @@ public class CompanyEnergyFragment extends BasedFragment {
             @Override
             public void onNext(ResultBody<E> listResultBody) {
                 super.onNext(listResultBody);
+                binding.refreshlayout.setRefreshing(false);
                 datas.clear();
                 datas.addAll(listResultBody.data.data);
                 adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                binding.refreshlayout.setRefreshing(false);
             }
         });
     }

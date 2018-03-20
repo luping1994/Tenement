@@ -19,4 +19,5 @@ public class DeviceInfo {
     public String name;
     public String title;
     public String is_online;
+    public String vtype;
 }

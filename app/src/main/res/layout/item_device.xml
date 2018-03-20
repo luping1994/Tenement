@@ -15,7 +15,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin">
 
         <ImageView
-            android:src="@drawable/ic_shitongdao"
+            android:src="@drawable/ic_liutongdao"
             android:id="@+id/image"
             android:layout_width="72dp"
             android:layout_height="72dp"

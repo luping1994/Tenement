@@ -24,6 +24,7 @@ import net.suntrans.tenement.bean.DeviceInfo;
 import net.suntrans.tenement.bean.ResultBody;
 import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.activity.DeviceDetailActivity;
+import net.suntrans.tenement.ui.activity.EnvDetailActivity;
 import net.suntrans.tenement.ui.fragment.BasedFragment;
 
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public class DevicesManagerFragment extends BasedFragment {
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshlayout);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -94,6 +95,7 @@ public class DevicesManagerFragment extends BasedFragment {
         List<DeviceInfo> datas;
         private Context context;
         public int size = UiUtils.dip2px(96);
+
         public DevicesAdapter(List<DeviceInfo> datas, Context context) {
             this.datas = datas;
             this.context = context;
@@ -132,15 +134,22 @@ public class DevicesManagerFragment extends BasedFragment {
                 des = (TextView) itemView.findViewById(R.id.des);
                 root = (RelativeLayout) itemView.findViewById(R.id.root);
 
+
                 root.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        if (datas.get(getAdapterPosition()).name.contains("六")||datas.get(getAdapterPosition()).name.equals("十")){
-                            Intent intent = new Intent(context,DeviceDetailActivity.class);
-                            intent.putExtra("title",datas.get(getAdapterPosition()).title);
-                            intent.putExtra("id",datas.get(getAdapterPosition()).id);
+                        if ("4300".equals(datas.get(getAdapterPosition()).vtype)
+                                || "4100".equals(datas.get(getAdapterPosition()).vtype)
+                                || "4900".equals(datas.get(getAdapterPosition()).vtype)) {
+                            Intent intent = new Intent(context, DeviceDetailActivity.class);
+                            intent.putExtra("title", datas.get(getAdapterPosition()).title);
+                            intent.putExtra("id", datas.get(getAdapterPosition()).id);
                             context.startActivity(intent);//fc561f
+                        } else if ("6100".equals(datas.get(getAdapterPosition()).vtype)) {
+                            Intent intent = new Intent(context, EnvDetailActivity.class);
+                            intent.putExtra("id", datas.get(getAdapterPosition()).id);
+                            intent.putExtra("name",datas.get(getAdapterPosition()).name);
+                            context.startActivity(intent);
                         }
 
                     }
@@ -159,46 +168,50 @@ public class DevicesManagerFragment extends BasedFragment {
                     title.setText("不在线");
                     title.setTextColor(Color.parseColor("#999999"));
                 }
-//                Glide.with(context)
-//                        .load(datas.get(position).product_img)
-//                        .dontTransform()
-//                        .placeholder(R.drawable.ic_liutongdao)
-//                        .crossFade()
-//                        .override(size,size)
-//                        .into(imageView);
+
+                if ("4300".equals(datas.get(getAdapterPosition()).vtype)) {
+                    imageView.setImageResource(R.drawable.ic_4300);
+                } else if ("4100".equals(datas.get(getAdapterPosition()).vtype)) {
+                    imageView.setImageResource(R.drawable.ic_4100);
+
+                } else if ("6100".equals(datas.get(getAdapterPosition()).vtype)) {
+                    imageView.setImageResource(R.drawable.ic_6100);
+                } else if ("9100".equals(datas.get(getAdapterPosition()).vtype)) {
+                    imageView.setImageResource(R.drawable.ic_9100);
+                }
             }
         }
     }
 
     public void getData() {
-       mCompositeSubscription.add( api.getMyDevices()
-               .observeOn(AndroidSchedulers.mainThread())
-               .subscribeOn(Schedulers.io())
-               .subscribe(new BaseSubscriber<ResultBody<DeviceEntity>>(getActivity()) {
-                   @Override
-                   public void onError(Throwable e) {
-                       super.onError(e);
-                       e.printStackTrace();
-                       if (refreshLayout != null)
-                           refreshLayout.setRefreshing(false);
-                   }
+        mCompositeSubscription.add(api.getMyDevices()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new BaseSubscriber<ResultBody<DeviceEntity>>(getActivity()) {
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        e.printStackTrace();
+                        if (refreshLayout != null)
+                            refreshLayout.setRefreshing(false);
+                    }
 
-                   @Override
-                   public void onNext(ResultBody<DeviceEntity> deviceInfoResult) {
-                       if (refreshLayout != null)
-                           refreshLayout.setRefreshing(false);
-                       if (deviceInfoResult != null) {
-                           datas.clear();
-                           if (deviceInfoResult.data.lists != null) {
-                               datas.addAll(deviceInfoResult.data.lists);
-                               adapter.notifyDataSetChanged();
-                           }
-                       }
-                       if (datas.size() == 0) {
-                           UiUtils.showToast("暂无数据");
-                       }
-                   }
-               }));
+                    @Override
+                    public void onNext(ResultBody<DeviceEntity> deviceInfoResult) {
+                        if (refreshLayout != null)
+                            refreshLayout.setRefreshing(false);
+                        if (deviceInfoResult != null) {
+                            datas.clear();
+                            if (deviceInfoResult.data.lists != null) {
+                                datas.addAll(deviceInfoResult.data.lists);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                        if (datas.size() == 0) {
+                            UiUtils.showToast("暂无数据");
+                        }
+                    }
+                }));
 
     }
 

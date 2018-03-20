@@ -45,10 +45,10 @@ public class CompanyUserFragment extends BasedFragment {
     private MyUserAdapter adapter;
     private String id;
 
-    public static CompanyUserFragment newInstance(String id){
+    public static CompanyUserFragment newInstance(String id) {
         CompanyUserFragment fragment = new CompanyUserFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("id",id);
+        bundle.putString("id", id);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -56,7 +56,7 @@ public class CompanyUserFragment extends BasedFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_energy,container,false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_company_energy, container, false);
         return binding.getRoot();
     }
 
@@ -69,7 +69,7 @@ public class CompanyUserFragment extends BasedFragment {
         adapter.bindToRecyclerView(binding.recyclerView);
         adapter.setEmptyView(R.layout.recyclerview_empty_view);
         binding.recyclerView.setAdapter(adapter);
-        binding.recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        binding.recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -95,22 +95,23 @@ public class CompanyUserFragment extends BasedFragment {
         @Override
         protected void convert(BaseViewHolder helper, Stuff item) {
 
-            helper.setText(R.id.name,  item.truename==null?"--":item.truename);
-            helper.setText(R.id.telephone, item.mobile==null?"--":item.mobile);
+            helper.setText(R.id.name, item.truename == null ? "--" : item.truename);
+            helper.setText(R.id.telephone, item.mobile == null ? "--" : item.mobile);
 
             final ImageView toxiang = helper.getView(R.id.touxiang);
 
-            Glide.with(getActivity())
-                    .load(item.cover)
-                    .asBitmap()
-                    .placeholder(R.drawable.ic_atouxiang)
-                    .override(imgSize, imgSize)
-                    .into(new SimpleTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                            toxiang.setImageBitmap(resource);
-                        }
-                    });
+//            Glide.with(getActivity())
+//                    .load(item.cover)
+//                    .asBitmap()
+//                    .placeholder(R.drawable.ic_atouxiang)
+//                    .override(imgSize, imgSize)
+//                    .into(new SimpleTarget<Bitmap>() {
+//                        @Override
+//                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+//                            if (resource != null)
+//                                toxiang.setImageBitmap(resource);
+//                        }
+//                    });
         }
     }
 

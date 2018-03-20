@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">三川孵化器</string>
+    <string name="app_name">光正孵化器</string>
 
     <string name="title_login">登录</string>
     <string name="title_register">注册</string>
@@ -71,6 +71,7 @@
     <string name="warning_is_control">是否执行该场景</string>
     <string name="LinearLayoutManager">LinearLayoutManager</string>
     <string name="wuyefei">上月应缴物业费%1$s元</string>
+    <string name="dianfei">上月应缴电费%1$s元</string>
     <string name="tips_nodata">当月暂无数据</string>
     <string name="tips_wx_isnotinstall">当前手机未安装微信客户端</string>
     <string name="tips_getorder_failed">获取订单失败</string>

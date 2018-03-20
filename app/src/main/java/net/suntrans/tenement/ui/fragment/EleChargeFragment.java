@@ -77,7 +77,7 @@ public class EleChargeFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        FullScreenDialog dialog = new FullScreenDialog(getContext(), R.style.transparentDialog);
+        FullScreenDialog dialog = new FullScreenDialog(getContext(), R.style.chargeDialog);
         return dialog;
     }
 
@@ -121,8 +121,15 @@ public class EleChargeFragment extends DialogFragment {
         binding.next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ct.add(Calendar.MONTH, +1);
+                ct.add(Calendar.MONTH, 2);
+                if (ct.getTime().compareTo(new Date()) > 0) {
+                    ct.add(Calendar.MONTH, -2);
+                    UiUtils.showToast("下月电费未出账");
+                    return;
+                }
+                ct.add(Calendar.MONTH, -1);
                 String format = dateFormat.format(ct.getTime());
+                System.out.println(format);
                 binding.time.setText(format.substring(0, 7));
                 clearData();
                 getData(format);
@@ -135,7 +142,6 @@ public class EleChargeFragment extends DialogFragment {
                 ct.add(Calendar.MONTH, -1);
                 String format = dateFormat.format(ct.getTime());
                 binding.time.setText(format.substring(0, 7));
-                System.out.println(format);
                 clearData();
                 getData(format);
 

@@ -334,6 +334,7 @@ public interface Api {
     @POST("pay/electricityGetRooms")
     Observable<ResultBody<List<WuyeChargeRoom>>> getElechargeRoom();
 
+
     /**
      * 获取房间物业缴费详情
      *
@@ -342,6 +343,7 @@ public interface Api {
     @FormUrlEncoded
     @POST("pay/getOrder2")
     Observable<ResultBody<WuyePayInfo>> getWuyeOrder(@Field("area_id") String area_id, @Field("created_at") String created_at);
+
 
     @FormUrlEncoded
     @POST("device/yichang")

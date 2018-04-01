@@ -111,8 +111,8 @@ public class WuyeCRoomActivity_admin extends BasedActivity {
         protected void convert(BaseViewHolder helper, WuyeChargeRoom item) {
             helper.setText(R.id.name,item.name)
                     .setText(R.id.subName,"在租方:"+item.company_name)
-                    .setText(R.id.payStatus,item.pay_type==null?"未知":item.pay_type.equals("0")?"未缴纳":"已缴纳")
-                    .setText(R.id.totalMoney,String.format(getString(R.string.wuyefei),item.total_money));
+                    .setText(R.id.payStatus,item.pay_type==null?"未出账":item.pay_type.equals("0")?"未缴纳":"已缴纳")
+                    .setText(R.id.totalMoney,item.total_money==null?String.format(getString(R.string.wuyefei),"0.00"):String.format(getString(R.string.wuyefei),item.total_money));
             helper.setTextColor(R.id.payStatus,item.pay_type==null?Color.parseColor("#afafaf")
                     :item.pay_type.equals("0")?Color.parseColor("#afafaf")
                     :getResources().getColor(R.color.colorPrimary));

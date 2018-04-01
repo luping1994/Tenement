@@ -1,6 +1,7 @@
 package net.suntrans.tenement.ui.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import net.suntrans.common.utils.UiUtils;
+import net.suntrans.looney.widgets.IosAlertDialog;
 import net.suntrans.looney.widgets.LoadingDialog;
 import net.suntrans.tenement.R;
 import net.suntrans.tenement.adapter.DividerItemDecoration;
@@ -25,6 +27,7 @@ import net.suntrans.tenement.bean.SceneItemlEntity;
 import net.suntrans.tenement.databinding.ActivitySceneDetailBinding;
 import net.suntrans.tenement.rx.BaseSubscriber;
 import net.suntrans.tenement.ui.fragment.PicChooseFragment;
+import net.suntrans.tenement.ui.fragment.SceneFragment;
 import net.suntrans.tenement.ui.fragment.rent.AllChannelFragment;
 
 import org.json.JSONArray;
@@ -83,6 +86,8 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     finish();
+                                    setResult(3,new Intent());
+
                                 }
                             })
                             .setMessage(R.string.warning_not_save)
@@ -143,6 +148,26 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
                 }).create().show();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (!sceneName.equals(binding.sceneName.getText().toString())){
+            new AlertDialog.Builder(SceneDetailActivity.this)
+                    .setNegativeButton(R.string.cancel,null)
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            setResult(3,new Intent());
+
+                        }
+                    })
+                    .setMessage(R.string.warning_not_save)
+                    .create().show();
+        }else {
+            finish();
+        }
+    }
+
     public void rightSubTitleClicked(View view) {
         updateScene();
     }
@@ -174,6 +199,8 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
         });
     }
 
+
+
     private void updateScene() {
         String name = binding.sceneName.getText().toString();
         if (TextUtils.isEmpty(name)) {
@@ -195,7 +222,20 @@ public class SceneDetailActivity extends BasedActivity implements PicChooseFragm
             @Override
             public void onNext(ResultBody resultBody) {
                 super.onNext(resultBody);
-                UiUtils.showToast(resultBody.msg);
+                if (resultBody.code==200){
+                    new IosAlertDialog(SceneDetailActivity.this)
+                            .builder()
+                            .setCancelable(false)
+                            .setMsg("修改成功!")
+                            .setPositiveButton(getString(R.string.ok), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                 finish();
+                                }
+                            }).show();
+                }else {
+                    UiUtils.showToast(resultBody.msg);
+                }
                 sceneName = binding.sceneName.getText().toString();
                 dialog.dismiss();
             }

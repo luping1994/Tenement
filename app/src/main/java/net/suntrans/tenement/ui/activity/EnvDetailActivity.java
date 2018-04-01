@@ -149,7 +149,7 @@ public class EnvDetailActivity extends BasedActivity {
                 nameTx.setText("烟雾");
                 standard.setImageResource(R.drawable.ic_pm_progress);
                 if (data != null) {
-                    valueTx.setText(data.getYanwu() + "ppm");
+                    valueTx.setText(data.getYanwu() + "ug/m³");
                     evaluateTx.setText(data.yanwuEva);
                     setPading(data.yanwuPro, layout_arrow, valueTx);
                 }
@@ -158,7 +158,7 @@ public class EnvDetailActivity extends BasedActivity {
                 nameTx.setText("甲醛");
                 standard.setImageResource(R.drawable.ic_pm_progress);
                 if (data != null) {
-                    valueTx.setText(data.getJiaquan() + "ppm");
+                    valueTx.setText(data.getJiaquan() + "ug/m³");
                     evaluateTx.setText(data.jiaquanEva);
                     setPading(data.jiaquanPro, layout_arrow, valueTx);
                 }
@@ -167,7 +167,7 @@ public class EnvDetailActivity extends BasedActivity {
                 nameTx.setText("PM1");
                 standard.setImageResource(R.drawable.ic_pm_progress);
                 if (data != null) {
-                    valueTx.setText(data.getPM1() + "ppm");
+                    valueTx.setText(data.getPM1() + "ug/m3");
                     evaluateTx.setText(data.pm1Eva);
                     setPading(data.pm1Pro, layout_arrow, valueTx);
                 }
@@ -176,7 +176,7 @@ public class EnvDetailActivity extends BasedActivity {
                 nameTx.setText("PM2.5");
                 standard.setImageResource(R.drawable.ic_pm_progress);
                 if (data != null) {
-                    valueTx.setText(data.getPm25() + "ppm");
+                    valueTx.setText(data.getPm25() + "ug/m3");
                     evaluateTx.setText(data.pm25Eva);
                     setPading(data.pm25Pro, layout_arrow, valueTx);
                 }
@@ -185,7 +185,7 @@ public class EnvDetailActivity extends BasedActivity {
                 nameTx.setText("PM10");
                 standard.setImageResource(R.drawable.ic_pm_progress);
                 if (data != null) {
-                    valueTx.setText(data.getPm10() + "ppm");
+                    valueTx.setText(data.getPm10() + "ug/m3");
                     evaluateTx.setText(data.pm10Eva);
                     setPading(data.pm10Pro, layout_arrow, valueTx);
                 }

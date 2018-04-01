@@ -84,10 +84,9 @@ public class EleChargeActivity_admin extends BasedActivity {
         @Override
         protected void convert(BaseViewHolder helper, WuyeChargeRoom item) {
             helper.setText(R.id.name,item.name)
-                    .setText(R.id.subName,"在租方:"+item.company_name)
-                    .setText(R.id.payStatus,item.pay_type==null?"未知":item.pay_type.equals("0")?"未缴纳":"已缴纳")
+                    .setText(R.id.subName,item.company_name==null?"在租方:":"在租方:"+item.company_name)
+                    .setText(R.id.payStatus,item.pay_type==null?"未出账":item.pay_type.equals("0")?"未缴纳":"已缴纳")
                     .setText(R.id.totalMoney,String.format(getString(R.string.dianfei),item.total_money));
-
 
             helper.setTextColor(R.id.payStatus,item.pay_type==null?Color.parseColor("#afafaf")
                     :item.pay_type.equals("0")?Color.parseColor("#afafaf")

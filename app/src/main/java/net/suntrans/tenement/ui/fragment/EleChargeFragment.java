@@ -124,12 +124,12 @@ public class EleChargeFragment extends DialogFragment {
                 ct.add(Calendar.MONTH, 2);
                 if (ct.getTime().compareTo(new Date()) > 0) {
                     ct.add(Calendar.MONTH, -2);
-                    UiUtils.showToast("下月电费未出账");
+                    UiUtils.showToast("本月电费未出账");
                     return;
                 }
                 ct.add(Calendar.MONTH, -1);
                 String format = dateFormat.format(ct.getTime());
-                System.out.println(format);
+
                 binding.time.setText(format.substring(0, 7));
                 clearData();
                 getData(format);
@@ -247,6 +247,9 @@ public class EleChargeFragment extends DialogFragment {
             }
         }
 
+        if (wxapi == null) {
+            wxapi = WXAPIFactory.createWXAPI(getActivity(), Constants.APP_ID);
+        }
         if (!wxapi.isWXAppInstalled()){
             UiUtils.showToast(getString(R.string.tips_wx_isnotinstall));
             return;
@@ -270,7 +273,6 @@ public class EleChargeFragment extends DialogFragment {
                         if (wxapi == null) {
                             wxapi = WXAPIFactory.createWXAPI(getActivity(), Constants.APP_ID);
                         }
-                        System.out.println(result.data.toString());
                         wxapi.registerApp(Constants.APP_ID);
                         PayReq req = new PayReq();
 

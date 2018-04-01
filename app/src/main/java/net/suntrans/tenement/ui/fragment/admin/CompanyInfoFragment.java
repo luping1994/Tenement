@@ -58,7 +58,7 @@ public class CompanyInfoFragment extends BasedFragment {
             @Override
             public void onNext(ResultBody<CompanyInfo> companyInfo) {
                 super.onNext(companyInfo);
-                binding.telephone.setText(companyInfo.data.telphone);
+                binding.telephone.setText(companyInfo.data.mobile);
                 binding.time.setText(companyInfo.data.date_start+"~"+companyInfo.data.date_end);
                 binding.address.setText(companyInfo.data.address);
                 binding.name.setText(companyInfo.data.name);

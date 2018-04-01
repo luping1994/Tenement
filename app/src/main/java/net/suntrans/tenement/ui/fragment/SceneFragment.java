@@ -30,6 +30,7 @@ import net.suntrans.tenement.ui.activity.SceneDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -42,7 +43,7 @@ import rx.schedulers.Schedulers;
 public class SceneFragment extends BasedFragment {
 
 
-    public static List<SceneInfo> datas = new ArrayList<>();
+    public static List<SceneInfo> datas = new CopyOnWriteArrayList<>();
     private FragmentSceneBinding binding;
     private SceneAdapter adapter;
     private static Handler handler = new Handler();
@@ -91,7 +92,6 @@ public class SceneFragment extends BasedFragment {
 
     @Override
     public void onResume() {
-
         getData();
         super.onResume();
     }

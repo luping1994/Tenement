@@ -37,5 +37,6 @@ public class WuyePayInfo {
     public String updated_at;
     public String pay_type;
     public String pay_at;
+    public String date_ym;
     public String area_id;
 }

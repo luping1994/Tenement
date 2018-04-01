@@ -31,7 +31,6 @@ class AdminMainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 //        binding!!.toolbar.title.setText("三川物业")
-
         val homepageFragment = AdminHomepageFragment()
 //        val mineFragment = RentMineFragment()
 

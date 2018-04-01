@@ -23,5 +23,6 @@ public class CompanyInfo {
     public String date_start;
     public String date_end;
     public String telphone;
+    public String mobile;
     public String electricty_start;
 }

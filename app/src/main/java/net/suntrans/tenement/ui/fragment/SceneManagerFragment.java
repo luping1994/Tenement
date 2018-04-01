@@ -39,7 +39,6 @@ import rx.schedulers.Schedulers;
 
 public class SceneManagerFragment extends BasedFragment {
 
-
     private FragmentSceneBinding binding;
     private SceneAdapter adapter;
     private LoadingDialog dialog;
@@ -89,12 +88,18 @@ public class SceneManagerFragment extends BasedFragment {
                 intent.putExtra("sceneName", SceneFragment.datas.get(position).name);
                 intent.putExtra("sceneID", SceneFragment.datas.get(position).id);
                 intent.putExtra("img", SceneFragment.datas.get(position).image);
-                startActivity(intent);
+                startActivityForResult(intent,2);
             }
         });
         View headerView = LayoutInflater.from(getContext()).inflate(R.layout.scene_header_view, null, false);
 
         adapter.setHeaderView(headerView);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        getData();
     }
 
     @Override

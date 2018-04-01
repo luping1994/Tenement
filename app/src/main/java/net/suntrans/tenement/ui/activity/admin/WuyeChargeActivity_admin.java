@@ -190,7 +190,7 @@ public class WuyeChargeActivity_admin extends BasedActivity {
                 binding.publicWaterFee.setText(data.pub_water_fee + "元");
                 binding.publicEleFee.setText(data.pub_electricity_fee + "元");
                 binding.manageFee.setText(data.management_fee + "元");
-                binding.shijian.setText(data.created_at.substring(0, 7));
+                binding.shijian.setText(data.date_ym);
                 binding.payStatus.setText(data.pay_type.equals("0") ? "未缴纳" : "已缴纳");
                 binding.payStatus.setTextColor(data.pay_type.equals("0") ? Color.parseColor("#ff0000") : getResources().getColor(R.color.colorPrimary));
                 if (dialog != null) {

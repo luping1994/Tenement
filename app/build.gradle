@@ -13,8 +13,8 @@ android {
         applicationId "net.suntrans.tenement"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 38
-        versionName "V1.0.7"
+        versionCode 42
+        versionName "V1.1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     dataBinding {
@@ -87,4 +87,7 @@ dependencies {
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     implementation project(':matisse')
+
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+
 }

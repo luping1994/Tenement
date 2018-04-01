@@ -52,7 +52,7 @@ public class AmmeterParameterActivity extends BasedActivity {
                 binding.current.setText(body.data.current+"A");
                 binding.power.setText(body.data.power+"kW");
                 binding.powerRate.setText(body.data.power_rate+"");
-                binding.electricity.setText(body.data.electricity+"kWh");
+                binding.electricity.setText(body.data.electricity+"kW·h");
                 binding.refreshlayout.setRefreshing(false);
                 binding.time.setText(body.data.updated_at);
 
